@@ -1,0 +1,5 @@
+### YTDL Routes:
+
+# http://localhost:4000/download?URL=https://www.youtube.com/watch?v=i6USBe9Gr3U
+http://localhost:4000/download?URL=https://www.youtube.com/watch?v=i6USBe9Gr3U
+###
