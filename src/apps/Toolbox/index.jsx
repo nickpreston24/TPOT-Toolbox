@@ -85,8 +85,8 @@ class RoutedApp extends Component {
         return (
             <Router>
                 {/* <LinkOverlay /> */}
-                <Route path={`/`} render={() => (
-                    <AppShell store={store} />
+                <Route path={`/`} render={(match) => (
+                    <AppShell store={store} match={match} />
                 )} />
             </Router>
         );

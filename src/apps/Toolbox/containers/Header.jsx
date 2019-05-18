@@ -138,7 +138,7 @@ const styles = theme => ({
     }
 });
 
-@inject('sessionStore')
+@inject('store')
 class Header extends Component {
     // constructor(props) {
     //     super(props);
@@ -230,7 +230,8 @@ class Header extends Component {
     }
 
     render() {
-        const { classes, sessionStore } = this.props;
+        const { classes, store } = this.props;
+        const { sessionStore } = store
         console.log(sessionStore)
         return (
             <div id="Header" className={classes.root}>

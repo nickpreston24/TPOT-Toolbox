@@ -59,7 +59,11 @@ class Draft extends Component {
 	}
 
 	render() {
-		const store = { ...this.props.lettersStore, ...this.props.editorStore }
+        // const store = { ...this.props.lettersStore, ...this.props.editorStore }
+        // const { lettersStore, editorStore } = this.props.store
+        console.log("STORE", this.props.store)
+        const lettersStore = null
+        const editorStore = null
 
 		return (
 			<Fragment>
@@ -67,22 +71,22 @@ class Draft extends Component {
 					id={"DraftJS"}
 					ref={this.handleRef}
 					placeholder="The editor is empty."
-					editorState={store.editorState}
+					editorState={editorStore.editorState}
 					// onFocus={()=>{console.log('focus')}}
 					// onBlur={this.handleBlur.bind(this)}
-					onChange={editorState => this.props.editorStore.onChange(editorState)}
-					handleKeyCommand={command => this.props.editorStore.handleKeyCommand(command, this.props.lettersStore)}
-					keyBindingFn={this.props.editorStore.myKeyBindingFn}
-					setStyleMap={map => this.props.editorStore.setStyleMap(map)}
-					customStyleMap={store.baseStyleMap} // STYLE MAP TO TYPE
-					blockRenderMap={store.blockRenderMap} // BLOCK MAP MAP TO TYPE
+					onChange={editorState => editorStore.onChange(editorState)}
+					handleKeyCommand={command => editorStore.handleKeyCommand(command, lettersStore)}
+					keyBindingFn={editorStore.myKeyBindingFn}
+					setStyleMap={map => editorStore.setStyleMap(map)}
+					customStyleMap={lettersStore.baseStyleMap} // STYLE MAP TO TYPE
+					blockRenderMap={lettersStore.blockRenderMap} // BLOCK MAP MAP TO TYPE
 					// customStyleFn={customStyleFn} // STYLE & ENTITY CLASS FUNCTION
-					blockStyleFn={store.baseBlockStyleFn} // BLOCK & ATOMIC CLASS FUNCTION
-					blockRendererFn={store.blockRenderer} // BLOCK ?/& ATOMIC PROPS=>COMP RENDERER
+					blockStyleFn={lettersStore.baseBlockStyleFn} // BLOCK & ATOMIC CLASS FUNCTION
+					blockRendererFn={lettersStore.blockRenderer} // BLOCK ?/& ATOMIC PROPS=>COMP RENDERER
 					plugins={plugins}
 					spellCheck={true}
-					editorRef={this.props.editorStore.editor}
-					editorFocus={this.props.editorStore.focus}
+					editorRef={editorStore.editor}
+					editorFocus={editorStore.focus}
 				/>
 				<MuiToolbar />
 			</Fragment>
@@ -96,6 +100,6 @@ Draft.propTypes = {
 };
 
 export default compose(
-	inject('lettersStore', 'editorStore'),
+	inject('store'),
 	observer
 )(Draft);

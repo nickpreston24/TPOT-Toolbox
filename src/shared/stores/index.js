@@ -11,13 +11,13 @@ class MobxStore {
     constructor() {
         this.root = this
         // this.preferences = new SettingsStore(this)
-        this.services = new ServicesStore(this)
+        this.services = new ServicesStore(this.root)
         // this.views = new SettingsStore(this)
         // this.data = new SettingsStore(this)
-        this.settingsStore = new SettingsStore(this)
-        this.lettersStore = new LettersStore(this)
-        this.editorStore = new EditorStore(this)
-        this.sessionStore = new SessionStore(this)
+        this.settingsStore = new SettingsStore(this.root)
+        this.lettersStore = new LettersStore(this.root)
+        this.editorStore = new EditorStore(this.root)
+        this.sessionStore = new SessionStore(this.root)
     }
 }
 

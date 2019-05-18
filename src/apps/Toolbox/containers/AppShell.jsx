@@ -71,7 +71,7 @@ class AppShell extends Component {
         return (
             <div className={classes.root}>
                 <Sidebar {...rest} />
-                {/* <CurrentApp {...rest} /> */}
+                <CurrentApp {...rest} />
                 {/* <div id="Content" className={classes.content}> */}
                 {/* <Toolbar id="Header" style={{maxHeight: '10px !important', overflow: 'hidden'}} /> */}
                 {/* <Header id="Header" style={{ background: '#3e4552 !important' }} />

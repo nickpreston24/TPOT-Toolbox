@@ -16,8 +16,8 @@ const styles = {
     info: { backgroundColor: '#6dddff', color: '#1892d0' },
 };
 
-const Notifier = ({ classes, lettersStore }) => {
-    const { notification } = lettersStore
+const Notifier = ({ classes, store }) => {
+    const { notification } = store.lettersStore
     return (
         <SnackbarProvider
             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
@@ -51,7 +51,7 @@ const Dispatcher = withSnackbar((props) => {
 })
 
 export default compose(
-    inject("lettersStore"),
+    inject("store"),
     withStyles(styles),
     observer
 )(Notifier);

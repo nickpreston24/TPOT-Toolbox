@@ -96,7 +96,7 @@ const appsSidebarButtonsConfig = [
     {
         primaryText: 'Publish',
         secondaryText: 'Publish Page to TPOT',
-        store: 'lettersStore',
+        // store: 'lettersStore',
         action: 'togglePublishModal',
         icon: faPaperPlane,
         color: 'mint'
@@ -123,9 +123,7 @@ const appsSidebarButtonsConfig = [
 
 const Sidebar = observer((props) => {
     const { classes } = props
-    // const { sidebarVariant } = props.store.settingsStore
-    const sidebarVariant = false
-    console.log('PROPS', props.store)
+    const { sidebarVariant } = props.store.settingsStore
     return (
         <div id="Sidebar" className={classNames(classes.root, sidebarVariant && classes[sidebarVariant])}>
             {/* <OSTitleBar /> */}
