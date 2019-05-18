@@ -6,7 +6,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider, install } from "@material-ui/styles";
 import { muiTheme } from 'storybook-addon-material-ui';
 import { Provider } from 'mobx-react';
-import Forage from '../src/localforage'
+import Forage from '../src/shared/localforage'
 
 const forage = new Forage()
 
@@ -56,7 +56,7 @@ addParameters({
   ],
 });
 
-const req = require.context('../src/presentation', true, /\.stories\.jsx$/);
+const req = require.context('../src', true, /\.stories\.jsx$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

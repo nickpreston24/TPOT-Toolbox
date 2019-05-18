@@ -1,6 +1,6 @@
 import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Toolbox from './apps/Toolbox';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Toolbox />, document.getElementById('root'));
