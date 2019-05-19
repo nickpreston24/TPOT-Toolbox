@@ -1,6 +1,6 @@
 import { EditorState, getDefaultKeyBinding, KeyBindingUtil } from "draft-js";
 import { createEditorStateWithText } from "draft-js-plugins-editor";
-import { action, computed, decorate, observable } from 'mobx';
+import { action, computed, decorate, observable, toJS } from 'mobx';
 import { baseBlockStyleFn, baseStyleMap, blockRenderer, blockRenderMap, draftContentFromHtml, draftContentToHtml, stateFromElementConfig } from "../../apps/Editor/utils/transforms";
 import { draft } from '../../apps/Editor'
 
@@ -78,8 +78,11 @@ class EditorStore {
     setEditMode = (e, tab) =>
         this.editMode = this.modes[tab]
 
-    setStyleMap = customStyleMap =>
+    setStyleMap = customStyleMap => {
+        console.log(toJS(this.baseStyleMap))
         this.baseStyleMap = customStyleMap
+        console.log(toJS(this.baseStyleMap))
+    }
 
     handleKeyCommand = (command, store) => {
         const notify = store.notify

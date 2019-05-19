@@ -4,6 +4,7 @@ import { inject, observer } from "mobx-react";
 import { compose } from "recompose";
 import PropTypes from "prop-types";
 import Editor from "draft-js-plugins-editor";
+import { toJS } from "mobx";
 
 class Draft extends Component {
 
@@ -61,9 +62,11 @@ class Draft extends Component {
 	render() {
         // const store = { ...this.props.lettersStore, ...this.props.editorStore }
         // const { lettersStore, editorStore } = this.props.store
-        console.log("STORE", this.props.store)
+        // console.log("STORE", this.props.store)
         const { store } = this.props
-        const { lettersStore,editorStore } = store
+        const { lettersStore, editorStore } = store
+
+        console.log(toJS(this.props.store.editorStore.baseStyleMap))
 
 		return (
 			<Fragment>
@@ -77,12 +80,12 @@ class Draft extends Component {
 					onChange={editorState => editorStore.onChange(editorState)}
 					handleKeyCommand={command => editorStore.handleKeyCommand(command, lettersStore)}
 					keyBindingFn={editorStore.myKeyBindingFn}
-					setStyleMap={map => editorStore.setStyleMap(map)}
-					customStyleMap={lettersStore.baseStyleMap} // STYLE MAP TO TYPE
-					blockRenderMap={lettersStore.blockRenderMap} // BLOCK MAP MAP TO TYPE
+					setStyleMap={map => this.props.store.editorStore.setStyleMap(map)}
+					customStyleMap={this.props.store.lettersStore.baseStyleMap} // STYLE MAP TO TYPE
+					blockRenderMap={this.props.store.lettersStore.blockRenderMap} // BLOCK MAP MAP TO TYPE
 					// customStyleFn={customStyleFn} // STYLE & ENTITY CLASS FUNCTION
-					blockStyleFn={lettersStore.baseBlockStyleFn} // BLOCK & ATOMIC CLASS FUNCTION
-					blockRendererFn={lettersStore.blockRenderer} // BLOCK ?/& ATOMIC PROPS=>COMP RENDERER
+					blockStyleFn={this.props.store.lettersStore.baseBlockStyleFn} // BLOCK & ATOMIC CLASS FUNCTION
+					blockRendererFn={this.props.store.lettersStore.blockRenderer} // BLOCK ?/& ATOMIC PROPS=>COMP RENDERER
 					plugins={plugins}
 					spellCheck={true}
 					editorRef={editorStore.editor}
@@ -95,8 +98,8 @@ class Draft extends Component {
 }
 
 Draft.propTypes = {
-	editorStore: PropTypes.object.isRequired,
-	lettersStore: PropTypes.object.isRequired
+	// editorStore: PropTypes.object.isRequired,
+	// lettersStore: PropTypes.object.isRequired
 };
 
 export default compose(

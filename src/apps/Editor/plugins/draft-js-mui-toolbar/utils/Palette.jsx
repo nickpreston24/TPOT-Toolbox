@@ -63,20 +63,23 @@ class Palette extends Component {
 
     render() {
         const { handleClickAway } = this
-        const { classes, children } = this.props
-        const { menuOpen } = this.props.store
+        const { classes, children, store } = this.props
+        console.log('MENUS', this.props, store)
+        const { menuOpen } = store
         const style = this.getStyle()
         const carrotStyle = !!style && { top: style.carrotTop, left: style.carrotLeft }
         return (
             <Fragment>
                 {(menuOpen && this.isVisible()) &&
                     <ClickAwayListener onClickAway={handleClickAway} >
-                        <div className={classes.root} style={style}>
-                            {children}
-                        </div>
-                        <svg className={classes.carrot} style={carrotStyle} xmlns="http://www.w3.org/2000/svg">
-                            <path id="splash" fill={'#373940'} d="M 10 0 L 20 10 L 0 10 " />
-                        </svg>
+                        <>
+                            <div className={classes.root} style={style}>
+                                {children}
+                            </div>
+                            <svg className={classes.carrot} style={carrotStyle} xmlns="http://www.w3.org/2000/svg">
+                                <path id="splash" fill={'#373940'} d="M 10 0 L 20 10 L 0 10 " />
+                            </svg>
+                        </>
                     </ClickAwayListener>
                 }
             </Fragment>
@@ -86,7 +89,7 @@ class Palette extends Component {
 }
 
 export default compose(
-    inject('store'),
+    // inject('store'),
     withStyles(styles),
     observer
 )(Palette)

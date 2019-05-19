@@ -4,6 +4,7 @@ import { inject, observer } from "mobx-react";
 import React, { Component } from 'react';
 import { compose } from "recompose";
 import ButtonPlus from './ButtonPlus';
+import { toJS } from 'mobx';
 
 const MuiStyles = theme => ({
     root: {
@@ -27,6 +28,7 @@ class CustomStyleButton extends Component {
 
     toggleStyle = async (event, value) => {
         event.preventDefault();
+        console.log("PRESSED")
 
         const PREFIX = this.props.customStylePrefix
         const CUSTOM_PROP = this.props.customType
@@ -35,11 +37,12 @@ class CustomStyleButton extends Component {
         
         console.log('CAT' , this.props)
 
-        const customStyleMap = JSON.parse(JSON.stringify(this.props.store.editorStore.baseStyleMap))
+        const customStyleMap = toJS(this.props.editorStore.editorStore.baseStyleMap)
+        console.log(this.props.store)
         // Update the style map with the new custom style before you try to apply the class with customStyleFunctions[property-name].toggle()
         const STYLE_MAP = Object.assign(customStyleMap, { [`${CUSTOM_NAME}`]: { [`${CUSTOM_PROP}`]: CUSTOM_ATTRB } })
         // await this.props.getEditorProps().setStyleMap(STYLE_MAP)
-        this.props.store.editorStore.setStyleMap(STYLE_MAP)
+        this.props.getEditorProps().setStyleMap(STYLE_MAP)
 
         // Toggle the style using the attribute name (ex:  #FF0099, 24PX, LIME, etc.)
         this.props.setEditorState(
@@ -54,6 +57,8 @@ class CustomStyleButton extends Component {
     }
 
     handleParentButton = (event) => {
+        console.log('test')
+        console.log(this.props)
         this.props.store.setStyleProp('menuCurrent', this.state.anchorEl)
         this.props.store.setStyleProp('menuOpen', true)
     };
@@ -71,6 +76,7 @@ class CustomStyleButton extends Component {
 
     render() {
         const { classes, name } = this.props;
+        console.log('BOX', this.props.store)
         const Palette = this.props.palette
 
         return (
@@ -85,7 +91,7 @@ class CustomStyleButton extends Component {
 
                 {/* If this is a multi-function palette-opening button */}
                 {this.props.palette &&
-                    <Palette anchorEl={this.state.anchorEl} >
+                    <Palette anchorEl={this.state.anchorEl} store={this.props.store}>
                         {this.props.paletteItems.map((swatch, index) => {
                             return (
                                 <ButtonPlus key={index} onClick={(e)=> this.toggleStyle(e, swatch)} style={{background: swatch, color: this.styleIsActive(index) && 'dodgerblue'}}></ButtonPlus>

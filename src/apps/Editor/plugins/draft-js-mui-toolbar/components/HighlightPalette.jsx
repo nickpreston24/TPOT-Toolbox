@@ -34,6 +34,7 @@ const HighlightPalette = (props) => (
         anchorEl={props.anchorEl}
         height={50}
         width={165}
+        store={props.store}
     >
         <Grid
             className={props.classes.root}

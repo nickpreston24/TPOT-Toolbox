@@ -147,7 +147,7 @@ export const NavButton = compose(
     withStyles(styles),
     observer
 )(({ store, data, classes, variant }) => {
-    console.log(store)
+    // console.log(store)
     return (
         // <div id={`NavButton-${data.primaryText}`} className={classNames(classes.navButton, data.color)}>
         <Button

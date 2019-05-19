@@ -34,35 +34,39 @@ const styles = theme => ({
 
 // Determines how to render children from parent style button and how it should display inside a palette.
 
-const ColorPalette = (props) => (
-    <Palette
-        open={props.open}
-        anchorEl={props.anchorEl}
-        height={150}
-        width={165}
-    >
-        <Grid
-            className={props.classes.hexCode}
-            container
-            justify="center"
-            alignItems="center"
-            style={{ background: '#990066' }}
+const ColorPalette = (props) => {
+    console.log('BUNNY', props)
+    return (
+        <Palette
+            open={props.open}
+            anchorEl={props.anchorEl}
+            height={150}
+            width={165}
+            store={props.store}
         >
-            {'#990066'}
-        </Grid>
-        <Grid
-            className={props.classes.root}
-            container
-            direction="row"
-            justify="space-evenly"
-            alignItems="flex-start"
-        >
-            {props.children.map((item, index) => (
-                <Grid item key={index}>{item}</Grid>
-            ))}
-        </Grid>
-    </Palette>
-)
+            <Grid
+                className={props.classes.hexCode}
+                container
+                justify="center"
+                alignItems="center"
+                style={{ background: '#990066' }}
+            >
+                {'#990066'}
+            </Grid>
+            <Grid
+                className={props.classes.root}
+                container
+                direction="row"
+                justify="space-evenly"
+                alignItems="flex-start"
+            >
+                {props.children.map((item, index) => (
+                    <Grid item key={index}>{item}</Grid>
+                ))}
+            </Grid>
+        </Palette>
+    )
+}
 
 export default compose(
     withStyles(styles),

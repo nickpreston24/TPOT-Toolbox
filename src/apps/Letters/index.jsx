@@ -35,8 +35,8 @@ class Letters extends Component {
     render() {
         const { location, match } = this.props
         const { container } = this
-        console.log({ location, match })
-        console.log(this.container)
+        // console.log({ location, match })
+        // console.log(this.container)
         return (
             <div className="Letters" style={{ flexGrow: 1 }} ref={this.setContainer}>
                 <Editor />

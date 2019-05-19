@@ -50,6 +50,7 @@ const baseStyleMap = {
     'HIGHLIGHT': {
         background: 'yellow'
     },
+    'CUSTOM_COLOR_#0080FF': {color: "#0080FF"}
     // 'INDENT': {
     //     marginLeft: "30px"
     // },

@@ -18,7 +18,7 @@ const styles = theme => ({
 
 const ButtonPlus = (props) => {
     return (
-        <Button {...props} >
+        <Button {...props}>
             <Fragment>
                 {props.children}
             </Fragment>

@@ -32,6 +32,7 @@ class MuiToolbar extends Component {
     onSelectionChanged = () => {
         setTimeout(() => {
             const store = this.props.toolbarStore;
+            console.log(store)
             if (!store.inlineRef) return;
             if (!store.blockRef) return;
             const editorRef = store.getItem('getEditorRef')();
@@ -66,11 +67,13 @@ class MuiToolbar extends Component {
     };
 
     render() {
-        const { classes, toolbarStore } = this.props;
+        const { classes, toolbarStore, editorStore, store } = this.props;
         // const store = toolbarStore
         console.log('DOGS', this.props)
 
         const childProps = {
+            store: toolbarStore,
+            editorStore: store,
             getEditorState: toolbarStore.getItem('getEditorState'),
             setEditorState: toolbarStore.getItem('setEditorState'),
             getEditorRef: toolbarStore.getItem('getEditorRef'),
@@ -82,10 +85,10 @@ class MuiToolbar extends Component {
         return (
             <Fragment>
                 <div id={"MUI Inline Toolbar"} className={classes.root} style={toJS(toolbarStore.inlineOrigin)} ref={(element) => { this.props.toolbarStore.setStyleProp('inlineRef', element) }} >
-                    <InlineToolbar childProps={childProps} />
+                    <InlineToolbar childProps={childProps} store={toolbarStore} />
                 </div>
                 <div id={"MUI Block Toolbar"} className={classes.root} style={toJS(toolbarStore.blockOrigin)} ref={(element) => { this.props.toolbarStore.setStyleProp('blockRef', element) }}>
-                    <BlockToolbar childProps={childProps} />
+                    <BlockToolbar childProps={childProps} store={toolbarStore} />
                 </div>
             </Fragment>
         )

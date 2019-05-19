@@ -175,7 +175,7 @@ MuiToolbar.propTypes = {
 
 
 export default compose(
-    inject('store'),
+    // inject('store'),
     withStyles(styles),
     observer
 )(decorate(
