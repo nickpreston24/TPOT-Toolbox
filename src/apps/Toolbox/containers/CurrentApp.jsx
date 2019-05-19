@@ -50,65 +50,80 @@ class CurrentAppClass extends Component {
     @action switchApp = () =>
         this.apps = null
 
-    render() {
-        const { store, classes, location, match, history } = this.props
-        const { switchApp, currentApp, apps } = this
-        // console.log("PATH", match.path, match.params)
-        return (
-            <div id="Content" className={classes.root}>
-                <Header id="Header" style={{ background: '#3e4552 !important' }} />
-                <div id="Current App" className={classes.currentApp}>
-                    <Route path={`${match.path}:app`} children={
-                        ({ location, match }) => {
-                            const appRoute = match ? match.params.app : null
-                            const App = appRoute ? apps[appRoute] : apps[Object.keys(apps)[0]]// console.log(App)
-                            console.log(appRoute)
-                            return (
-                                <TransitionGroup>
-                                    <CSSTransition key={location.key} classNames="carousel" timeout={1500}>
-                                        <div> {/* react-transition-group issue: 208 fix */}
-                                            <Switch location={location}>
-                                                <Route path={`/`} render={() => <Screen><App {...{ location, match }} /></Screen>} />
-                                            </Switch>
-                                        </div>
-                                    </CSSTransition>
-                                </TransitionGroup>
-                            )
-                        }
-                    } />
-
-                    {/* <Route path={`${match.path}`} render={
-                        ({ match }) => (
-                            <Route path={`${match.path}:app`} children={
-                                ({ location, match }) => {
-                                    const appRoute = match ? match.params.app : null
-                                    const App = appRoute ? apps[appRoute] : apps.welcome // console.log(App)
-                                    console.log(appRoute)
-                                    return <App {...{ location, match }} />
-                                }
-                            } />
-                        )
-                    } /> */}
-
-                    {/* <Switch location={location}>
-                        <Route path={`${match.path}`} render={
-                            ({ match }) => (
-                                <Route path={`${match.path}:app`} children={
-                                    ({ location, match }) => {
-                                        const appRoute = match ? match.params.app : null
-                                        const App = appRoute ? apps[appRoute] : apps.welcome // console.log(App)
-                                        console.log(appRoute)
-                                        return <App {...{ location, match }} />
-                                    }
-                                } />
-                            )
-                        } />
-                    </Switch> */}
-                    <Notifier />
+        render() {
+            const { store, classes, location, match, history } = this.props
+            const { switchApp, currentApp, apps } = this
+            // console.log("PATH", match.path, match.params)
+            return (
+                <div id="Content" className={classes.root}>
+                    <Header id="Header" style={{ background: '#3e4552 !important' }} />
+                    <div id="Current App" className={classes.currentApp}>
+                        <Letters />
+                        <Notifier />
+                    </div>
                 </div>
-            </div>
-        )
-    }
+            )
+        }
+
+    // render() {
+    //     const { store, classes, location, match, history } = this.props
+    //     const { switchApp, currentApp, apps } = this
+    //     // console.log("PATH", match.path, match.params)
+    //     return (
+    //         <div id="Content" className={classes.root}>
+    //             <Header id="Header" style={{ background: '#3e4552 !important' }} />
+    //             <div id="Current App" className={classes.currentApp}>
+    //                 <Route path={`${match.path}:app`} children={
+    //                     ({ location, match }) => {
+    //                         const appRoute = match ? match.params.app : null
+    //                         const App = appRoute ? apps[appRoute] : apps[Object.keys(apps)[0]]// console.log(App)
+    //                         console.log(appRoute)
+    //                         return (
+    //                             <TransitionGroup>
+    //                                 <CSSTransition key={location.key} classNames="carousel" timeout={1500}>
+    //                                     <div> {/* react-transition-group issue: 208 fix */}
+    //                                         <Switch location={location}>
+    //                                             <Route path={`/`} render={() => <Screen><App {...{ location, match }} /></Screen>} />
+    //                                         </Switch>
+    //                                     </div>
+    //                                 </CSSTransition>
+    //                             </TransitionGroup>
+    //                         )
+    //                     }
+    //                 } />
+
+    //                 {/* <Route path={`${match.path}`} render={
+    //                     ({ match }) => (
+    //                         <Route path={`${match.path}:app`} children={
+    //                             ({ location, match }) => {
+    //                                 const appRoute = match ? match.params.app : null
+    //                                 const App = appRoute ? apps[appRoute] : apps.welcome // console.log(App)
+    //                                 console.log(appRoute)
+    //                                 return <App {...{ location, match }} />
+    //                             }
+    //                         } />
+    //                     )
+    //                 } /> */}
+
+    //                 {/* <Switch location={location}>
+    //                     <Route path={`${match.path}`} render={
+    //                         ({ match }) => (
+    //                             <Route path={`${match.path}:app`} children={
+    //                                 ({ location, match }) => {
+    //                                     const appRoute = match ? match.params.app : null
+    //                                     const App = appRoute ? apps[appRoute] : apps.welcome // console.log(App)
+    //                                     console.log(appRoute)
+    //                                     return <App {...{ location, match }} />
+    //                                 }
+    //                             } />
+    //                         )
+    //                     } />
+    //                 </Switch> */}
+    //                 <Notifier />
+    //             </div>
+    //         </div>
+    //     )
+    // }
 }
 
 export const CurrentApp = compose(

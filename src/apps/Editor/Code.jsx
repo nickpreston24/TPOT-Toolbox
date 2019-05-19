@@ -8,7 +8,7 @@ import * as hljs from 'react-syntax-highlighter/dist/esm/styles/hljs';
 class Code extends Component {
 
 	render() {
-		const { editorStore: store } = this.props;
+		const { editorStore: store } = this.props.store;
 
 		return (
 			<SyntaxHighlighter
@@ -35,6 +35,6 @@ Code.propTypes = {
 };
 
 export default compose(
-	inject('editorStore'),
+	inject('store'),
 	observer
 )(Code);

@@ -237,7 +237,7 @@ class Header extends Component {
             <div id="Header" className={classes.root}>
                 <Grid container direction="row" justify="flex-start" alignItems="center" style={{ flexWrap: 'nowrap' }} >
                     <Grid item container direction="row" justify="flex-start" alignItems="center" style={{ flexShrink: 2 }} >
-                        <RoutedBreadCrumbs />
+                        {/* <RoutedBreadCrumbs /> */}
                     </Grid>
                     <Grid item container direction="row" justify="flex-end" alignItems="center" style={{ flexWrap: 'nowrap', flexGrow: 2 }} >
                         <HeaderButton {...{ classes, icon: faUser, sessionStore, label: 'Sign In' }} />
@@ -253,7 +253,9 @@ class Header extends Component {
 
 export const HeaderButton = observer(({ classes, children, icon, label, sessionStore }) => {
     return (
-        <Button classes={{root: classes.headerButton}} onClick={() => sessionStore.signIn()} >
+        <Button classes={{root: classes.headerButton}} onClick={() => {
+            // sessionStore.signIn()
+            }} >
             <FontAwesomeIcon className={classes.extendedIcon} icon={icon} size="lg" />
             {label && label}
         </Button>

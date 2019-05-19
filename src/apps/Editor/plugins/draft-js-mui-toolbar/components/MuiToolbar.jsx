@@ -22,16 +22,16 @@ const styles = theme => ({
 class MuiToolbar extends Component {
 
     componentWillMount() {
-        this.props.store.subscribeToItem('selection', this.onSelectionChanged); // Listen to parent plugin's onChange event which updates 'selection' in the store
+        this.props.toolbarStore.subscribeToItem('selection', this.onSelectionChanged); // Listen to parent plugin's onChange event which updates 'selection' in the store
     }
 
     componentWillUnmount() {
-        this.props.store.unsubscribeFromItem('selection', this.onSelectionChanged); // Unsubscribe from parent plugin's store and cease tracking selection changes
+        this.props.toolbarStore.unsubscribeFromItem('selection', this.onSelectionChanged); // Unsubscribe from parent plugin's store and cease tracking selection changes
     }
 
     onSelectionChanged = () => {
         setTimeout(() => {
-            const { store } = this.props;
+            const store = this.props.toolbarStore;
             if (!store.inlineRef) return;
             if (!store.blockRef) return;
             const editorRef = store.getItem('getEditorRef')();
@@ -66,23 +66,25 @@ class MuiToolbar extends Component {
     };
 
     render() {
-        const { classes, store } = this.props;
+        const { classes, toolbarStore } = this.props;
+        // const store = toolbarStore
+        console.log('DOGS', this.props)
 
         const childProps = {
-            getEditorState: store.getItem('getEditorState'),
-            setEditorState: store.getItem('setEditorState'),
-            getEditorRef: store.getItem('getEditorRef'),
-            getEditorProps: store.getItem('getEditorProps'),
-            customStylePrefix: store.getItem('customStylePrefix'),
-            customStyleFunctions: store.getItem('customStyleFunctions'),
+            getEditorState: toolbarStore.getItem('getEditorState'),
+            setEditorState: toolbarStore.getItem('setEditorState'),
+            getEditorRef: toolbarStore.getItem('getEditorRef'),
+            getEditorProps: toolbarStore.getItem('getEditorProps'),
+            customStylePrefix: toolbarStore.getItem('customStylePrefix'),
+            customStyleFunctions: toolbarStore.getItem('customStyleFunctions'),
         };
 
         return (
             <Fragment>
-                <div id={"MUI Inline Toolbar"} className={classes.root} style={toJS(store.inlineOrigin)} ref={(element) => { this.props.store.setStyleProp('inlineRef', element) }} >
+                <div id={"MUI Inline Toolbar"} className={classes.root} style={toJS(toolbarStore.inlineOrigin)} ref={(element) => { this.props.toolbarStore.setStyleProp('inlineRef', element) }} >
                     <InlineToolbar childProps={childProps} />
                 </div>
-                <div id={"MUI Block Toolbar"} className={classes.root} style={toJS(store.blockOrigin)} ref={(element) => { this.props.store.setStyleProp('blockRef', element) }}>
+                <div id={"MUI Block Toolbar"} className={classes.root} style={toJS(toolbarStore.blockOrigin)} ref={(element) => { this.props.toolbarStore.setStyleProp('blockRef', element) }}>
                     <BlockToolbar childProps={childProps} />
                 </div>
             </Fragment>
@@ -96,7 +98,11 @@ MuiToolbar.propTypes = {
 };
 
 export default compose(
-    inject('store'),
+    inject('toolbarStore', 'store'),
+    // inject(stores => ({
+    //     store: stores.toolbarStore,
+    //     // editorStore: stores.store
+    // })),
     withStyles(styles),
     observer
 )(MuiToolbar)

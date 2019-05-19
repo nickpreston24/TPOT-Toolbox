@@ -32,12 +32,14 @@ class CustomStyleButton extends Component {
         const CUSTOM_PROP = this.props.customType
         const CUSTOM_NAME = `${PREFIX}${CUSTOM_PROP.toUpperCase()}_${value}`
         const CUSTOM_ATTRB = `${value}`
+        
+        console.log('CAT' , this.props)
 
-        const customStyleMap = JSON.parse(JSON.stringify(this.props.editorStore.baseStyleMap))
+        const customStyleMap = JSON.parse(JSON.stringify(this.props.store.editorStore.baseStyleMap))
         // Update the style map with the new custom style before you try to apply the class with customStyleFunctions[property-name].toggle()
         const STYLE_MAP = Object.assign(customStyleMap, { [`${CUSTOM_NAME}`]: { [`${CUSTOM_PROP}`]: CUSTOM_ATTRB } })
         // await this.props.getEditorProps().setStyleMap(STYLE_MAP)
-        this.props.editorStore.setStyleMap(STYLE_MAP)
+        this.props.store.editorStore.setStyleMap(STYLE_MAP)
 
         // Toggle the style using the attribute name (ex:  #FF0099, 24PX, LIME, etc.)
         this.props.setEditorState(
@@ -97,7 +99,7 @@ class CustomStyleButton extends Component {
 }
 
 export default compose(
-    inject('editorStore', 'store'),
+    inject( 'editorStore','store'),
     withStyles(MuiStyles),
     observer
 )(CustomStyleButton);

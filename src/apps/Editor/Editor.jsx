@@ -57,9 +57,10 @@ const MUIstyles = theme => ({
 class Editor extends React.Component {
 
 	render() {
-		const { editorStore: store, classes } = this.props;
-		const { focus } = this.props.editorStore
-		const { editMode } = store
+        const { store, classes } = this.props;
+        const { editorStore } = store
+		const { focus, editMode } = editorStore
+		// const { editMode } = store
 
 		return (
 			<div id="Editor" className={classes.root}>
@@ -81,7 +82,7 @@ Editor.propTypes = {
 };
 
 export default compose(
-	inject('editorStore'),
+	inject('store'),
 	withStyles(MUIstyles),
 	observer
 )(Editor);

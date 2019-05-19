@@ -4,35 +4,36 @@ import createStyles from 'draft-js-custom-styles';
 import MuiToolbar from './components/MuiToolbar'
 import React from 'react'
 import { configure } from 'mobx'
-import { Provider } from 'mobx-react';
+import { Provider, inject } from 'mobx-react';
 import ToolbarStore from './utils/toolbar'
 
 configure({ enforceActions: "observed" })
 
 const createMuiToolbarPlugin = () => {
 
-    const store = new ToolbarStore()
+    const toolbarStore = new ToolbarStore()
 
-    return { 
+    return {
         initialize: ({ getEditorState, setEditorState, getEditorRef, getProps }) => {
             const PREFIX = 'CUSTOM_'
             const { styles } = createStyles(['font-size', 'color', 'background'], PREFIX);
-            store.updateItem('getEditorState', getEditorState);
-            store.updateItem('setEditorState', setEditorState);
-            store.updateItem('getEditorRef', getEditorRef);
-            store.updateItem('getEditorProps', getProps);
-            store.updateItem('customStyleFunctions', styles)
-            store.updateItem('customStylePrefix', PREFIX)
+            toolbarStore.updateItem('getEditorState', getEditorState);
+            toolbarStore.updateItem('setEditorState', setEditorState);
+            toolbarStore.updateItem('getEditorRef', getEditorRef);
+            toolbarStore.updateItem('getEditorProps', getProps);
+            toolbarStore.updateItem('customStyleFunctions', styles)
+            toolbarStore.updateItem('customStylePrefix', PREFIX)
         },
         onChange: (editorState) => {
-            store.updateItem('selection', editorState.getSelection());
+            toolbarStore.updateItem('selection', editorState.getSelection());
             return editorState;
         },
-        
-        MuiToolbar: () => <Provider store={store}>
-                             <MuiToolbar />
-                          </Provider>
-};
+
+        MuiToolbar: () => <Provider toolbarStore={toolbarStore}>
+            <MuiToolbar />
+        </Provider>
+    };
 };
 
 export default createMuiToolbarPlugin
+

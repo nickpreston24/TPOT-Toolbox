@@ -9,7 +9,7 @@ class Original extends Component {
 	render() {
 		return (
 			<Fragment>
-				{ReactHtmlParser(this.props.editorStore.originalState)}
+				{ReactHtmlParser(this.props.store.editorStore.originalState)}
 			</Fragment>
 		);
 	}
@@ -20,6 +20,6 @@ Original.propTypes = {
 };
 
 export default compose(
-	inject('editorStore'),
+	inject('store'),
 	observer
 )(Original);

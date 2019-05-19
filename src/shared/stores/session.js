@@ -14,9 +14,9 @@ class SessionStore {
         this.notify = rootStore.lettersStore.notify
 
         // : Set Listeners
-        firebase.auth.onAuthStateChanged((authUser) => {
-            console.log('authStateChanged', authUser)
-        })
+        // firebase.auth.onAuthStateChanged((authUser) => {
+        //     console.log('authStateChanged', authUser)
+        // })
 
         // : Load Initial Configuration from File
         // : TODO

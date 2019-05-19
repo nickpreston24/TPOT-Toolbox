@@ -9,7 +9,7 @@ if (!firebase.apps.length) {
 }
 
 // Fix for Firebase 5.0.4 Timestamp Deprecation
-firebase.firestore().settings({ timestampsInSnapshots: true })
+// firebase.firestore().settings({ timestampsInSnapshots: true })
 
 const app = firebase
 const db = firebase.firestore();

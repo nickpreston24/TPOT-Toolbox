@@ -54,7 +54,7 @@ class Draft extends Component {
 	}
 
 	handleRef = element => {
-		this.props.editorStore.setRef(element)
+		this.props.store.editorStore.setRef(element)
 		this.editor = element
 	}
 
@@ -62,8 +62,8 @@ class Draft extends Component {
         // const store = { ...this.props.lettersStore, ...this.props.editorStore }
         // const { lettersStore, editorStore } = this.props.store
         console.log("STORE", this.props.store)
-        const lettersStore = null
-        const editorStore = null
+        const { store } = this.props
+        const { lettersStore,editorStore } = store
 
 		return (
 			<Fragment>

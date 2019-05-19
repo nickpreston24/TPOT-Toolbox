@@ -7,6 +7,9 @@ import Sidebar from './Sidebar';
 import { CurrentApp } from './CurrentApp';
 import MobxStore from '../../../shared/stores';
 import Forage from '../../../shared/localforage';
+import { Link } from 'react-router-dom'
+import { observer } from 'mobx-react'
+
 
 const store = new MobxStore()
 const forage = new Forage()
@@ -70,7 +73,8 @@ class AppShell extends Component {
         console.log(this.props)
         return (
             <div className={classes.root}>
-                <Sidebar {...rest} />
+                <LinkOverlay />
+                <Sidebar variant="compact" {...rest} />
                 <CurrentApp {...rest} />
                 {/* <div id="Content" className={classes.content}> */}
                 {/* <Toolbar id="Header" style={{maxHeight: '10px !important', overflow: 'hidden'}} /> */}
@@ -93,3 +97,16 @@ class AppShell extends Component {
 }
 
 export default withStyles(styles)(AppShell);
+
+const LinkOverlay = observer(() =>
+    <ul style={{
+        position: 'fixed', bottom: 0, zIndex: 9999, right: 20, padding: 10, borderRadius: 4, boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)', listStylePosition: "inside", background: 'lightgrey', paddingTop: 0, paddingBottom: 0, fontSize: 12,
+    }}>
+        <li><Link to="/">/</Link></li>
+        <li><Link to="/letters">/letters</Link></li>
+        <li><Link to="/letters/publish">/letters/publish</Link></li>
+        <li><Link to="/letters/load">/library/load</Link></li>
+        <li><Link to="/settings">/settings</Link></li>
+        <li><Link to="/splash">/splash</Link></li>
+    </ul>
+)
