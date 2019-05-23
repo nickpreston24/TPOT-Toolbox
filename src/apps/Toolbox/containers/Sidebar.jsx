@@ -84,6 +84,9 @@ const appsSidebarButtonsConfig = [
     {
         primaryText: 'Load',
         secondaryText: 'Open DocX from Source',
+        store: 'lettersStore',
+        action: 'setCurrentModal',
+        payload: 'LoadScreen',
         icon: faHdd,
         color: 'rose'
     },
@@ -96,8 +99,9 @@ const appsSidebarButtonsConfig = [
     {
         primaryText: 'Publish',
         secondaryText: 'Publish Page to TPOT',
-        // store: 'lettersStore',
-        action: 'togglePublishModal',
+        store: 'lettersStore',
+        action: 'setCurrentModal',
+        payload: 'PublishScreen',
         icon: faPaperPlane,
         color: 'mint'
     },
@@ -110,6 +114,8 @@ const appsSidebarButtonsConfig = [
     {
         primaryText: 'Clear',
         secondaryText: 'Create a Fresh Post',
+        store: 'editorStore',
+        action: 'clearSession',
         icon: faTrashAlt,
         color: 'amber'
     },
@@ -147,6 +153,21 @@ export const NavButton = compose(
     withStyles(styles),
     observer
 )(({ store, data, classes, variant }) => {
+    const handleClick = () => {
+        // console.log('click')
+        // console.log(data.store, data.action, data.payload, store[data.store][data.action](data.payload))
+        
+        if (data.store) {
+            if (data.action) {
+                if (data.payload) {
+                    store[data.store][data.action](data.payload) 
+                } else {
+                    store[data.store][data.action]() 
+                }
+            }
+        }
+        // (data.store && data.action) ? store[data.store][data.action](data.payload && data.payload) : null
+    }
     // console.log(store)
     return (
         // <div id={`NavButton-${data.primaryText}`} className={classNames(classes.navButton, data.color)}>
@@ -154,7 +175,7 @@ export const NavButton = compose(
             id={`NavButton-${data.primaryText}`}
             className={classNames(classes.navButton, data.color)}
             classes={{ label: classes.nabButtonLabel }}
-            onClick={(data.store && data.action) ? store[data.store][data.action] : null}
+            onClick={() => handleClick()}
         >
             {/* {data.icon && <data.icon />} */}
             <FontAwesomeIcon icon={data.icon} size="lg" className={data.color} />

@@ -54,7 +54,8 @@ class SessionStore {
             const authUser = await auth.signIn(email, password)
             runInAction(() => {
                 this.authUser = authUser
-                setCurrentModal(null)
+                console.log(this.authUser)
+                // setCurrentModal(null)
             })
         } catch (error) {
             this.notify(error.message, { variant: 'error', autoHideDuration: 3000 })

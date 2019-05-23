@@ -30,8 +30,8 @@ const styles = theme => ({
         // flexWrap: "wrap"
     },
     paper: {
-        // maxWidth: 800,
-        // width: 600
+        maxWidth: 800,
+        width: 600
         // height: ,
     },
     icon: {
@@ -86,9 +86,10 @@ class ModalLoad extends React.Component {
         console.log('close')
         this.open = false
         const { history, match } = this.props
-        if (!!history.push) {
+        if (!!history && history.push) {
             history.push(match.url)
         }
+        this.props.store.lettersStore.setCurrentModal(null)
         // this.setState({ open: false });
         // this.props.onUpdate(false);
     };
@@ -154,12 +155,13 @@ class ModalLoad extends React.Component {
 
         return (
             <Dialog
+                id="LoadScreen"
                 classes={{ root: classes.root, paper: classes.paper }}
-                open={true}
+                open={this.props.store.lettersStore.currentModal === 'LoadScreen'} 
                 onClose={this.handleClose}
                 onBackdropClick={this.handleClose}
                 disablePortal
-                BackdropComponent={BackdropComponent}
+                // BackdropComponent={BackdropComponent}
                 // fullScreen
                 // container={this.props.container}
                 // disablePortal
@@ -190,4 +192,4 @@ ModalLoad.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ModalLoad);
+export default inject('store')(withStyles(styles)(ModalLoad));

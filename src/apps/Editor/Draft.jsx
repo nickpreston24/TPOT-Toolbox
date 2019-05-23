@@ -66,14 +66,14 @@ class Draft extends Component {
         const { store } = this.props
         const { lettersStore, editorStore } = store
 
-        console.log(toJS(this.props.store.editorStore.baseStyleMap))
+        console.log('Render: StyleMap', toJS(this.props.store.editorStore.baseStyleMap))
 
 		return (
 			<Fragment>
 				<Editor
 					id={"DraftJS"}
 					ref={this.handleRef}
-					placeholder="The editor is empty."
+					placeholder="Click to start typing a note..."
 					editorState={editorStore.editorState}
 					// onFocus={()=>{console.log('focus')}}
 					// onBlur={this.handleBlur.bind(this)}
@@ -81,11 +81,11 @@ class Draft extends Component {
 					handleKeyCommand={command => editorStore.handleKeyCommand(command, lettersStore)}
 					keyBindingFn={editorStore.myKeyBindingFn}
 					setStyleMap={map => this.props.store.editorStore.setStyleMap(map)}
-					customStyleMap={this.props.store.lettersStore.baseStyleMap} // STYLE MAP TO TYPE
-					blockRenderMap={this.props.store.lettersStore.blockRenderMap} // BLOCK MAP MAP TO TYPE
+					customStyleMap={this.props.store.editorStore.baseStyleMap} // STYLE MAP TO TYPE
+					blockRenderMap={this.props.store.editorStore.blockRenderMap} // BLOCK MAP MAP TO TYPE
 					// customStyleFn={customStyleFn} // STYLE & ENTITY CLASS FUNCTION
-					blockStyleFn={this.props.store.lettersStore.baseBlockStyleFn} // BLOCK & ATOMIC CLASS FUNCTION
-					blockRendererFn={this.props.store.lettersStore.blockRenderer} // BLOCK ?/& ATOMIC PROPS=>COMP RENDERER
+					blockStyleFn={this.props.store.editorStore.baseBlockStyleFn} // BLOCK & ATOMIC CLASS FUNCTION
+					blockRendererFn={this.props.store.editorStore.blockRenderer} // BLOCK ?/& ATOMIC PROPS=>COMP RENDERER
 					plugins={plugins}
 					spellCheck={true}
 					editorRef={editorStore.editor}

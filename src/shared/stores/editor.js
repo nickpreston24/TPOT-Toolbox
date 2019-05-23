@@ -20,7 +20,7 @@ class EditorStore {
 
     editor = null
     originalState = 'Original'
-    editorState = createEditorStateWithText('Hello from MobX!')
+    editorState = createEditorStateWithText('Click to start typing a note...')
     codeState = 'Code'
     baseStyleMap = baseStyleMap
     baseBlockStyleFn = baseBlockStyleFn
@@ -72,7 +72,7 @@ class EditorStore {
 
     clearSession = (notify) => {
         this.editorState = EditorState.createEmpty()
-        notify('Cleared Editor')
+        this.notify('Cleared Editor')
     }
 
     setEditMode = (e, tab) =>

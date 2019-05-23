@@ -15,7 +15,7 @@ class PublishScreenContainer extends Component {
         
         return (
             <Fragment>
-                <PublishScreen comments={lettersStore.publishData} store={store} editorCode={editorCode} {...rest} />
+                <PublishScreen comments={lettersStore.publishData} store={store} editorCode={store.editorStore.editorCode} {...rest} />
             </Fragment>
         )
     }

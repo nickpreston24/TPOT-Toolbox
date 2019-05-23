@@ -51,18 +51,20 @@ const styles = theme => ({
 
 // Main Class
 const PublishScreen = observer(({ classes, store, editorCode, container, ...rest }) => {
-    console.log(container)
+    // console.log(container)
+    console.log('CurrentModal', store.lettersStore.currentModal)
     return (
         <main id="PublishScreen">
-            <Dialog open={true} 
+            <Dialog open={store.lettersStore.currentModal === 'PublishScreen'} 
             container={container}
             // disablePortal
             closeAfterTransition
             onBackdropClick={e => {
                 const { history, match } = rest
-                if (!!history.push) {
+                if (!!history && history.push) {
                     history.push(match.url)
                 }
+                store.lettersStore.setCurrentModal(null)
             }} scroll={'body'} classes={{ root: classes.root, container: classes.backdrop, paper: classes.paper }} >
                 <PublishForm classes={classes} store={store} editorCode={editorCode} />
             </Dialog>
@@ -76,9 +78,9 @@ const PublishForm = ({ classes, store, editorCode }) => (
         <Grid container spacing={16} alignItems="center">
             <PublishIcon classes={classes} />
             <TpotSlug classes={classes} store={store} />
-            <InputField half="true" label="Title" onChange={e => { store.setPublishData('title', e.target.value) }} />
-            <InputField half="true" label="Slug" onChange={e => { store.setPublishData('slug', e.target.value) }} />
-            <InputField label="Excerpt (optional)" onChange={e => { store.setPublishData('excerpt', e.target.value) }} multiline rows={3} helperText="Enter a brief, meaningful description for search results." />
+            <InputField half="true" label="Title" onChange={e => { store.lettersStore.setPublishData('title', e.target.value) }} />
+            <InputField half="true" label="Slug" onChange={e => { store.lettersStore.setPublishData('slug', e.target.value) }} />
+            <InputField label="Excerpt (optional)" onChange={e => { store.lettersStore.setPublishData('excerpt', e.target.value) }} multiline rows={3} helperText="Enter a brief, meaningful description for search results." />
             <FormButtons classes={classes} store={store} editorCode={editorCode} />
         </Grid>
     </Fragment>
@@ -88,7 +90,7 @@ const TpotSlug = observer(({ classes, store }) => (
     <Grid item xs={12}>
         <Typography className={classes.urlDomain} variant="h6" align="center">
             {'www.thepathoftruth.com/letters/'}
-            <span className={classes.urlSlug}>{store.publishData.slug}</span>
+            <span className={classes.urlSlug}>{store.lettersStore.publishData.slug}</span>
             {'.htm'}
         </Typography>
     </Grid>
@@ -102,8 +104,8 @@ const InputField = (props) => (
 
 const FormButtons = ({ classes, store, editorCode }) => (
     <div className={classes.buttons}>
-        <Button variant="contained" onClick={this.handleNext} className={classes.button} >Preview</Button>
-        <Button variant="contained" color="primary" onClick={() => store.publishToWordpress(editorCode)} className={classes.button} >Submit</Button>
+        <Button variant="contained" className={classes.button} >Preview</Button>
+        <Button variant="contained" color="primary" onClick={() => store.lettersStore.publishToWordpress(editorCode)} className={classes.button} >Submit</Button>
     </div>
 )
 

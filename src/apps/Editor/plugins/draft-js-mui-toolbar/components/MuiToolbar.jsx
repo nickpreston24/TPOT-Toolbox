@@ -69,7 +69,6 @@ class MuiToolbar extends Component {
     render() {
         const { classes, toolbarStore, editorStore, store } = this.props;
         // const store = toolbarStore
-        console.log('DOGS', this.props)
 
         const childProps = {
             store: toolbarStore,

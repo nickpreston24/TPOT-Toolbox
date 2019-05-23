@@ -6,6 +6,7 @@ import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { RoutedBreadCrumbs } from './Breadcrumbs';
+import { toJS } from 'mobx';
 
 
 // const electron = require('electron');
@@ -229,6 +230,20 @@ class Header extends Component {
         // ipc.send('update-confirm-restart')
     }
 
+    signInTest = () => {
+        // console.log('Login Info!',toJS( this.props.store.sessionStore.loginData))
+        // console.log('Sign Into!', this.props.store.sessionStore.signIn())
+        this.props.store.lettersStore.setCurrentModal('PublishScreen')
+        console.log('MODAL',  this.props.store.lettersStore.currentModal)
+    }
+
+    loadTest = () => {
+        // console.log('Login Info!',toJS( this.props.store.sessionStore.loginData))
+        // console.log('Sign Into!', this.props.store.sessionStore.signIn())
+        this.props.store.lettersStore.setCurrentModal('LoadScreen')
+        console.log('MODAL',  this.props.store.lettersStore.currentModal)
+    }
+
     render() {
         const { classes, store } = this.props;
         const { sessionStore } = store
@@ -240,10 +255,12 @@ class Header extends Component {
                         {/* <RoutedBreadCrumbs /> */}
                     </Grid>
                     <Grid item container direction="row" justify="flex-end" alignItems="center" style={{ flexWrap: 'nowrap', flexGrow: 2 }} >
-                        <HeaderButton {...{ classes, icon: faUser, sessionStore, label: 'Sign In' }} />
+                        <Button onClick={this.signInTest}>Publish</Button>
+                        <Button onClick={this.loadTest}>Load</Button>
+                        {/* <HeaderButton {...{ classes, icon: faUser, sessionStore, label: 'Sign In' }} /> */}
                         {/* <HeaderButton {...{ classes, icon: faBell, label: "Notifications" }} /> */}
-                        <HeaderButton {...{ classes, icon: faFlag, sessionStore, label: 'Help' }} />
-                        <HeaderButton {...{ classes, icon: faCaretSquareDown, sessionStore }} />
+                        {/* <HeaderButton {...{ classes, icon: faFlag, sessionStore, label: 'Help' }} /> */}
+                        {/* <HeaderButton {...{ classes, icon: faCaretSquareDown, sessionStore }} /> */}
                     </Grid>
                 </Grid>
             </div>
@@ -304,4 +321,4 @@ Header.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Header);
+export default inject('store')(withStyles(styles)(Header));

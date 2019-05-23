@@ -331,6 +331,8 @@ class LinkSpan extends Component {
         // console.group('RENDER')
         // console.warn(this.props.children[0].props.text)
 
+
+
         // : Any change here will go to next render cycle. Focus on
         // : evaluating render conditions based upon current state.
         let editing = false
