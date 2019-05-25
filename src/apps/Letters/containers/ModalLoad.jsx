@@ -97,6 +97,8 @@ class ModalLoad extends React.Component {
     handleSelection = type => {
         console.log(type);
 
+
+
         //todo: Have the type-selected Loader retrive the file, regardless of its implementation
         // let loader = Loaders.getLoader(type)
         // let loader = new DiskFileLoader();
@@ -116,6 +118,27 @@ class ModalLoad extends React.Component {
 
         // console.log("test"); //runs async
     };
+
+    handleFile = (e) => {
+        console.log('handleFiles', e)
+        const file = e.target.files[0]
+        console.log('File: ', file)
+
+        const reader = new FileReader()
+
+        let html = ''
+
+        reader.addEventListener('load', (reader, i) => {
+            console.log('reader', reader.result)
+            // html += 'File starts with "' + reader.result.substr(0, 25) + '"'
+            // setTimeout(()=>{
+            //     console.log('finished', html)
+            // }, 5000)
+        })
+
+        reader.readAsText(file)
+
+    }
 
     render() {
         const { classes, store } = this.props;
@@ -157,27 +180,28 @@ class ModalLoad extends React.Component {
             <Dialog
                 id="LoadScreen"
                 classes={{ root: classes.root, paper: classes.paper }}
-                open={this.props.store.lettersStore.currentModal === 'LoadScreen'} 
+                open={this.props.store.lettersStore.currentModal === 'LoadScreen'}
                 onClose={this.handleClose}
                 onBackdropClick={this.handleClose}
                 disablePortal
-                // BackdropComponent={BackdropComponent}
-                // fullScreen
-                // container={this.props.container}
-                // disablePortal
-                // maxWidth={false}
-            >   
+            // BackdropComponent={BackdropComponent}
+            // fullScreen
+            // container={this.props.container}
+            // disablePortal
+            // maxWidth={false}
+            >
                 {/* <Grid container className={classes.demo} spacing={0} justify="space-evenly" alignItems="center"   > */}
-                    {cards.map(card => {
-                        return (
-                            <Grid key={card.name.toLocaleLowerCase()} item className={classes.grid} onClick={card.enabled ? card.handler : null} >
-                                <img src={card.icon} className={classes.icon} alt="cardimg" />
-                                <Button variant="contained" color="inherit" disabled={!card.enabled}>
-                                    {card.name}
-                                </Button>
-                            </Grid>
-                        );
-                    })}
+                {cards.map(card => {
+                    return (
+                        <Grid key={card.name.toLocaleLowerCase()} item className={classes.grid} onClick={card.enabled ? card.handler : null} >
+                            <img src={card.icon} className={classes.icon} alt="cardimg" />
+                            <Button variant="contained" color="inherit" disabled={!card.enabled}>
+                                {card.name}
+                            </Button>
+                            <input type="file" onChange={(e) => this.handleFile(e)} multiple></input>
+                        </Grid>
+                    );
+                })}
                 {/* </Grid> */}
                 <DialogContentText align="center" className={classes.textbox}> {this.state.description} </DialogContentText>
             </Dialog>
@@ -185,8 +209,8 @@ class ModalLoad extends React.Component {
     }
 }
 
-const BackdropComponent = () => 
-    <div style={{height: 300, width: 300, background: 'red', zIndex: -1}}/>
+const BackdropComponent = () =>
+    <div style={{ height: 300, width: 300, background: 'red', zIndex: -1 }} />
 
 ModalLoad.propTypes = {
     classes: PropTypes.object.isRequired

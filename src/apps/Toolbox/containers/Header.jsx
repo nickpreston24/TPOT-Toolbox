@@ -255,8 +255,8 @@ class Header extends Component {
                         {/* <RoutedBreadCrumbs /> */}
                     </Grid>
                     <Grid item container direction="row" justify="flex-end" alignItems="center" style={{ flexWrap: 'nowrap', flexGrow: 2 }} >
-                        <Button onClick={this.signInTest}>Publish</Button>
-                        <Button onClick={this.loadTest}>Load</Button>
+                        {/* <Button onClick={this.signInTest}>Publish</Button> */}
+                        {/* <Button onClick={this.loadTest}>Load</Button> */}
                         {/* <HeaderButton {...{ classes, icon: faUser, sessionStore, label: 'Sign In' }} /> */}
                         {/* <HeaderButton {...{ classes, icon: faBell, label: "Notifications" }} /> */}
                         {/* <HeaderButton {...{ classes, icon: faFlag, sessionStore, label: 'Help' }} /> */}

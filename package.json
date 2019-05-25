@@ -73,7 +73,8 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build && npx workbox injectManifest",
+    "build": "craco build",
+    "inject": "npx workbox injectManifest",
     "build-serve": "yarn build && yarn serve",
     "test": "craco test",
     "serve": "serve -s build",
