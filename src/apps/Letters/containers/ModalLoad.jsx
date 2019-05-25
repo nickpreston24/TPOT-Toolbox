@@ -70,7 +70,6 @@ class ModalLoad extends React.Component {
 
     constructor(props) {
         super(props);
-        this.reader = new FileReader();
         this.state = {
             open: false,
             description: "Select a file from your computer to edit."
@@ -91,13 +90,20 @@ class ModalLoad extends React.Component {
     };
 
     handleFile = (e) => {
-        if (!this.reader)
-            throw new Error("A FileReader must be defined before a file may be loaded!");
 
-        const file = e.target.files[0]
-        this.reader.readAsText(file);
+        const file = e.target.files[0];
 
-        // console.log('handleFile event: ', e)
+
+        var reader = new FileReader();
+        reader.readAsText(file);
+        // reader.readAsDataURL(file);
+        // reader.readAsBinaryString(file);
+        // reader.readAsArrayBuffer(file);
+        reader.onload = function () {
+            var raw = reader.result;
+            console.log(raw)
+        };
+
         console.log('File metadata: ', file)
     }
 
@@ -137,7 +143,7 @@ class ModalLoad extends React.Component {
                 classes={{ root: classes.root, paper: classes.paper }}
                 open={this.props.store.lettersStore.currentModal === 'LoadScreen'}
                 onClose={this.handleClose}
-                onBackdropClick={this.handleClose}
+                // onBackdropClick={this.handleClose}
                 disablePortal
             // BackdropComponent={Backdrop}
             // fullScreen
