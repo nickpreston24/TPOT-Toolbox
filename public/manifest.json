@@ -1,6 +1,6 @@
 {
-  "short_name": "Harvest Haven",
-  "name": "Harvest Haven",
+  "short_name": "TPOT Toolbox",
+  "name": "TPOT Toolbox",
   "icons": [
     {
       "src": "images/icons/icon-72x72.png",
@@ -44,7 +44,7 @@
     }
   ],
   "start_url": ".",
-  "display": "minimal-ui",
+  "display": "standalone",
   "theme_color": "#e45a4c",
   "background_color": "#e45a4c"
 }
