@@ -1,5 +1,6 @@
 import { EditorState } from "draft-js";
 import { action, decorate, observable } from 'mobx';
+import { create, persist } from 'mobx-persist'
 import { db } from '../firebase';
 import { wp } from '../wordpress';
 
@@ -15,7 +16,7 @@ class LettersStore {
     wordpressCredentials = {}
     editorContent = '<p>Why hello there!</p>'
     publishModal = false
-    currentModal = ''
+    @persist @observable currentModal = ''
     publishData = {
         slug: '',
         title: '',
@@ -104,7 +105,7 @@ export default decorate(
         publishModal: observable,
         publishData: observable,
         editedState: observable,
-        currentModal: observable,
+        // currentModal: observable,
         setPublishData: action,
         togglePublishModal: action,
         setCurrentModal: action,

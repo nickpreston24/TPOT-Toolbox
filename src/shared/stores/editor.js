@@ -4,6 +4,8 @@ import { action, computed, decorate, observable, toJS } from 'mobx';
 import { baseBlockStyleFn, baseStyleMap, blockRenderer, blockRenderMap, draftContentFromHtml, draftContentToHtml, stateFromElementConfig } from "../../apps/Editor/utils/transforms";
 import { draft } from '../../apps/Editor'
 
+import { create, persist } from 'mobx-persist'
+
 class EditorStore {
 
     constructor(rootStore) {
@@ -19,7 +21,7 @@ class EditorStore {
     // @observable notify = this.rootStore.lettersStore.notify
 
     editor = null
-    originalState = 'Original'
+    @persist @observable originalState = 'Original'
     editorState = createEditorStateWithText('Click to start typing a note...')
     codeState = 'Code'
     baseStyleMap = baseStyleMap
@@ -132,7 +134,7 @@ class EditorStore {
 export default decorate(
     EditorStore, {
         editor: observable,
-        originalState: observable,
+        // originalState: observable,
         editorState: observable,
         codeState: observable,
         baseStyleMap: observable,

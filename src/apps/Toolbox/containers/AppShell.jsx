@@ -10,10 +10,6 @@ import Forage from '../../../shared/localforage';
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react'
 
-
-const store = new MobxStore()
-const forage = new Forage()
-
 const styles = theme => ({
     root: {
         justifyContent: 'flex-start',
