@@ -92,8 +92,6 @@ class ModalLoad extends React.Component {
     handleFile = (e) => {
 
         const file = e.target.files[0];
-
-
         var reader = new FileReader();
         reader.readAsText(file);
         // reader.readAsDataURL(file);
@@ -101,7 +99,9 @@ class ModalLoad extends React.Component {
         // reader.readAsArrayBuffer(file);
         reader.onload = function () {
             var raw = reader.result;
-            console.log(raw)
+            console.log('raw', raw);
+            let buffer = Buffer.from(raw, 'utf-8');
+            console.log('buffer', buffer);
         };
 
         console.log('File metadata: ', file)
