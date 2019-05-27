@@ -90,7 +90,8 @@ const convertFile2Html = async (file) => {
     // Get Buffer
     var reader = new FileReader();
     console.log('Attempting to read blob/file: ', file);
-    reader.readAsText(file);
+    reader.readAsArrayBuffer(file);  // FIXME: [MP] No complaints at conversion.
+    // reader.readAsText(file);  // [MP] Complains with the 'End of data reached' error at conversion.
 
     reader.onload = async function () {
         var raw = reader.result;
