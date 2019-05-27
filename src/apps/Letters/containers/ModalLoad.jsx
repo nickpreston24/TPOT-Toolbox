@@ -1,4 +1,4 @@
-import Button from "@material-ui/core/Button";
+import Input from './InputButton';
 import Dialog from "@material-ui/core/Dialog";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import Grid from "@material-ui/core/Grid";
@@ -140,22 +140,12 @@ class ModalLoad extends React.Component {
                         <Grid
                             key={name.toLocaleLowerCase()}
                             item className={grid}
-                        // onClick={enabled ? handler : null}
                         >
                             <img
                                 src={option.icon}
                                 className={classes.icon}
                                 alt="cardimg" />
-                            <Button
-                                disabled={!enabled}
-                                variant="contained"
-                                color="inherit" >
-                                {name}
-                            </Button>
-                            <input
-                                onChange={handler}
-                                type="file"
-                                multiple></input>
+                            <Input {...{name, enabled, handler}} />
                         </Grid>
                     );
                 })}
@@ -169,6 +159,7 @@ class ModalLoad extends React.Component {
         );
     }
 }
+
 
 const Backdrop = () =>
     <div style={{ height: 300, width: 300, background: 'red', zIndex: -1 }} />
