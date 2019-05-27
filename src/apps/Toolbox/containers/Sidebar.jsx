@@ -153,22 +153,26 @@ export const NavButton = compose(
     withStyles(styles),
     observer
 )(({ store, data, classes, variant }) => {
+
     const handleClick = () => {
-        // console.log('click')
-        // console.log(data.store, data.action, data.payload, store[data.store][data.action](data.payload))
-        
-        if (data.store) {
-            if (data.action) {
-                if (data.payload) {
-                    store[data.store][data.action](data.payload) 
-                } else {
-                    store[data.store][data.action]() 
-                }
-            }
+
+        const { store: storeName, action, payload } = data;
+        const canRun = [storeName, action, payload].every(val => !!val);
+        const hasPayload = !!payload;
+
+        if (!canRun) {
+            // throw new Error("Cannot run action as one or more variables is unassigned"); // Optional
+            return;
         }
-        // (data.store && data.action) ? store[data.store][data.action](data.payload && data.payload) : null
+        else console.log(`running ${storeName} action '${action}' with ${payload} payload`);
+
+        if (hasPayload) {
+            store[storeName][action](payload)
+        } else {
+            store[storeName][action]()
+        }
     }
-    // console.log(store)
+
     return (
         // <div id={`NavButton-${data.primaryText}`} className={classNames(classes.navButton, data.color)}>
         <Button
@@ -184,7 +188,6 @@ export const NavButton = compose(
         // </div>
     )
 })
-
 
 // export const NavButton = observer(({ data, classes, variant }) => (
 
