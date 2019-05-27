@@ -10,15 +10,7 @@ import HardDrive from "../../../shared/media/hdd.png";
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 
-// import { convertFile } from "../../../shared/utilities/converter";
-// src\shared\utilities\converter.js
-///File Import Strategies:
-// import { DiskFileLoader } from '../modules/docxLoaders/DiskFileLoader.ts'
-// import { GoogleFileLoader } from '../modules/docxLoaders/GoogleFileLoader.ts'
-// import { Clipboard } from '../modules/docxLoaders/Clipboard.ts'
-// import * as Loaders from '../modules/docxLoaders/Loaders.ts'
-// import { Loaders } from '../modules/docxLoaders/Loaders.ts'
-// import DiskFileLoader from "../utilities/docxLoaders_js/DiskFileLoader";
+import { convertFile } from "../../../shared/utilities/converter";
 
 const styles = theme => ({
     root: {
@@ -90,25 +82,12 @@ class ModalLoad extends React.Component {
     };
 
     handleFile = (e) => {
-
         const file = e.target.files[0];
-        var reader = new FileReader();
-        reader.readAsText(file);
-        // reader.readAsDataURL(file);
-        // reader.readAsBinaryString(file);
-        // reader.readAsArrayBuffer(file);
-        reader.onload = function () {
-            var raw = reader.result;
-            console.log('raw', raw);
-            let buffer = Buffer.from(raw, 'utf-8');
-            console.log('buffer', buffer);
-        };
-
-        console.log('File metadata: ', file)
+        console.log('File blob: ', file)
+        convertFile(file);
     }
 
     render() {
-        console.log("RENDERING...");
 
         const { classes } = this.props;
         const loaders = [

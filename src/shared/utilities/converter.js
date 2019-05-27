@@ -48,28 +48,29 @@ const mammoth = require('mammoth-colors')
 
 
 /////////////////////////////////////////////////////////////////////////////////////
-//                                                                                                                                                                 
-//                                                            MAIN FUNCTION                                                                  
-//                                                                                                                                                                 
+//
+//                                                            MAIN FUNCTION
+//
 /////////////////////////////////////////////////////////////////////////////////////
 
 export async function convertFile(path) {
-    console.log(`CONVERT FILE: ${path}`)
-    // console.log(path)
 
-    // // Convert Data
-    // let dataFile2Html = await convertFile2Html(path)
-    // // console.log(dataFile2Html)
+    console.log(`CONVERTING FILE: ${path}`)
+
+    // Convert Data
+    let dataFile2Html = await convertFile2Html(path)
+    console.log(dataFile2Html)
     // let dataMammoth = await convertMammoth(path)
-    // // console.log(dataMammoth)
+    // console.log(dataMammoth)
 
     // // Bake Down CSS to File2Html Tag Data
     // dataFile2Html = await bakeCssToInlineStyles(dataFile2Html.css, dataFile2Html.html)
 
     // // Flatten Data
     // let conversionString = await flattenStyles(dataMammoth, dataFile2Html)
+    // console.log('conversion: ', conversionString);
 
-    // // Send Data
+    // Send Data
     // let message = {
     //     event: "draftjs-editor-reload",
     //     html: conversionString
@@ -77,37 +78,49 @@ export async function convertFile(path) {
     // window.postMessage(message, "*") // sends to DraftJS WYSIWYG Editor
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
-//                                                                                                                                                                 
-//                                                    FILE 2 HMTL CONVERSION                                                      
-//                                                                                                                                                                 
-/////////////////////////////////////////////////////////////////////////////////////
 
-// const convertFile2Html = async (path) => {
-//     // Get Buffer
-//     const buffer = await fs.readFile(path)
-//     // Get HTML String
-//     file2html.config({
-//         readers: [TextReader, OOXMLReader, ImageReader]
-//     });
-//     const fileBuffer = new Buffer(buffer)
-//     const data = await file2html.read({
-//         fileBuffer,
-//         meta: {
-//             mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-//         }
-//     })
-//     // Return Promise Results
-//     return {
-//         css: data.data.styles,
-//         html: data.data.content
-//     }
-// }
 
 /////////////////////////////////////////////////////////////////////////////////////
-//                                                                                                                                                                 
-//                                                     MAMMOTH CONVERSION                                                        
-//                                                                                                                                                                 
+//
+//                                                    FILE 2 HMTL CONVERSION
+//
+/////////////////////////////////////////////////////////////////////////////////////
+
+const convertFile2Html = async (file) => {
+    // Get Buffer
+    var reader = new FileReader();
+    console.log('Attempting to read blob/file: ', file);
+    reader.readAsText(file);
+
+    reader.onload = async function () {
+        var raw = reader.result;
+        console.log('raw', raw);
+        let fileBuffer = Buffer.from(raw, 'utf-8');
+        console.log('buffer', fileBuffer);
+
+        // Get HTML String
+        file2html.config({
+            readers: [TextReader, OOXMLReader, ImageReader]
+        });
+
+        const data = await file2html.read({
+            fileBuffer,
+            meta: {
+                mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            }
+        })
+        // Return Promise Results
+        return {
+            css: data.data.styles,
+            html: data.data.content
+        }
+    };
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+//
+//                                                     MAMMOTH CONVERSION
+//
 /////////////////////////////////////////////////////////////////////////////////////
 
 // const convertMammoth = async (path) => {
@@ -150,9 +163,9 @@ const mammothOptions = {
 };
 
 /////////////////////////////////////////////////////////////////////////////////////
-//                                                                                                                                                                 
-//                                           BAKE INLINE STYLES TO FILE2HTML                                            
-//                                                                                                                                                                 
+//
+//                                           BAKE INLINE STYLES TO FILE2HTML
+//
 /////////////////////////////////////////////////////////////////////////////////////
 
 const bakeCssToInlineStyles = async (css, html) => {
@@ -223,7 +236,7 @@ const mapCssClassesToInlineStyles = async (dom, cssClasses) => {
                             node.style.cssText += cssClasses[nodeClass][nodeClass].styles
                         } else if (cssClasses[nodeClass][`${nodeClass} r`]) {
                             node.style.cssText += cssClasses[nodeClass][`${nodeClass} r`].styles
-                        } else if (cssClasses[nodeClass][nodeClass] && cssClasses[nodeClass][`${nodeClass} r`]) {} else {}
+                        } else if (cssClasses[nodeClass][nodeClass] && cssClasses[nodeClass][`${nodeClass} r`]) { } else { }
                     }
                 }
             })
@@ -233,9 +246,9 @@ const mapCssClassesToInlineStyles = async (dom, cssClasses) => {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
-//                                                                                                                                                                 
-//                           MERGE FILE2HTML STYLES ONTO MAMMOTH DOM                                
-//                                                                                                                                                                
+//
+//                           MERGE FILE2HTML STYLES ONTO MAMMOTH DOM
+//
 /////////////////////////////////////////////////////////////////////////////////////
 
 // Lets Decorate the Cake!
@@ -456,17 +469,17 @@ export const test = () => {
     console.log("%c Document Converter Module Loaded!", "color: hsl(199, 76%, 59%);")
 };
 
-/// DIRTY HACK!
-if (true) {
-    convertFile('//this is a test path')
+// /// DIRTY HACK!
+// if (true) {
+//     convertFile('//this is a test path')
 
-    // const applicationPath = app.getAppPath();
-    // const configDir = './src/config';
-    // const file = 'MasterSample.docx';
-    // convertFile(path.join(applicationPath, configDir, file))
-    // console.log('CONVERT???')
+//     // const applicationPath = app.getAppPath();
+//     // const configDir = './src/config';
+//     // const file = 'MasterSample.docx';
+//     // convertFile(path.join(applicationPath, configDir, file))
+//     // console.log('CONVERT???')
 
-    // setTimeout(()=>{
-    //     convertFile(path.join(applicationPath, configDir, file))
-    // }, 500)
-}
+//     // setTimeout(()=>{
+//     //     convertFile(path.join(applicationPath, configDir, file))
+//     // }, 500)
+// }
