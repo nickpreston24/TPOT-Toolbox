@@ -1,5 +1,6 @@
 import { observable, action, decorate, runInAction } from 'mobx'
 import { db, auth, firebase } from '../firebase'
+import { persist } from 'mobx-persist';
 
 // const electron = window.require('electron')
 // const remote = electron.remote
@@ -7,7 +8,7 @@ import { db, auth, firebase } from '../firebase'
 // const fs = remote.require('fs')
 // const path = remote.require('path')
 
-class SessionStore {
+export default class SessionStore {
 
     constructor(rootStore) {
         this.rootStore = rootStore
@@ -29,10 +30,11 @@ class SessionStore {
 
     }
 
-    authUser = null
-    sessionName = "Welcome. Start typing a letter or load one from file."
-    loginMode = 'login'
-    loginData = {
+    @persist @observable clean = true
+    @persist @observable authUser = null
+    @observable sessionName = "Welcome. Start typing a letter or load one from file."
+    @observable loginMode = 'login'
+    @observable loginData = {
         firstName: '',
         lastName: '',
         initials: '',
@@ -43,11 +45,11 @@ class SessionStore {
         codeSent: false,
     }
 
-    setKey = (key, value) => {
+    @action setKey = (key, value) => {
         this[key] = value
     }
 
-    async signIn(notify, setCurrentModal) {
+    @action async signIn(notify, setCurrentModal) {
         console.log('sign in')
         try {
             const { email, password } = this.loginData
@@ -62,7 +64,7 @@ class SessionStore {
         }
     }
 
-    async requestReset(notify) {
+    @action.bound async requestReset(notify) {
         try {
             await auth.requestPasswordReset(this.loginData.email)
                 .then(() => {
@@ -74,7 +76,7 @@ class SessionStore {
         }
     }
 
-    async register(notify, setCurrentModal) {
+    @action.bound async register(notify, setCurrentModal) {
         try {
             const { firstName, lastName, email, password } = this.loginData
             if (!lastName) {
@@ -95,31 +97,16 @@ class SessionStore {
         }
     }
 
-    signOut = (setCurrentModal) => {
+    @action signOut = (setCurrentModal) => {
         auth.signOut()
         this.authUser = null
         setCurrentModal(null)
     }
 
-    setAuthUser = authUser => {
+    @action setAuthUser = authUser => {
         this.authUser = authUser
     }
 
-    setLoginData = (key, value) =>
+    @action setLoginData = (key, value) =>
         this.loginData[key] = value
 }
-
-export default decorate(
-    SessionStore, {
-        loginMode: observable,
-        loginData: observable,
-        authUser: observable,
-        sessionName: observable,
-        setKey: action,
-        setAuthUser: action,
-        signIn: action,
-        register: action.bound,
-        requestReset: action.bound,
-        signOut: action,
-        setLoginData: action,
-    })

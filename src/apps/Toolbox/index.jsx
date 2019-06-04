@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import { hot } from 'react-hot-loader'
 import AppShell from './containers/AppShell'
 
+// Initilize Root Store
 const store = new MobxStore()
 const forage = new Forage()
 
@@ -66,11 +67,11 @@ export default () =>
 class RoutedApp extends Component {
 
     componentDidMount() {
-        const { services } = this.props.store
+        const { servicesStore } = this.props.store
         const { enqueueSnackbar, closeSnackbar } = this.props
 
         // : Pass the calling function for notifications to the store
-        services.setNotifyFunctions({ enqueueSnackbar, closeSnackbar })
+        servicesStore.setNotifyFunctions({ enqueueSnackbar, closeSnackbar })
 
         // : Initialize the localforage session for videos
         this.props.forage.videos.init()
