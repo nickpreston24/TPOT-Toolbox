@@ -13,7 +13,7 @@ class PublishData {
     @persist @observable  excerpt = ''
 }
 
-class LettersStore {
+export default class LettersStore {
     constructor(rootStore) {
         this.rootStore = rootStore
     }
@@ -95,24 +95,3 @@ class LettersStore {
     }
 
 }
-
-export default decorate(
-    LettersStore, {
-        // authUser: observable,
-        // notification: observable,
-        // publishModal: observable,
-        // publishData: observable,
-        // editedState: observable,
-        // currentModal: observable,
-        // setPublishData: action,
-        // togglePublishModal: action,
-        // setCurrentModal: action,
-        // saveEditorState: action,
-        // setEditorState: action,
-        // clearEditor: action,
-        // notify: action,
-        // setKey: action,
-        // signIn: action.bound,
-        // signOut: action,
-    })
-// Don't make store variables observable if you want to keep them private to this class

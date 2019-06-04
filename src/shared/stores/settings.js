@@ -1,14 +1,16 @@
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { observable, action, decorate, runInAction, computed } from 'mobx'
 import { db, auth, firebase } from '../firebase'
+import { persist } from 'mobx-persist';
 
-class SettingsStore {
+export default class SettingsStore {
 
     constructor(rootStore) {
         this.rootStore = rootStore
     }
 
-    themeData = {
+    @persist @observable clean = true
+    @observable themeData = {
         palette: {
             common: {
                 black: "rgba(102, 97, 91, 1)",
@@ -77,20 +79,20 @@ class SettingsStore {
         },
     }
 
-    sidebarVariant = 'expanded'
+    @observable sidebarVariant = 'expanded'
 
-    get theme() {
+    @computed get theme() {
         return createMuiTheme(this.themeData)
     }
 
-    setKey = (key, value) => {
+    @action setKey = (key, value) => {
         this.theme.palette[key] = value
     }
 
-    setThemeData = (key, value) =>
+    @action setThemeData = (key, value) =>
         this.themeData.palette[key] = value
 
-    toggleSidebarVariant = () => {
+    @action toggleSidebarVariant = () => {
         if (this.sidebarVariant === 'compact') {
             this.sidebarVariant = 'expanded'
         } else {
@@ -99,13 +101,3 @@ class SettingsStore {
     }
 
 }
-
-export default decorate(
-    SettingsStore, {
-        theme: computed,
-        themeData: observable,
-        setKey: action,
-        setThemeData: action,
-        sidebarVariant: observable,
-        toggleSidebarVariant: action,
-    })

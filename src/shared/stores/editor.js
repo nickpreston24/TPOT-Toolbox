@@ -2,11 +2,12 @@ import { EditorState, getDefaultKeyBinding, KeyBindingUtil } from "draft-js";
 import { createEditorStateWithText } from "draft-js-plugins-editor";
 import { action, computed, decorate, observable, toJS } from 'mobx';
 import { baseBlockStyleFn, baseStyleMap, blockRenderer, blockRenderMap, draftContentFromHtml, draftContentToHtml, stateFromElementConfig } from "../../apps/Editor/utils/transforms";
+import { create, persist } from 'mobx-persist'
 import { draft } from '../../apps/Editor'
 
-import { create, persist } from 'mobx-persist'
+// : Anything that  uses @persist will be automatically subscribed to offline localforage storage
 
-class EditorStore {
+export default class EditorStore {
 
     constructor(rootStore) {
         this.rootStore = rootStore
@@ -17,32 +18,31 @@ class EditorStore {
         });
 
     }
-
-    // @observable notify = this.rootStore.lettersStore.notify
-
-    editor = null
+    
+    @persist @observable clean = true
+    @persist @observable editMode = 'edited'
     @persist @observable originalState = 'Original'
-    editorState = createEditorStateWithText('Click to start typing a note...')
-    codeState = 'Code'
-    baseStyleMap = baseStyleMap
-    baseBlockStyleFn = baseBlockStyleFn
-    blockRenderer = blockRenderer
-    blockRenderMap = blockRenderMap
-    editorNode = null
-    editMode = 'edited'
+    @observable editor = null
+    @observable editorNode = null
+    @observable baseStyleMap = baseStyleMap
+    @observable editorState = createEditorStateWithText('Click to start typing a note...')
+    @observable codeState = 'Code'
+    @observable baseBlockStyleFn = baseBlockStyleFn
+    @observable blockRenderer = blockRenderer
+    @observable blockRenderMap = blockRenderMap
     modes = [
         'original',
         'edited',
         'code',
     ]
 
-    onChange = editorState =>
+    @action onChange = editorState =>
         this.editorState = editorState
 
-    setRef = node =>
+    @action setRef = node =>
         this.editor = node
 
-    focus() {
+    @action.bound focus() {
         // console.log(this.editor)
         if (this.editor !== null && this.editor.focus !== null) {
             try {
@@ -53,7 +53,7 @@ class EditorStore {
         }
     }
 
-    loadEditorFromDocx = html => {
+    @action loadEditorFromDocx = html => {
         // let baseStyleMapClear = JSON.parse(JSON.stringify(Object.assign(toJS(baseStyleMap))))
         const { newContentState, newBaseStyleMap } = draftContentFromHtml(html, stateFromElementConfig, baseStyleMap);
         this.baseStyleMap = newBaseStyleMap
@@ -68,25 +68,25 @@ class EditorStore {
         }, 500);
     }
 
-    saveSession = async () => {
+    @action saveSession = async () => {
         draft.saveSession(this.originalState, this.editorState, this.codeState, this.baseStyleMap, this.notify)
     }
 
-    clearSession = (notify) => {
+    @action clearSession = (notify) => {
         this.editorState = EditorState.createEmpty()
         this.notify('Cleared Editor')
     }
 
-    setEditMode = (e, tab) =>
+    @action setEditMode = (e, tab) =>
         this.editMode = this.modes[tab]
 
-    setStyleMap = customStyleMap => {
+   @action  setStyleMap = customStyleMap => {
         console.log(toJS(this.baseStyleMap))
         this.baseStyleMap = customStyleMap
         console.log(toJS(this.baseStyleMap))
     }
 
-    handleKeyCommand = (command, store) => {
+    @action handleKeyCommand = (command, store) => {
         const notify = store.notify
         if (command === 'save') {
             this.saveSession(this.notify)
@@ -104,7 +104,7 @@ class EditorStore {
         return 'not-handled';
     }
 
-    myKeyBindingFn = (e) => {
+    @action myKeyBindingFn = (e) => {
         const { hasCommandModifier } = KeyBindingUtil;
         if (e.keyCode === 83 /* `S` key */ && hasCommandModifier(e)) {
             return 'save'
@@ -118,11 +118,11 @@ class EditorStore {
         return getDefaultKeyBinding(e);
     }
 
-    get editModeKey() {
+    @computed get editModeKey() {
         return this.modes.indexOf(this.editMode)
     }
 
-    get editorCode() {
+    @computed get editorCode() {
         return draftContentToHtml(
             this.editorState,
             this.editorState.getCurrentContent()
@@ -130,30 +130,3 @@ class EditorStore {
     }
 
 }
-
-export default decorate(
-    EditorStore, {
-        editor: observable,
-        // originalState: observable,
-        editorState: observable,
-        codeState: observable,
-        baseStyleMap: observable,
-        baseBlockStyleFn: observable,
-        blockRenderer: observable,
-        blockRenderMap: observable,
-        editorNode: observable,
-        editMode: observable,
-        modes: observable,
-        onChange: action,
-        setRef: action,
-        focus: action.bound,
-        loadEditorFromDocx: action,
-        saveSession: action,
-        clearSession: action,
-        setEditMode: action,
-        setStyleMap: action,
-        handleKeyCommand: action,
-        myKeyBindingFn: action,
-        editModeKey: computed,
-        editorCode: computed,
-    })

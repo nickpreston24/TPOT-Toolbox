@@ -2,6 +2,7 @@ import React from 'react';
 import { action, observable } from 'mobx';
 import { Button } from '@material-ui/core';
 import { Workbox } from 'workbox-window';
+import { persist } from 'mobx-persist';
 
 const rest = (ms) => {
     return new Promise(r => setTimeout(r, ms));
@@ -18,6 +19,7 @@ setTimeout(() => clearInterval(loaderCounter), 1000)
 // : Main Class. Manages service-related UI state, notifications and the registration of service workers.
 export default class ServicesStore {
 
+    @persist @observable clean = true
     @observable enqueueSnackbar = null
     @observable closeSnackbar = null
     @observable initialWorker = null
