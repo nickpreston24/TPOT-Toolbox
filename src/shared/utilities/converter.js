@@ -22,7 +22,7 @@ const $ = window.jQuery = require('jquery')
 // A loading screen will provide them necessary feedback to let them know that nothing is frozen and all they need to do is be patient.
 
 
-// : TODO Replace with HTML5 FileSystem or equivalent
+// TODO: Replace with HTML5 FileSystem or equivalent
 // // Electron
 // const electron = require('electron')
 // const remote = electron.remote
@@ -58,10 +58,12 @@ export async function convertFile(path) {
     console.log(`CONVERTING FILE: ${path}`)
 
     // Convert Data
-    let dataFile2Html = await convertFile2Html(path)
-    console.log(dataFile2Html)
+    // let dataFile2Html;
+    let result = await convertFile2Html(path)
+    // console.log('file2Html post conversion data:', dataFile2Html)
+
     // let dataMammoth = await convertMammoth(path)
-    // console.log(dataMammoth)
+    // console.log('data after mammoth conversion:', dataMammoth)
 
     // // Bake Down CSS to File2Html Tag Data
     // dataFile2Html = await bakeCssToInlineStyles(dataFile2Html.css, dataFile2Html.html)
@@ -87,19 +89,18 @@ export async function convertFile(path) {
 /////////////////////////////////////////////////////////////////////////////////////
 
 const convertFile2Html = async (file) => {
-    // Get Buffer
+
     var reader = new FileReader();
     console.log('Attempting to read blob/file: ', file);
-    reader.readAsArrayBuffer(file);  // FIXME: [MP] No complaints at conversion.
-    // reader.readAsText(file);  // [MP] Complains with the 'End of data reached' error at conversion.
+    reader.readAsArrayBuffer(file);
 
     reader.onload = async function () {
         var raw = reader.result;
         console.log('raw', raw);
+
         let fileBuffer = Buffer.from(raw, 'utf-8');
         console.log('buffer', fileBuffer);
 
-        // Get HTML String
         file2html.config({
             readers: [TextReader, OOXMLReader, ImageReader]
         });
@@ -110,12 +111,16 @@ const convertFile2Html = async (file) => {
                 mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             }
         })
-        // Return Promise Results
+
+        console.log('html data: ', data.data.content);
+        console.log('css data: ', data.data.styles);
+
+        // console.log('returning promised results...')
         return {
             css: data.data.styles,
             html: data.data.content
         }
-    };
+    } //FIXME: somehow return this as a thenable Promise.
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -124,19 +129,31 @@ const convertFile2Html = async (file) => {
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-// const convertMammoth = async (path) => {
-//     // Get Buffer
-//     const buffer = await fs.readFile(path)
-//     // Get HTML String
-//     const data = await mammoth.convertToHtml({
-//         arrayBuffer: buffer
-//     }, mammothOptions)
+const convertMammoth = async (file) => {
 
-//     // : Fix Carraige Returns
-//     let sanitizedHTML = data.value.replace(/[\<]+[br]+[\s]?[\/]+[\>]+[\s]?[\<]+[br]+[\s]?[\/]+[\>]/g, '<p/><p>')
-//     // Return Promise Results
-//     return sanitizedHTML
-// }
+    var reader = new FileReader();
+    console.log('Mammoth Attempting to read blob/file: ', file);
+    reader.readAsArrayBuffer(file);
+
+    reader.onload = async function () {
+
+        var raw = reader.result;
+        console.log('Mammoth raw', raw);
+
+        let buffer = Buffer.from(raw, 'utf-8');
+        console.log('Mammoth buffer', buffer);
+
+        const data = await mammoth.convertToHtml({
+            arrayBuffer: buffer
+        }, mammothOptions)
+
+        // : Fix Carraige Returns
+        let sanitizedHTML = data.value.replace(/[\<]+[br]+[\s]?[\/]+[\>]+[\s]?[\<]+[br]+[\s]?[\/]+[\>]/g, '<p/><p>')
+        // Return Promise Results
+        return sanitizedHTML
+    }
+
+}
 
 const mammothOptions = {
     styleMap: [
