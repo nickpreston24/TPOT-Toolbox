@@ -40,7 +40,7 @@ class Letters extends Component {
         return (
             <div className="Letters" style={{ flexGrow: 1 }} ref={this.setContainer}>
                 <Editor />
-                <PublishScreenContainer {...{  container }} />} />
+                <PublishScreenContainer {...{  container }} />
                 <ModalLoad />
                 {/* <Route path={`/letters/:command`} render={
                     ({ location, match, history }) => {

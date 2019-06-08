@@ -84,7 +84,10 @@ class ModalLoad extends React.Component {
     handleFile = (e) => {
         const file = e.target.files[0];
         console.log('File blob: ', file)
-        convertFile(file);
+        // convertFile(file); // Old
+        const { store } = this.props
+        const { editorStore } = store
+        editorStore.convertFileToDraftState(file)
     }
 
     render() {

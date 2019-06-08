@@ -1,4 +1,16 @@
-const $ = window.jQuery = require('jquery')
+// File2Html
+const file2html = require('file2html')
+const OOXMLReader = require('file2html-ooxml').default
+
+// Mammoth
+const mammoth = require('mammoth-colors')
+
+// Utilities
+const createNode = require('create-node')
+const walk = require('domwalk')
+
+ // This is only used for parentUntil (just write a quick utility, It is expensive to import JQuery this way)
+ const $ = window.jQuery = require('jquery')
 
 //  TESTING RESULTS
 
@@ -21,137 +33,73 @@ const $ = window.jQuery = require('jquery')
 // I believe a loading screen is totally necessary incase users' conversion time varies and/or they are working with 10+ page documents.
 // A loading screen will provide them necessary feedback to let them know that nothing is frozen and all they need to do is be patient.
 
+///////////////////////////////////////////////////
+//                  MAIN FUNCTION                  //
+///////////////////////////////////////////////////
 
-// TODO: Replace with HTML5 FileSystem or equivalent
-// // Electron
-// const electron = require('electron')
-// const remote = electron.remote
-// const app = remote.app
+export async function convertFile(file) {
+    return new Promise((resolve, reject) => {
 
-// // Node built-in
-// const fs = remote.require('fs-extra')
-// const path = remote.require('path')
+        var reader = new FileReader();
+        console.log('Attempting to read blob/file: ', file);
+        reader.readAsArrayBuffer(file);
 
-// Custom/Community
-// const _ = require('underscore')
-const createNode = require('create-node')
-const walk = require('domwalk')
+        reader.onload = async function () {
+            var raw = reader.result;
+            console.log('raw', raw);
 
-// File2Html
-const file2html = require('file2html')
-const TextReader = require('file2html-text').default
-const OOXMLReader = require('file2html-ooxml').default
-const ImageReader = require('file2html-image').default
+            let buffer = Buffer.from(raw, 'utf-8');
+            console.log('buffer', buffer);
 
-// Mammoth
-const mammoth = require('mammoth-colors')
+            // Convert Data
+            let dataFile2Html = await convertFile2Html(buffer)
+            let dataMammoth = await convertMammoth(buffer)
 
+            // // Bake Down CSS to File2Html Tag Data
+            dataFile2Html = await bakeCssToInlineStyles(dataFile2Html.css, dataFile2Html.html)
 
-/////////////////////////////////////////////////////////////////////////////////////
-//
-//                                                            MAIN FUNCTION
-//
-/////////////////////////////////////////////////////////////////////////////////////
+            // // Flatten Data
+            let convertedHTML = await flattenStyles(dataMammoth, dataFile2Html)
 
-export async function convertFile(path) {
-
-    console.log(`CONVERTING FILE: ${path}`)
-
-    // Convert Data
-    // let dataFile2Html;
-    let result = await convertFile2Html(path)
-    // console.log('file2Html post conversion data:', dataFile2Html)
-
-    // let dataMammoth = await convertMammoth(path)
-    // console.log('data after mammoth conversion:', dataMammoth)
-
-    // // Bake Down CSS to File2Html Tag Data
-    // dataFile2Html = await bakeCssToInlineStyles(dataFile2Html.css, dataFile2Html.html)
-
-    // // Flatten Data
-    // let conversionString = await flattenStyles(dataMammoth, dataFile2Html)
-    // console.log('conversion: ', conversionString);
-
-    // Send Data
-    // let message = {
-    //     event: "draftjs-editor-reload",
-    //     html: conversionString
-    // }
-    // window.postMessage(message, "*") // sends to DraftJS WYSIWYG Editor
-}
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//
-//                                                    FILE 2 HMTL CONVERSION
-//
-/////////////////////////////////////////////////////////////////////////////////////
-
-const convertFile2Html = async (file) => {
-
-    var reader = new FileReader();
-    console.log('Attempting to read blob/file: ', file);
-    reader.readAsArrayBuffer(file);
-
-    reader.onload = async function () {
-        var raw = reader.result;
-        console.log('raw', raw);
-
-        let fileBuffer = Buffer.from(raw, 'utf-8');
-        console.log('buffer', fileBuffer);
-
-        file2html.config({
-            readers: [TextReader, OOXMLReader, ImageReader]
-        });
-
-        const data = await file2html.read({
-            fileBuffer,
-            meta: {
-                mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-            }
-        })
-
-        console.log('html data: ', data.data.content);
-        console.log('css data: ', data.data.styles);
-
-        // console.log('returning promised results...')
-        return {
-            css: data.data.styles,
-            html: data.data.content
+            // Send Data back to Store as resolved promise data
+            resolve(convertedHTML)
         }
-    } //FIXME: somehow return this as a thenable Promise.
+    })
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
-//
-//                                                     MAMMOTH CONVERSION
-//
-/////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////
+//         FILE 2 HMTL CONVERSION        //
+///////////////////////////////////////////////////
 
-const convertMammoth = async (file) => {
+const convertFile2Html = async (fileBuffer) => {
 
-    var reader = new FileReader();
-    console.log('Mammoth Attempting to read blob/file: ', file);
-    reader.readAsArrayBuffer(file);
+    file2html.config({ readers: [OOXMLReader] });
 
-    reader.onload = async function () {
+    const data = await file2html.read({
+        fileBuffer,
+        meta: { mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }
+    })
 
-        var raw = reader.result;
-        console.log('Mammoth raw', raw);
-
-        let buffer = Buffer.from(raw, 'utf-8');
-        console.log('Mammoth buffer', buffer);
-
-        const data = await mammoth.convertToHtml({
-            arrayBuffer: buffer
-        }, mammothOptions)
-
-        // : Fix Carraige Returns
-        let sanitizedHTML = data.value.replace(/[\<]+[br]+[\s]?[\/]+[\>]+[\s]?[\<]+[br]+[\s]?[\/]+[\>]/g, '<p/><p>')
-        // Return Promise Results
-        return sanitizedHTML
+    return {
+        css: data.data.styles,
+        html: data.data.content
     }
+}
+
+///////////////////////////////////////////////////
+//          MAMMOTH CONVERSION          //
+///////////////////////////////////////////////////
+
+const convertMammoth = async (buffer) => {
+
+    const data = await mammoth.convertToHtml({
+        arrayBuffer: buffer
+    }, mammothOptions)
+
+    // : Fix Carraige Returns
+    let sanitizedHTML = data.value.replace(/[\<]+[br]+[\s]?[\/]+[\>]+[\s]?[\<]+[br]+[\s]?[\/]+[\>]/g, '<p/><p>')
+    // Return Result
+    return sanitizedHTML
 
 }
 
@@ -180,11 +128,9 @@ const mammothOptions = {
     // })
 };
 
-/////////////////////////////////////////////////////////////////////////////////////
-//
-//                                           BAKE INLINE STYLES TO FILE2HTML
-//
-/////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////
+//            CSS TO INLINE STYLES            //
+///////////////////////////////////////////////////
 
 const bakeCssToInlineStyles = async (css, html) => {
     // Make CSS Classes Object with Inline Styles
@@ -263,11 +209,9 @@ const mapCssClassesToInlineStyles = async (dom, cssClasses) => {
     return dom
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
-//
-//                           MERGE FILE2HTML STYLES ONTO MAMMOTH DOM
-//
-/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+//      COMBINE FILE2HTML & MATMMOTH RESULTS      //
+/////////////////////////////////////////////////////////////////////////
 
 // Lets Decorate the Cake!
 const flattenStyles = async (baseDom, augDom) => {
@@ -335,9 +279,9 @@ const flattenStyles = async (baseDom, augDom) => {
     // Serve Cake, Yum!
     return cake.innerHTML
 
-    /////////////////////////////////////////////////////////////
-    //            Sub Functions for  flattenStyles             //
-    /////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+//      SUB FUCTIONS FOR FLATTENING STYLES     //
+//////////////////////////////////////////////////////////////////
 
     function wrapInDiv(string) {
         return "<div>" + string + "</div>"
@@ -480,24 +424,4 @@ const flattenStyles = async (baseDom, augDom) => {
 
         })
     }
-
 }
-
-export const test = () => {
-    console.log("%c Document Converter Module Loaded!", "color: hsl(199, 76%, 59%);")
-};
-
-// /// DIRTY HACK!
-// if (true) {
-//     convertFile('//this is a test path')
-
-//     // const applicationPath = app.getAppPath();
-//     // const configDir = './src/config';
-//     // const file = 'MasterSample.docx';
-//     // convertFile(path.join(applicationPath, configDir, file))
-//     // console.log('CONVERT???')
-
-//     // setTimeout(()=>{
-//     //     convertFile(path.join(applicationPath, configDir, file))
-//     // }, 500)
-// }

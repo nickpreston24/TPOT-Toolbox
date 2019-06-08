@@ -4,6 +4,7 @@ import { action, computed, decorate, observable, toJS } from 'mobx';
 import { baseBlockStyleFn, baseStyleMap, blockRenderer, blockRenderMap, draftContentFromHtml, draftContentToHtml, stateFromElementConfig } from "../../apps/Editor/utils/transforms";
 import { create, persist } from 'mobx-persist'
 import { draft } from '../../apps/Editor'
+import { convertFile } from "../utilities/converter";
 
 // : Anything that  uses @persist will be automatically subscribed to offline localforage storage
 
@@ -51,6 +52,12 @@ export default class EditorStore {
                 
             }
         }
+    }
+
+    @action convertFileToDraftState = async (file) => {
+        let html = await convertFile(file)
+        console.warn(`${!!html ? 'Doc Sucessfully Converted' : 'Error in converting DocX'}`)
+        this.loadEditorFromDocx(html)
     }
 
     @action loadEditorFromDocx = html => {
