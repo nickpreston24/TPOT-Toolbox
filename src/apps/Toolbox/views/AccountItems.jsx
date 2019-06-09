@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import DriveIcon from '../media/drive.png';
 import FirebaseIcon from '../media/firebase_icon.png';
-import ModalLoad from '../presentation/ModalLoad';
-import ModalSettings from '../presentation/ModalSettings';
+import ModalLoad from './ModalLoad';
+import ModalSettings from '../ModalSettings';
 
 
 
