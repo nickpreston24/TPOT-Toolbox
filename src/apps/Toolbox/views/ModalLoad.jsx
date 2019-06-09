@@ -8,12 +8,6 @@ import React from "react";
 import GoogleDrive from "../media/drive.png";
 import HardDrive from "../media/hdd.png";
 import { convertFile } from "../utilities/converter";
-///File Import Strategies:
-// import { DiskFileLoader } from '../modules/docxLoaders/DiskFileLoader.ts'
-// import { GoogleFileLoader } from '../modules/docxLoaders/GoogleFileLoader.ts'
-// import { Clipboard } from '../modules/docxLoaders/Clipboard.ts'
-// import * as Loaders from '../modules/docxLoaders/Loaders.ts'
-// import { Loaders } from '../modules/docxLoaders/Loaders.ts'
 import DiskFileLoader from "../utilities/docxLoaders_js/DiskFileLoader";
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
@@ -163,7 +157,7 @@ class ModalLoad extends React.Component {
                 // container={this.props.container}
                 // disablePortal
                 // maxWidth={false}
-            >   
+            >
                 {/* <Grid container className={classes.demo} spacing={0} justify="space-evenly" alignItems="center"   > */}
                     {cards.map(card => {
                         return (
@@ -182,7 +176,7 @@ class ModalLoad extends React.Component {
     }
 }
 
-const BackdropComponent = () => 
+const BackdropComponent = () =>
     <div style={{height: 300, width: 300, background: 'red', zIndex: -1}}/>
 
 ModalLoad.propTypes = {
