@@ -7,7 +7,6 @@ import { Divider } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Slide from "@material-ui/core/Slide";
 import Grow from "@material-ui/core/Grow";
-// import Avatar from "@material-ui/icons/AccountCircleRounded";
 import Avatar from '@material-ui/core/Avatar'
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -16,7 +15,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import AccountIcon from "@material-ui/icons/AccountBoxOutlined";
 import InfoIcon from "@material-ui/icons/InfoOutlined";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
-import AvatarImage from '../media/avatar.png'
+// import Avatar from "@material-ui/icons/AccountCircleRounded";
+import AvatarImage from '../../../shared/media/avatar.jpg'
+
 
 const styles = theme => ({
     root: {
@@ -123,7 +124,7 @@ class Auth extends Component {
                         </Button>
                     </Grow>
                 )}
-           
+
             </div>
         );
     }
