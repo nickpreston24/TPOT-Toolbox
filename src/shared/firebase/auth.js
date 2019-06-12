@@ -25,7 +25,7 @@ export const requestPasswordReset = (email) =>
 
 // Delete User
 export const deleteUser = (email, password) =>
-    auth.createUserWithEmailAndPassword(email, password);
+    auth.createUserWithEmailAndPassword(email, password); //TODO: replace with firebase's implementation
 
 // Sign In
 export const signIn = action((email, password) => {

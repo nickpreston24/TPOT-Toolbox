@@ -1,22 +1,36 @@
+import app from 'firebase/app';
 import { firebaseConfig } from '../keys'
-import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/database';
 
-// Initialize Firebase Project
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig.default);
+class Firebase {
+    constructor() {
+        app.initializeApp(firebaseConfig);
+        this.auth = app.auth();
+        this.db = app.auth();
+    }
+
+    // *** Authentication API ***
+
+    createUser = (email, password) =>
+        this.auth.createUserWithEmailAndPassword(email, password);
+
+    signIn = (email, password) =>
+        this.auth.signInWithEmailAndPassword(email, password);
+
+    signOut = () => this.auth.signOut();
+
+    resetPassword = email => this.auth.sendPasswordResetEmail(email);
+
+    updatePassword = password =>
+        this.auth.currentUser.updatePassword(password);
+
+    // *** User API ***
+
+    user = uid => this.db.ref(`users/${uid}`);
+
+    users = () => this.db.ref('users');
 }
 
-// Fix for Firebase 5.0.4 Timestamp Deprecation
-// firebase.firestore().settings({ timestampsInSnapshots: true })
-
-const app = firebase
-const db = firebase.firestore();
-const auth = firebase.auth();
-
-export {
-    app,
-    auth,
-    db,
-};
+export default Firebase;

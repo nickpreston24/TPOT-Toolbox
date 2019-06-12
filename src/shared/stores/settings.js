@@ -1,6 +1,6 @@
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { observable, action, decorate, runInAction, computed } from 'mobx'
-import { db, auth, firebase } from '../firebase'
+// import { db, auth, firebase } from '../firebase'
 import { persist } from 'mobx-persist';
 
 export default class SettingsStore {
