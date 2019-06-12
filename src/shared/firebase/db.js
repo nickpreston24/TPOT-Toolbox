@@ -5,6 +5,7 @@ export const createProfile = (firstName, lastName, userCredential) => {
     return new Promise((resolve, reject) => {
         const email = userCredential.user.email
         const userID = userCredential.user.uid
+        // const { email, uid: userID } = userCredential.user;
         const { creationTime, lastSignInTime } = userCredential.user.metadata
         db.collection('users').doc(`${userID}`).set({
             firstName,
@@ -13,11 +14,9 @@ export const createProfile = (firstName, lastName, userCredential) => {
             userID,
             creationTime,
             lastSignInTime
-        }).then((docRef) => {
-            resolve(docRef)
-        }).catch((error) => {
-            reject(error)
         })
+        .then(docRef => resolve(docRef))
+        .catch(error => reject(error))
     })
 }
 
