@@ -2,15 +2,17 @@ import { EditorState } from "draft-js";
 import { action, decorate, observable } from 'mobx';
 import { convertFromRaw, convertToRaw } from 'draft-js';
 import { create, persist } from 'mobx-persist'
-import { db } from '../firebase';
+// import { db } from '../firebase';
 import { wp } from '../wordpress';
+import Firebase from '../firebase';
+const db = Firebase.db;
 
 // : Anything that  uses @persist will be automatically subscribed to offline localforage storage
 
 class PublishData {
-    @persist @observable  slug = ''
+    @persist @observable slug = ''
     @persist @observable title = ''
-    @persist @observable  excerpt = ''
+    @persist @observable excerpt = ''
 }
 
 export default class LettersStore {
@@ -28,7 +30,7 @@ export default class LettersStore {
     @persist @observable currentModal = ''
     @persist @observable editorContent = '<p>Why hello there!</p>'
     @observable editedState = EditorState.createEmpty() // TODO : Persist
-    @persist('object', PublishData) @observable publishData = new PublishData({title: '', slug: '', title: ''})
+    @persist('object', PublishData) @observable publishData = new PublishData({ title: '', slug: '', title: '' })
 
     @action setKey = (key, value) => {
         this[key] = value

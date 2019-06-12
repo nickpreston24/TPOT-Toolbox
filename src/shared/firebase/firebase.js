@@ -4,11 +4,17 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/database';
 
+//Import the WP API from db
+// import db from './db';
+
 class Firebase {
     constructor() {
         app.initializeApp(firebaseConfig);
         this.auth = app.auth();
+
+        // Import our db methods without exporting separately
         this.db = app.database();
+        this.app = app;
     }
 
     // *** Authentication API ***

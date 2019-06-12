@@ -1,12 +1,10 @@
 import { observable, action, decorate, runInAction } from 'mobx'
-import { db, auth, firebase } from '../firebase'
 import { persist } from 'mobx-persist';
+// import { db, auth, firebase } from '../firebase'
 
-// const electron = window.require('electron')
-// const remote = electron.remote
-// const app = remote.app
-// const fs = remote.require('fs')
-// const path = remote.require('path')
+import Firebase from '../firebase'
+const db = Firebase.db;
+const auth = Firebase.auth;
 
 export default class SessionStore {
 

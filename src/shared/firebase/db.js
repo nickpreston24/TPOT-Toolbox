@@ -1,4 +1,6 @@
-import { db } from './firebase';
+// import { db } from './firebase';
+import Firebase from './firebase';
+const db = Firebase.db;
 
 // Create Profile
 export const createProfile = (firstName, lastName, userCredential) => {
@@ -15,8 +17,8 @@ export const createProfile = (firstName, lastName, userCredential) => {
             creationTime,
             lastSignInTime
         })
-        .then(docRef => resolve(docRef))
-        .catch(error => reject(error))
+            .then(docRef => resolve(docRef))
+            .catch(error => reject(error))
     })
 }
 
@@ -27,7 +29,7 @@ export const getUser = (id) => {
         })
 }
 
-// Wordpress
+// Wordpress User API
 export const wordpressCredentials = new Promise((resolve, reject) => {
     db.collection('public').doc('wp-credentials').get()
         .then((documentSnapshot) => {
@@ -41,4 +43,7 @@ export const wordpressCredentials = new Promise((resolve, reject) => {
             reject(err)
         })
 })
+
+export default db;
+
 // Other Entity APIs ...
