@@ -8,7 +8,7 @@ class Firebase {
     constructor() {
         app.initializeApp(firebaseConfig);
         this.auth = app.auth();
-        this.db = app.auth();
+        this.db = app.database();
     }
 
     // *** Authentication API ***
