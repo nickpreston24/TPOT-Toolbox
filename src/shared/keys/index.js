@@ -1,4 +1,5 @@
-import * as firebaseConfig from './firebase'
+// import * as firebaseConfig from './firebase'
+import { firebaseConfig } from './firebase'
 import * as wordpressConfig from './wordpress'
 
 export {

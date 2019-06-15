@@ -9,6 +9,7 @@ import 'firebase/database';
 
 class Firebase {
     constructor() {
+        console.log('api key: ', firebaseConfig.apiKey);
         app.initializeApp(firebaseConfig);
         this.auth = app.auth();
 
