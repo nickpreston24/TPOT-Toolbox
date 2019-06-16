@@ -16,7 +16,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import AccountIcon from "@material-ui/icons/AccountBoxOutlined";
 import InfoIcon from "@material-ui/icons/InfoOutlined";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
-import AvatarImage from '../media/avatar.png'
+import AvatarImage from '../../../shared/media/avatar.jpg'
 
 const styles = theme => ({
     root: {
@@ -123,7 +123,7 @@ class Auth extends Component {
                         </Button>
                     </Grow>
                 )}
-           
+
             </div>
         );
     }
