@@ -16,7 +16,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import AccountIcon from "@material-ui/icons/AccountBoxOutlined";
 import InfoIcon from "@material-ui/icons/InfoOutlined";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
-import AvatarImage from '../../../shared/media/avatar.jpg'
+import AvatarImage from '../../../shared/media/avatar.jpg';
 
 const styles = theme => ({
     root: {
@@ -32,12 +32,13 @@ const styles = theme => ({
         // width: "auto",
         // marginRight: 12
     },
+    margin: {}
 })
 
 class Auth extends Component {
 
     componentDidMount() {
-        console.log('auth mount')
+        console.log('Auth props: ', this.props.classes)
         this.props.editorStore.focus()
     }
 
@@ -46,7 +47,7 @@ class Auth extends Component {
     };
 
     setRef = element => {
-        console.log(element)
+        // console.log(element)
         this.setState({ anchorEl: element })
     }
 
@@ -72,7 +73,7 @@ class Auth extends Component {
                                 varient="contained"
                             >
                                 {authUser.email}
-                                <Avatar src={AvatarImage} style={{paddingLeft: 10, maxHeight: 24, maxWidth: 24}}/>
+                                <Avatar src={AvatarImage} style={{ paddingLeft: 10, maxHeight: 24, maxWidth: 24 }} />
                             </Button>
                         </Slide>
                         <Menu
@@ -113,7 +114,7 @@ class Auth extends Component {
                 )}
                 {!authUser && (
                     <Grow in={true} timeout={{ enter: 400 }}>
-                        <Button color="inherit" variant="outlined" onClick={function() {
+                        <Button color="inherit" variant="outlined" onClick={function () {
                             // this.props.editorStore.editor.focus()
                             // console.info(this.props.editorStore.editor)
                             // console.log('clicked')

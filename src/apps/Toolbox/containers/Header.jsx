@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { RoutedBreadCrumbs } from './Breadcrumbs';
 import { toJS } from 'mobx';
+import AuthButton from '../views/AuthButton';
 
 
 // const electron = require('electron');
@@ -246,7 +247,7 @@ class Header extends Component {
 
     render() {
         const { classes, store } = this.props;
-        const { sessionStore } = store
+        const { sessionStore, lettersStore, editorStore } = store
         // console.log(sessionStore)
         return (
             <div id="Header" className={classes.root}>
@@ -255,9 +256,11 @@ class Header extends Component {
                         {/* <RoutedBreadCrumbs /> */}
                     </Grid>
                     <Grid item container direction="row" justify="flex-end" alignItems="center" style={{ flexWrap: 'nowrap', flexGrow: 2 }} >
+                        {/* <AuthButton>Sign In</AuthButton> */}
                         {/* <Button onClick={this.signInTest}>Publish</Button> */}
                         {/* <Button onClick={this.loadTest}>Load</Button> */}
                         {/* <HeaderButton {...{ classes, icon: faUser, sessionStore, label: 'Sign In' }} /> */}
+                        <AuthButton {...{ icon: faUser, editorStore, lettersStore, sessionStore, label: 'Sign In' }} />
                         {/* <HeaderButton {...{ classes, icon: faBell, label: "Notifications" }} /> */}
                         {/* <HeaderButton {...{ classes, icon: faFlag, sessionStore, label: 'Help' }} /> */}
                         {/* <HeaderButton {...{ classes, icon: faCaretSquareDown, sessionStore }} /> */}
