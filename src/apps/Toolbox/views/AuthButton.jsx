@@ -57,6 +57,8 @@ class Auth extends Component {
         const { currentModal, setCurrentModal } = this.props.lettersStore
         const { signOut, authUser } = this.props.sessionStore
 
+        console.log('auth user loaded? ', !!authUser);
+
         return (
             <div
                 className={classes.root}
