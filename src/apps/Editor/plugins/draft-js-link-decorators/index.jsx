@@ -72,16 +72,16 @@ const createLinkDecoratorsPlugin = () => {
         },
         onChange: (editorState, props) => {
             let newEditorState = callbacks.onChange ? callbacks.onChange(editorState) : editorState
-            console.log('TS: ', props.getProps().baseStyleMap)
+            // console.log('TS: ', props.getProps().baseStyleMap)
             store.setItem('currentEditorState', newEditorState)
-            
+
             // const editor = store.getProps().editorRef
             // console.log('GET', editor )
             // if (editor) {
             //     // editor.focus()
             // }
 
-            
+
             return newEditorState;
         },
         handleBeforeInput: (chars, editorState) => {

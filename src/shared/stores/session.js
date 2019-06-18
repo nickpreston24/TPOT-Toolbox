@@ -13,11 +13,15 @@ export default class SessionStore {
     constructor(rootStore) {
         this.rootStore = rootStore
         this.notify = rootStore.lettersStore.notify
+        // this.auth = auth;
+
+        console.log('SessionStore() => auth loaded? ', !!auth && auth);
+        console.log('SessionStore() => auth user loaded? ', !!auth.authUser && auth.authUser);
 
         // : Set Listeners
-        // firebase.auth.onAuthStateChanged((authUser) => {
-        //     console.log('authStateChanged', authUser)
-        // })
+        firebase.auth.onAuthStateChanged((authUser) => {
+            console.log('onAuthStateChanged() => authUser:', authUser)
+        })
 
         // : Load Initial Configuration from File
         // : TODO
@@ -27,7 +31,6 @@ export default class SessionStore {
         //         console.log(JSON.parse(data))
         //     }
         // });
-
     }
 
     @persist @observable clean = true

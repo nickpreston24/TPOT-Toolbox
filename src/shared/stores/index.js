@@ -4,7 +4,7 @@ import { create, persist } from 'mobx-persist'
 import { toJS, action } from 'mobx';
 import { app } from '../firebase/firebase';
 
-// RESPONSIBILITIES: 
+// RESPONSIBILITIES:
 // Create, Update, Tweak and Destroy MobX store instances for each app
 // Provide some methods that any app can use by calling their own, this.root
 
@@ -47,7 +47,7 @@ export default class MobxStore {
     // checkExistingStores
 
     @action createNewStores = (appNames) => {
-        console.log(`MOBX: Root Store Initialized`)
+        // console.log(`MOBX: Root Store Initialized`)
         appNames.forEach((appName) => {
             const resolvedStore = require(`./${appName}`)
             const storeConstructor = resolvedStore.default
@@ -58,7 +58,7 @@ export default class MobxStore {
             // Have the Store Instance suscribe to persistant localforage
             this.hydrate(`${appName}Store`, this[`${appName}Store`], { clean: false })
             // if ( ['letters', 'editor'].includes(appName) ) {
-       
+
             //     // Create and Instance of the Store to be used in the App
             //     this[`${appName}Store`] = new storeConstructor(this.root)
             //     console.log(appName, this[`${appName}Store`])
@@ -70,13 +70,13 @@ export default class MobxStore {
             //     this[`${appName}Store`] = new storeConstructor(this.root)
             // }
 
-            console.log(`MOBX: Loaded new ${appName}Store Instance`)
+            // console.log(`MOBX: Loaded new ${appName}Store Instance`)
         })
     }
 
     @action reloadStoresFromDisk = (appNames) => {
         appNames.forEach((appName) => {
-            console.log(`MOBX: Reloaded ${appName}Store from Disk`)
+            // console.log(`MOBX: Reloaded ${appName}Store from Disk`)
             // this.stores.getItem('letters').then(store => {
             //     console.log(store)
             // })
