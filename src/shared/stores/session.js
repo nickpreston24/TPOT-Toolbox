@@ -52,7 +52,7 @@ export default class SessionStore {
         this[key] = value
     }
 
-    @action async signIn(notify, setCurrentModal) {
+    @action.bound async signIn(notify, setCurrentModal) {
         console.log('sign in')
         try {
             const { email, password } = this.loginData
@@ -63,7 +63,9 @@ export default class SessionStore {
                 // setCurrentModal(null)
             })
         } catch (error) {
-            this.notify(error.message, { variant: 'error', autoHideDuration: 3000 })
+            console.error(error)
+            console.error('error', this)
+            // this.rootStore.notify(error.message, { variant: 'error', autoHideDuration: 3000 })
         }
     }
 
