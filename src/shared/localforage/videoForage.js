@@ -20,7 +20,7 @@ export default class VideoForage {
         this.$.setItem('video', key)
             .then(function (value) {
                 that.$.getItem('video');
-                console.log(`Set Video [${key}] as '${value}'`)
+                // console.log(`Set Video [${key}] as '${value}'`)
                 // we got our value
             }).catch(function (err) {
                 console.log(err)

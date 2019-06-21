@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
 import TextField from "@material-ui/core/TextField";
-import FireBaseLogo from "../media/firebase.png";
+import FireBaseLogo from "../../../shared/media/firebase.png";
 import { Typography, Grid } from "@material-ui/core";
 
 function Transition(props) {
@@ -56,8 +56,8 @@ class SignIn extends Component {
 
     render() {
         const { classes } = this.props;
-        const { currentModal, setCurrentModal, notify } = this.props.lettersStore
-        const { signIn, register, requestReset, setLoginData, loginData, loginMode, setKey } = this.props.sessionStore
+        const { currentModal, setCurrentModal, notify } = this.props.store.lettersStore
+        const { signIn, register, requestReset, setLoginData, loginData, loginMode, setKey } = this.props.store.sessionStore
 
         return (
             <Dialog
@@ -217,12 +217,11 @@ class SignIn extends Component {
 
 SignIn.propTypes = {
     classes: PropTypes.object.isRequired,
-    sessionStore: PropTypes.object.isRequired,
-    lettersStore: PropTypes.object.isRequired,
+    store: PropTypes.object.isRequired,
 };
 
 export default compose(
-    inject("lettersStore", "sessionStore"),
+    inject('store'),
     withStyles(styles),
     observer
 )(SignIn);

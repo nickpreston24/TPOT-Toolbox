@@ -29,7 +29,7 @@ export const getUser = (id) => {
 }
 
 // Wordpress
-export const wordpressCredentials = new Promise((resolve, reject) => {
+export const getWordpressCredentials = new Promise((resolve, reject) => {
     db.collection('public').doc('wp-credentials').get()
         .then((documentSnapshot) => {
             if (!!documentSnapshot) {

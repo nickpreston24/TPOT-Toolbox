@@ -7,7 +7,7 @@ import { configure, toJS } from 'mobx'
 import { Provider, inject } from 'mobx-react';
 import ToolbarStore from './utils/toolbar'
 
-configure({ enforceActions: "observed" })
+configure({ enforceActions: "never" })
 
 const createMuiToolbarPlugin = () => {
 

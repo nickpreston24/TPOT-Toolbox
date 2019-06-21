@@ -248,7 +248,10 @@ class Header extends Component {
     render() {
         const { classes, store } = this.props;
         const { sessionStore, lettersStore, editorStore } = store
-        // console.log(sessionStore)
+
+        console.log('AuthButton => auth user loaded? ', !!sessionStore.authUser && sessionStore.authUser);
+        console.log('AuthButton => session store loaded? ', !!sessionStore && sessionStore);
+
         return (
             <div id="Header" className={classes.root}>
                 <Grid container direction="row" justify="flex-start" alignItems="center" style={{ flexWrap: 'nowrap' }} >

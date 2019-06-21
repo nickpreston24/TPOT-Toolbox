@@ -52,17 +52,23 @@ class Auth extends Component {
     }
 
     render() {
+
         const { classes } = this.props;
         const { anchorEl } = this.state
         const { currentModal, setCurrentModal } = this.props.lettersStore
-        const { signOut, authUser } = this.props.sessionStore
+        const { signOut, authUser, auth, signIn } = this.props.sessionStore
+
+        console.log('auth? ', !!auth && auth)
+        console.log('sessionStore? ', !!this.props.sessionStore && this.props.sessionStore);
+        console.log('AuthButton => auth user loaded? ', !!authUser && authUser);
+        console.log('signOut => signout exists? ', !!signOut);
 
         return (
             <div
                 className={classes.root}
                 ref={this.setRef}
             >
-                {authUser && (
+                {authUser ? (
                     <div>
                         <Slide direction="left" in={true} timeout={{ enter: 700 }}>
                             <Button
@@ -103,7 +109,8 @@ class Auth extends Component {
                                 <ListItemText classes={{ primary: classes.primary }} inset primary="Details" />
                             </MenuItem>
                             <Divider />
-                            <MenuItem className={classes.menuItem} onClick={() => signOut(setCurrentModal)}  >
+                            <MenuItem className={classes.menuItem} onClick={_ => signOut(setCurrentModal)
+                            }  >
                                 <ListItemIcon className={classes.icon}>
                                     <LogoutIcon />
                                 </ListItemIcon>
@@ -111,19 +118,14 @@ class Auth extends Component {
                             </MenuItem>
                         </Menu>
                     </div>
-                )}
-                {!authUser && (
-                    <Grow in={true} timeout={{ enter: 400 }}>
-                        <Button color="inherit" variant="outlined" onClick={function () {
-                            // this.props.editorStore.editor.focus()
-                            // console.info(this.props.editorStore.editor)
-                            // console.log('clicked')
-                            setCurrentModal('Firebase Modal')
-                        }}>
-                            Log In
+                )
+                    : (
+                        <Grow in={true} timeout={{ enter: 400 }}>
+                            <Button color="inherit" variant="outlined" onClick={ () => setCurrentModal('Firebase Modal') }>
+                                Log In
                         </Button>
-                    </Grow>
-                )}
+                        </Grow>
+                    )}
 
             </div>
         );

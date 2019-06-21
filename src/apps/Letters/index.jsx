@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react';
 import PublishScreenContainer from './containers/PublishScreenContainer';
 import Editor from '../Editor/Editor';
 import ModalLoad from './containers/ModalLoad';
+import ModalFirebase from '../Toolbox/views/ModalFirebase';
 import { BrowserRouter, Link, Route, Redirect, Switch, withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
@@ -40,8 +41,10 @@ class Letters extends Component {
         return (
             <div className="Letters" style={{ flexGrow: 1 }} ref={this.setContainer}>
                 <Editor />
+                {/* Temporary place for modals until Toolbox manages them in CurrentApp */}
                 <PublishScreenContainer {...{  container }} />
                 <ModalLoad />
+                <ModalFirebase />
                 {/* <Route path={`/letters/:command`} render={
                     ({ location, match, history }) => {
                         return (
