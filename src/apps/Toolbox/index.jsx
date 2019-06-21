@@ -1,7 +1,7 @@
 import './App.css';
 import React, { Component } from 'react';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from "@material-ui/styles";
+import { ThemeProvider, withStyles } from "@material-ui/styles";
 import { SnackbarProvider, withSnackbar } from 'notistack';
 import { inject, observer } from 'mobx-react'
 import { Provider } from 'mobx-react';
@@ -42,6 +42,17 @@ const theme = createMuiTheme({
     },
 });
 
+const styles = {
+    root: {
+        fontWeight: 500,
+        boxShadow: '0 2px 2px rgba(0, 0, 0, 0.25)',
+    },
+    success: { backgroundColor: '#72d67a', color: '#209225' },
+    error: { backgroundColor: '#f3815f', color: '#ad250b' },
+    warning: { backgroundColor: '#ffd475', color: '#b9800f' },
+    info: { backgroundColor: '#6dddff', color: '#1892d0' },
+};
+
 const snackbarOptions = {
     maxSnack: 3,
     disableWindowBlurListener: true,
@@ -51,7 +62,8 @@ const snackbarOptions = {
     },
 }
 
-export default () =>
+export default withStyles(styles)(
+    (props) =>
     <Provider forage={forage} store={store} >
         <ThemeProvider {...{ theme }}>
             <SnackbarProvider {...snackbarOptions}>
@@ -59,6 +71,7 @@ export default () =>
             </SnackbarProvider>
         </ThemeProvider>
     </Provider >
+    )
 
 @withSnackbar
 @inject('forage', 'store')

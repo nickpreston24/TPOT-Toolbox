@@ -121,17 +121,7 @@ class Auth extends Component {
                 )
                     : (
                         <Grow in={true} timeout={{ enter: 400 }}>
-                            <Button color="inherit" variant="outlined" onClick={function () {
-                                // this.props.editorStore.editor.focus()
-                                // console.info(this.props.editorStore.editor)
-                                // console.log('clicked')
-
-                                signIn('michael.n.preston@gmail.com', 'Mintsharp19')
-                                    .then(response => console.log('sign-in response: ', response))
-                                    .catch(console.error);
-
-                                setCurrentModal('Firebase Modal')
-                            }}>
+                            <Button color="inherit" variant="outlined" onClick={ () => setCurrentModal('Firebase Modal') }>
                                 Log In
                         </Button>
                         </Grow>

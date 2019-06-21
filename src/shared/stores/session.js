@@ -10,9 +10,12 @@ import { persist } from 'mobx-persist';
 
 export default class SessionStore {
 
+    @observable enqueueSnackbar = null
+    @observable closeSnackbar = null
+
     constructor(rootStore) {
         this.rootStore = rootStore
-        this.notify = rootStore.lettersStore.notify
+        this.notify = rootStore.servicesStore.notify
         // this.auth = auth;
 
         console.log('SessionStore() => auth loaded? ', !!auth && auth);
@@ -52,7 +55,7 @@ export default class SessionStore {
         this[key] = value
     }
 
-    @action.bound async signIn(notify, setCurrentModal) {
+    @action.bound async signIn() {
         console.log('sign in')
         try {
             const { email, password } = this.loginData
@@ -65,40 +68,40 @@ export default class SessionStore {
         } catch (error) {
             console.error(error)
             console.error('error', this)
-            // this.rootStore.notify(error.message, { variant: 'error', autoHideDuration: 3000 })
+            this.notify(error.message, { variant: 'error', autoHideDuration: 3000 })
         }
     }
 
-    @action.bound async requestReset(notify) {
+    @action.bound async requestReset() {
         try {
             await auth.requestPasswordReset(this.loginData.email)
                 .then(() => {
                     this.setKey('loginMode', 'login')
-                    notify(`Password Reset Request Sent to ${this.loginData.email}`, { variant: 'success', autoHideDuration: 3000 })
+                    this.notify(`Password Reset Request Sent to ${this.loginData.email}`, { variant: 'success', autoHideDuration: 3000 })
                 })
         } catch (error) {
-            notify(error.message, { variant: 'error', autoHideDuration: 3000 })
+            this.notify(error.message, { variant: 'error', autoHideDuration: 3000 })
         }
     }
 
-    @action.bound async register(notify, setCurrentModal) {
+    @action.bound async register() {
         try {
             const { firstName, lastName, email, password } = this.loginData
             if (!lastName) {
-                notify('Please enter a Last Name', { variant: 'error', autoHideDuration: 3000 })
+                this.notify('Please enter a Last Name', { variant: 'error', autoHideDuration: 3000 })
             }
             if (!firstName) {
-                notify('Please enter a First Name', { variant: 'error', autoHideDuration: 3000 })
+                this.notify('Please enter a First Name', { variant: 'error', autoHideDuration: 3000 })
             }
             if (firstName && lastName) {
                 const userCredential = await auth.createUser(email, password)
                 const docRef = db.createProfile(firstName, lastName, userCredential)
                 if (docRef) {
-                    notify('Account Created! Waiting Admin Approval...', { variant: 'success', autoHideDuration: 5000 })
+                    this.notify('Account Created! Try to Sign In now...', { variant: 'success', autoHideDuration: 5000 })
                 }
             }
         } catch (error) {
-            notify(error.message, { variant: 'error', autoHideDuration: 3000 })
+            this.notify(error.message, { variant: 'error', autoHideDuration: 3000 })
         }
     }
 
@@ -114,4 +117,13 @@ export default class SessionStore {
 
     @action setLoginData = (key, value) =>
         this.loginData[key] = value
+
+    @action setNotifyFunctions = (functions) => {
+        const { enqueueSnackbar, closeSnackbar } = functions
+        this.enqueueSnackbar = enqueueSnackbar
+        this.closeSnackbar = closeSnackbar
+        console.log('Notification enabled.', this.enqueueSnackbar, this.closeSnackbar)
+    }
+
+
 }

@@ -9,14 +9,18 @@ import { isPrimitive } from "util";
 // : Anything that  uses @persist will be automatically subscribed to offline localforage storage
 
 class PublishData {
-    @persist @observable slug = ''
-    @persist @observable title = ''
-    @persist @observable excerpt = ''
+    // @persist @observable slug = ''
+    // @persist @observable title = ''
+    // @persist @observable excerpt = ''
+    @observable slug = ''
+    @observable title = ''
+    @observable excerpt = ''
 }
 
 export default class LettersStore {
     constructor(rootStore) {
         this.rootStore = rootStore
+        this.notify = rootStore.servicesStore.notify
     }
 
     @persist @observable clean = true
@@ -35,7 +39,8 @@ export default class LettersStore {
     @persist @observable currentModal = ''
     @persist @observable editorContent = '<p>Why hello there!</p>'
     @observable editedState = EditorState.createEmpty() // TODO : Persist
-    @persist('object', PublishData) @observable publishData = new PublishData({ title: '', slug: '', title: '' })
+    // @persist('object', PublishData) @observable publishData = new PublishData({ title: '', slug: '', title: '' })
+    @observable publishData = new PublishData({ title: '', slug: '', title: '' })
 
     @action setKey = (key, value) => {
         this[key] = value
@@ -59,18 +64,18 @@ export default class LettersStore {
         this.publishData[key] = value
     }
 
-    @action notify = (message, config) => {
-        try {
-            const data = { message, config: { ...config } }
-            console.log(data)
-            console.log(toJS(data))
-            console.log(JSON.stringify(data))
-            this.notification = JSON.stringify(data)
-        } catch (error) {
-            console.log(error)
-        }
-        // console.log(`%c${message}`, `color: dodgerblue; font-size: 14px; border: 1px solid dodgerblue; background: #092b4c;`)
-    }
+    // @action notify = (message, config) => {
+    //     try {
+    //         const data = { message, config: { ...config } }
+    //         console.log(data)
+    //         console.log(toJS(data))
+    //         console.log(JSON.stringify(data))
+    //         this.notification = JSON.stringify(data)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    //     // console.log(`%c${message}`, `color: dodgerblue; font-size: 14px; border: 1px solid dodgerblue; background: #092b4c;`)
+    // }
 
     @action setCurrentModal = (string) => {
         this.currentModal = string
@@ -118,15 +123,15 @@ export default class LettersStore {
                     if (username && password) {
                         console.log(username,password)
                         const { slug, title, excerpt } = this.publishData
-                        console.log(  slug, title, excerpt )
-                        if (!slug || slug === '' || slug === ' ') {
+                        console.log({"slug": slug, "title": title, "excerpt": excerpt})
+                        if (slug === '') {
                             console.log('bad slug')
                             this.notify('Could not Publish! Please enter a slug', { variant: 'error', autoHideDuration: 3000 })
                         }
-                        if (!title || title === '' || title === ' ') {
+                        if (title === '') {
                             this.notify('Could not Publish! Please enter a title', { variant: 'error', autoHideDuration: 3000 })
                         }
-                        if (slug && slug !== '' && slug !== '' && title && title !== '' && title !== ' ') {
+                        if (slug !== '' && title !== '') {
                             wp.createPage(this.wordpressCredentials, {
                                 content: html,
                                 slug,
