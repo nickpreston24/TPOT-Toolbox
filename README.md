@@ -1,10 +1,10 @@
 <div id="welcome" align="center">
 
   <h1>
-    Harvest Haven Learning App
+    TPOT Toolbox App
   </h1>
 
-  __An app for Harvest Haven's Learning Library with offline & mobile support__
+  __A web app for ThePathOfTruth.com with offline & mobile support__
 
   <a href="https://www.harvesthaven.com">
     <img src="./public/images/icons/icon-384x384.png" alt="Extension Boilerplate">
@@ -16,36 +16,31 @@
 
 > Click on the description that best describes you!
 
-### [Customer](#customer)
+### [Toolbox User](#Toolbox User)
 
 ### [Owner]()
 
 ### [Coder](#developer)
 
-# Customer
+# Toolbox User
 
-Hello there valued customer! If you are not very tech savy or you have never used this app before, we are here to help out as best as we possibly can. The Harvest Haven App has been developed with everyone we serve in mind and we want to help everyone to enjoy the same experience as much as possible.
+Hello there! If you are not very tech savy or you have never used this app before, we are here to help out as best as we possibly can. The TPOT Toolbox App has been developed with everyone we serve in mind and we want to help everyone to enjoy the same experience as much as possible.
 
 - [__What Is This App?__](#whats-new?)
 - [__Features__](#features)
 - [__Is My Device Compatible?__](#is-my-device-compatible)
-- [__How to Install__](#features)
-- [__Using the App__](#how-to-install)
+- [__How to Install__](#how-to-install)
+- [__Using the App__](#usage)
 
 ## What is this App?
 
-The Harvest Haven App is a special website that can anyone can take with them whether you are on your computer, your tablet or phone. We chose not to go through the hurtles of mobile app development through Google and Apple and have put together something called a 'PWA', that allows us to share the same Harvest Haven experience with both desktop and mobile device users. It also makes it easier for us to keep the app updated and distributed for all. We hope you like it! 
-
-
+The TPOT Toolbox App is a special website that can anyone can take with them whether you are on your computer, your tablet or phone. We chose not to go through the hurtles of mobile app development through Google and Apple and have put together something called a 'PWA', that allows us to share the same experience with both desktop and mobile device users. It also makes it easier for us to keep the app updated and distributed for all. We hope you like it!
 
 ## Features
 
-- Take Harvest Haven's full Store Experience with you.
-- Watch videos about Grander, food production and health devices on the go.
-- Save and download your favorite videos for when you don't have access to the internet.
-- Have the ability to share what you have learned with your friends and neighbors in person.
+- Take TPOT Letters with you.
 
-##### [[back to Customer]](#customer)
+##### [[back to Toolbox User]](#Toolbox User)
 
 ---
 
@@ -66,7 +61,7 @@ The Harvest Haven App is a special website that can anyone can take with them wh
         Chrome 73+
         Firefox 66+
 
-##### [[back to Customer]](#customer)
+##### [[back to Toolbox User]](#Toolbox User)
 
 ---
 
@@ -85,7 +80,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper erat 
 
 Phasellus nec purus porttitor, porttitor nunc non, mollis dui. Donec eleifend risus sed diam imperdiet rhoncus. Praesent pulvinar, dolor a ultrices venenatis, augue diam ornare mi, vitae laoreet elit nisi eu dui. Morbi ut nisi tristique, rhoncus est ut, hendrerit massa. Sed quis purus vestibulum, interdum enim quis, facilisis diam. Sed consequat, ex vel tempor sagittis, turpis eros consectetur justo, et rutrum nunc augue eu massa.
 
-##### [[back to Customer]](#customer)
+##### [[back to Toolbox User]](#Toolbox User)
 
 ## Device Install Guides
 
@@ -98,14 +93,14 @@ Phasellus nec purus porttitor, porttitor nunc non, mollis dui. Donec eleifend ri
       - [__Chrome__](#how-to-install)
       - [__Firefox__](#how-to-install)
 
-##### [[back to Customer]](#customer)
+##### [[back to Toolbox User]](#Toolbox User)
 
 ---
 
 
 # Developer
 
-> __This is the ___[`developer`]()___ section and is NOT for the faint of heart or for our valued customers. If you are one of these, click here to [go back to safety!](#customer)__
+> __This is the ___[`developer`]()___ section and is NOT for the faint of heart or for our valued Toolbox Users. If you are one of these, click here to [go back to safety!](#Toolbox User)__
 
 <div align="center">
 
@@ -127,7 +122,7 @@ Phasellus nec purus porttitor, porttitor nunc non, mollis dui. Donec eleifend ri
 
 ## Basic Information
 
-> __Note for all developers:__ If you are having trouble of any kind, tag [Braden](https://github.com/Braden-Preston) or [Michael](https://github.com/MikePreston17) or submit an issue to the [repo](https://github.com/HarvestHaven/Harvest-Haven-Store/issues).
+> __Note for all developers:__ If you are having trouble of any kind, tag [Braden](https://github.com/Braden-Preston) or [Michael](https://github.com/MikePreston17) or submit an issue to the [repo](https://github.com/HarvestHaven/Harvest-Haven-Store/issues).  This requires a GitHub account.
 
 This application is a PWA (Progressive Website Application) that is developed in JavaScript using the Node Framework. It employs a serverless stack that is most closely aligned with the MERN stack.
 
@@ -141,9 +136,8 @@ The PWA also employs an experimental service worker using Google's [Workbox](htt
 
 ## Development Tools
 
-TBA
-
 We are using VSCode! :)
+Netlify
 
 ##### [[back to Developer Navigation]](#navigation)
 
@@ -151,17 +145,27 @@ We are using VSCode! :)
 
 ## Quick Start
 
-Once you have cloned the repository from the [repo](https://github.com/HarvestHaven/Harvest-Haven-Store/issues), open the root directory in VSCode. You should have access to the `public` and `src` folders. Make sure you are cd'd properly into this directory before you try to run any commands.
+First, clone the repository by copying this link: 
 
-We are using [yarn](https://yarnpkg.com/en/) as our package manger, but you may use `npm` or `npx` as desired, just make sure you prepend your command with 'run'.
+    https://github.com/HarvestHaven/TPOT-Toolbox.git
+
+Then, open up [Git Bash](https://git-scm.com/downloads) in preferred folder (I like Desktop), or, alternatively, [Visual Studio Code](https://code.visualstudio.com/download) and type: 
+
+    git clone https://github.com/HarvestHaven/TPOT-Toolbox.git
+
+Then hit enter and the repo will be cloned.
+
+**TIP** When using VSCode, type CMD/CTRL + ` to access the terminal.  The default terminal will be node, but you can change it to be git bash by default.
+
+Once you have cloned the repository from the [repo](https://github.com/HarvestHaven/TPOT-Toolbox), open the root directory in VSCode.  You can do this from Git Bash by typing `code .`.  You should have access to the `public` and `src` folders. Make sure you are in the correct directory in your terminal.  To get there, you may use `cd public` or `cd src`.
+
+We are using [yarn](https://yarnpkg.com/en/) as our package manger, but you may use `npm` or `npx` as desired, just make sure you prepend your command with 'run' when using npm and not yarn.  Note that yarn will create a `yarn.lock` file while npm will create a `package-lock.json` file.  Transitioning from npm to yarn requires `package-lock.json` to be deleted.  See [Migrating from NPM](https://yarnpkg.com/lang/en/docs/migrating-from-npm/).
 
 | Package Manager | Command |
 | --- | --- |
 | **`yarn`** | `yarn` test |
 | **`npm`** | `npm` run test |
 | **`npx`** | `npx` run test |
-
-See [Migrating from NPM](https://yarnpkg.com/lang/en/docs/migrating-from-npm/).
 
 ---
 
@@ -195,7 +199,7 @@ Triggers a build on [Netlify](https://www.netlify.com/) and / or [Heroku](https:
 
     yarn deploy
 
-> View app in browser at [hhstore.netlify.com](http://www.hhstore.netlify.com/) or [hhstore.herokuapp.com](http://www.hhstore.herokuapp.com/)
+> View app in browser at [tpot-toolbox.netlify.com](http://www.tpot-toolbox.netlify.com/) or [tpot-toolbox.herokuapp.com](http://www.tpot-toolbox.herokuapp.com/)
 
 ## Test
 
@@ -223,14 +227,7 @@ The following features are required to create the minimum viable product as requ
 
 - [x] The app needs to be installable on Desktop and have the ability to be ran as an executable. The operating system will be either Windows or OSX. The app should be able to run on startup and at certain times via a scheduler.
 - [x] The app should be simple enough that one of the Harvest Haven kids are able to relaunch it if they are passing by and have noticed it isn't working properly.
-- [ ] The app needs to be have an active service worker for offline / online support, or it should be completely offline with only local storage.
-- [ ] The app will need to store video content locally to be retrieved as instantaneously as possible. There should be minimimal load time for each resource.
-- [x] This will require the use of either local storage (Electron) or persistant browser storage (LocalForage)
-- [ ] Harvest Haven will have access to some features that others may not through authentication in [Firebase](), such as:
-  - [ ] Editing the manifest to update Library contents, playlists, & video descriptions. This may be accomplished in a separate tool via [Toolbox]()
-  - [ ] Adjusting store-only preferences, such as color theme, font-size, display mode, and kiosk-only UI features.
-  - [ ] Administrative tools for downloading the entire video library for offline use.
-> The app should first and foremost be **made to serve the owners of Harvest Haven**. Every priority will be given to them first and their request of necessary features overrides the desires of the customer to ensure that Harvest Haven has the most stable and robust version of the app.
+- [x] This will require the use of either local storage (Electron) or persisted browser storage (LocalForage)
 
 ###
 
@@ -249,7 +246,7 @@ The following features are required to create the minimum viable product as requ
 | [`@material-ui/icons`](https://www.npmjs.com/package/@material-ui/icons) | ^3.0.2 | Large package containing Material Design Icons |
 | [`@material-ui/styles`](https://www.npmjs.com/package/@material-ui/styles) | ^3.0.0-alpha.10 | Material-UI's custom implementation of JSS among other feature support such as `styled-components` |
 | [`@material-ui/system`](https://www.npmjs.com/package/@material-ui/system) | ^3.0.0-alpha.2 | Experimental but extremely useful component composition helper library. |
-| [`localforage`](https://www.npmjs.com/package/localforage) | ^1.7.3 | IndexedDB storage simplified, with fallback for other persistant browser storage types |
+| [`localforage`](https://www.npmjs.com/package/localforage) | ^1.7.3 | IndexedDB storage simplified, with fallback for other persistent browser storage types |
 | [`mobx`](https://www.npmjs.com/package/mobx) | ^5.9.0 | Property access management library for implementing reactive components & observable states |
 | [`mobx-react`](https://www.npmjs.com/package/`mobx-react) | ^5.4.3 | React style bindings for MobX, such as `@inject` and `@observer` |
 | [`react`](https://www.npmjs.com/package/react) | ^16.8.6 | Efficient Virtual DOM managment library for class based UI components |
@@ -288,8 +285,7 @@ The following features are required to create the minimum viable product as requ
 
   - [__General__](#general)
   - [__Service Worker__](#service-worker) 
-  - __App Shell__
-  - [__Video Player__](#video-player)
+  - __App Shell__  
   - __App State__
   - __User Data__
 
@@ -300,7 +296,7 @@ The following features are required to create the minimum viable product as requ
 
 ### Startup
 
-1) Browser loads hosted site ([hhstore.netlify.com](http://www.hhstore.netlify.com/) or [hhstore.herokuapp.com](http://www.hhstore.herokuapp.com/))
+1) Browser loads hosted site ([tpot-toolbox.netlify.com](http://www.tpot-toolbox.netlify.com/) or [tpot-toolbox.herokuapp.com](http://www.tpot-toolbox.herokuapp.com/))
 1) `index.html` is loaded with `manifest.json`
 1) `manifest.json` loads the main bundle of the `src` directory
 1) `index.js` is loaded and simple loads the full web app into the DOM
@@ -320,7 +316,7 @@ The following features are required to create the minimum viable product as requ
 
 >  Occurs when the app is online and not installed or it is installed, but is updating with the latest version of the web app.
 
-1) Browser loads hosted site ([hhstore.netlify.com](http://www.hhstore.netlify.com/) or [hhstore.herokuapp.com](http://www.hhstore.herokuapp.com/))
+1) Browser loads hosted site ([tpot-toolbox.netlify.com](http://www.tpot-toolbox.netlify.com/) or [tpot-toolbox.herokuapp.com](http://www.tpot-toolbox.herokuapp.com/))
 1) `public/index.html` is loaded with src for manifest
 1) `public/manifest.json` loads icons, app name, and scripts
 1) `index.js` is loaded and the react tree is mounted and `serviceWorker.js` is called to register
@@ -328,7 +324,6 @@ The following features are required to create the minimum viable product as requ
 1) `sw.js` grabs all the bundles from the precache_manifest, as generated by webpack and caches them to the browsers storage
 1) `sw.js` is now the registered service worker and enables the main bundle and routing/fetch requests to be handled offline
 1) the app is now officially available offline, but is not installed
-1) While still online, fetch the video content manifest from firebase and load them into mobx-persist
 1) If the user is still authenticated, pull down their preferences from firebase and load them into mobx-persist
 1) prompt user to install app
 1) If the app is already installed, notify user that the app is ready to used offline
@@ -342,7 +337,6 @@ The following features are required to create the minimum viable product as requ
 1) When routes are loading a page, give a few ms of loading for visual consistency, even when the page content is already available. Use react-loadable
 1) When fetching a resource for the first time, display the components skeleton
 1) When the componets recieves its first valid props, display the component.
-1) If the component is a video and its stream breaks down, set `offline={true}`
 1) If the component has recovered from offline failure, set `loading` and `offline` props to `false`
 1) Online and offline callbacks should be subscribed to by MobX with @autorun to allow components to quickly react to online / offline state changes.
 
@@ -352,7 +346,7 @@ The following features are required to create the minimum viable product as requ
 
 ## Service Worker
 
-> A Service worker is a [`persistant`]() task runner that always runs in the background of your browser even when you are offline or your tabs are closed. It is primarily responsible for allowing the application to run `offline` when there is no internet connection available. It also provides substantial network savings by `caching` assets as part of the larger [Progressive Web App]() development standards.
+> A Service worker is a [`persistent`]() task runner that always runs in the background of your browser even when you are offline or your tabs are closed. It is primarily responsible for allowing the application to run `offline` when there is no internet connection available. It also provides substantial network savings by `caching` assets as part of the larger [Progressive Web App]() development standards.
 
 ### Responsibilities
 
@@ -451,7 +445,7 @@ this.wb.addEventListener('installed', (event) => {
 });
 ```
 
-### User Interraction
+### User Interaction
 
 We can also prompt the user specifically to make a choice about updates when they are available. The following prompts a user to update now or later. If they choose to update, it forces the next service worker to activate and refreshes the page to claim the current client.
 
@@ -486,76 +480,14 @@ ___This section is hopefully subject to change___
 
 > "Just close out of everything and restart..." _- Braden_
 
-In their default behavior, service workers don't actually activate the moment they are installed ([unless forced](#user-interraction)). They also don't check for updates on their own. Both checking for an updates and activation of installed workes does not occur unless the following conditions are met.
+In their default behavior, service workers don't actually activate the moment they are installed ([unless forced](#user-interraction)). They also don't check for updates on their own. Both checking for an update and activation of installed workers does not occur unless the following conditions are met:
 
- - The user closes out ALL tabs that are running the app and makes a clean load of the page in a new tab
- - The user is on a mobile device and they fully close out the app. Minimization and swiping to refresh doesn't do it.
+ - The user closes out ALL tabs that are running the app and makes a clean load of the page in a new tab.
+ - The user is on a mobile device and they fully close out the app. Minimization or swiping to refresh the page doesn't do it.
 
-> The reason for this is browing to a page for the first time gives you fresh [response headers](). Those are what identify that a new version of the site exists. The only way to get new response headers is a clean load of the page. Google states this may [change in the future]().
+> The reason for this is that browsing to a page for the first time gives you fresh [response headers](). These are what identify that a new version of the site exists. The only way to get new response headers is a clean load of the page. Google states this may [change in the future]().
 
 ##### [[back to Developer Application Lifecycles]](#application-lifecycles)
 
 ---
 
-## Video Player
-
-### Example Implementation
-
-```javascript
-class VideoPlayer extends Component {
-
-  @observable data = null
-  @observable source = null
-  @observable variant = null
-
-  componentDidMount() {
-    const { videoID } = this.props.match.params
-
-    // : Ideal: Get data from Cache/IndexedDB 
-    fetch(`/videos/${videoID}`)
-      .then( file => {
-        this.data = file
-        this.source = 'cache'
-      })
-      .catch( err => {
-        // : REASONS FOR FAILURE:
-        // : Video is not cached
-        // : Service worker (SW) is not registered
-        // : Workbox (SW's) is/are not supported
-        // : App is 'development' not 'production'
-
-        // : Fallback: Try to obtain normally from Network
-        fetch(`https://www.youtube.com/watch?v=${videoID}`)
-          .then( stream => {
-            this.data = stream
-            this.source = 'youtube'
-          })
-          .catch( err => {
-            // : REASONS FOR FAILURE:
-            // : Network is offline
-            // : App is in 'development'
-            // : Local CORS violation
-
-            // : Fallback: User will have to reconnect to the network at a minimum
-            this.data = null
-            this.source = null
-          })
-      })
-  }
-
-  render() {
-    if (this.source === ('cache' || null )) {
-      return (
-        // Display our Custom React Video Player
-        <VideoPlayer variant={this.variant} src={this.data} />
-      )
-    } else {
-        // Display Default React Youtube Player
-        <YoutubePlayer variant={this.variant} src={this.data} />
-    }
-  }
-}
-```
-##### [[back to Developer Application Lifecycles]](#application-lifecycles)
-
----
