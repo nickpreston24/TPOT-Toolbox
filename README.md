@@ -122,7 +122,7 @@ Phasellus nec purus porttitor, porttitor nunc non, mollis dui. Donec eleifend ri
 
 ## Basic Information
 
-> __Note for all developers:__ If you are having trouble of any kind, tag [Braden](https://github.com/Braden-Preston) or [Michael](https://github.com/MikePreston17) or submit an issue to the [repo](https://github.com/TPOT-Toolbox/Harvest-Haven-Store/issues).  This requires a GitHub account.
+> __Note for all developers:__ If you are having trouble of any kind, tag [Braden](https://github.com/Braden-Preston) or [Michael](https://github.com/MikePreston17) or submit an issue to the [repo](https://github.com/Harvest-Haven/TPOT-Toolbox/issues).  This requires a GitHub account.
 
 This application is a PWA (Progressive Website Application) that is developed in JavaScript using the Node Framework. It employs a serverless stack that is most closely aligned with the MERN stack.
 
