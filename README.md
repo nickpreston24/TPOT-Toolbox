@@ -49,7 +49,7 @@ The TPOT Toolbox App is a special website that can anyone can take with them whe
 >***Devices tested so far...***
 
 `Desktop`
-    
+
     Windows
         Chrome 73+ ?
     Mac OS
@@ -67,8 +67,6 @@ The TPOT Toolbox App is a special website that can anyone can take with them whe
 
 ## How To Install
 
-  - [__In-Store__](#how-to-install)
-    - [__Scanning The QR Code__](#how-to-install)
   - [__At Home__](#how-to-install)
     - [__Visiting the Website__](#how-to-install)
     - [__Device Helper__](#how-to-install)
@@ -145,11 +143,11 @@ Netlify
 
 ## Quick Start
 
-First, clone the repository by copying this link: 
+First, clone the repository by copying this link:
 
     https://github.com/HarvestHaven/TPOT-Toolbox.git
 
-Then, open up [Git Bash](https://git-scm.com/downloads) in preferred folder (I like Desktop), or, alternatively, [Visual Studio Code](https://code.visualstudio.com/download) and type: 
+Then, open up [Git Bash](https://git-scm.com/downloads) in preferred folder (I like Desktop), or, alternatively, [Visual Studio Code](https://code.visualstudio.com/download) and type:
 
     git clone https://github.com/HarvestHaven/TPOT-Toolbox.git
 
@@ -171,7 +169,7 @@ We are using [yarn](https://yarnpkg.com/en/) as our package manger, but you may 
 
 ## Install
 
-This is the first command you should run after cloning the repo. It will build the `node_modules` directory and download all necessary packages needed for development as specified in [package.json](https://github.com/HarvestHaven/Harvest-Haven-Store/blob/master/package.json).
+This is the first command you should run after cloning the repo. It will build the `node_modules` directory and download all necessary packages needed for development as specified in [package.json](https://github.com/HarvestHaven/TPOT-Toolbox/blob/master/package.json).
 
     yarn install
 
@@ -284,8 +282,8 @@ The following features are required to create the minimum viable product:
 ## Application Lifecycles
 
   - [__General__](#general)
-  - [__Service Worker__](#service-worker) 
-  - __App Shell__  
+  - [__Service Worker__](#service-worker)
+  - __App Shell__
   - __App State__
   - __User Data__
 
@@ -405,7 +403,7 @@ if ('serviceWorker' in navigator) {
 }
 ```
 
-That's it. Basically if the browser supports service workers, register it, otherwise leave it alone. The app will use the network by default and behave just an app without a service worker would if it was offline. 
+That's it. Basically if the browser supports service workers, register it, otherwise leave it alone. The app will use the network by default and behave just an app without a service worker would if it was offline.
 
 > Just make sure the web app knows how to handle itself when it has no cached resources and no network to connect to. Obviously it isn't going to be perfect.
 
@@ -455,7 +453,7 @@ wb.addEventListener('waiting', (event) => {
         this.notify('A waiting new service worker has installed (for the first time)');
     } else if (event.isUpdate) {
         // : A service updated worker has installed but it's stuck in the waiting phase
-        this.notify("Harvest Haven is ready to be updated", {
+        this.notify("TPOT Toolbox is ready to be updated", {
             persist: true,
             variant: 'info',
             action: (
