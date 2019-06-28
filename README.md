@@ -489,3 +489,12 @@ In their default behavior, service workers don't actually activate the moment th
 
 ---
 
+## User Quick Start
+
+The following instructions will help new users get familiar with TPOT Toolbox's Letters App:
+
+### How to use the Editor
+
+#### Sign In
+
+First thing's first, you must sign in or register with your email and password.  If you are not regestered or forgot, click the
