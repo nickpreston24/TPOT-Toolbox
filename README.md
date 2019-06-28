@@ -493,7 +493,7 @@ In their default behavior, service workers don't actually activate the moment th
 
 The following instructions will help new users get familiar with TPOT Toolbox's Letters App:
 
-### How to use the Editor
+### Using Your New Letters Editor
 
 #### Sign In
 
@@ -507,25 +507,32 @@ Once that's done, you should see your email show up in the top right corner of t
 
 ![User email](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/current-user-indicator.png)
 
-#### Actions
-
+#### Typing Text
 ![Typing Text](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-type-normally.gif)
 
+#### Loading a File From Disk
 Or, you can load an existing letter or paper from your local disk:
 ![Loading a File From Disk](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/Load%20a%20file%20from%20disk.gif)
 
+#### Setting Quotes
 ![Setting Quotes](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-quote-button.gif)
 
+#### Adding a Line Break
 ![Adding a Line Break](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-line-break.gif)
 
+#### Adding Bullets
 ![Adding Bullets](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-bullets.gif)
 
+#### Adding Emphases
 ![Adding Emphases](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-bold-italics-and-underlines.gif)
 
+#### Adding Colors
 ![Adding Colors](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-add-colors.gif)
 
+#### Aligning Text
 ![Aligning Text](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-align-text.gif)
 
+#### Adding Links
 ![Adding a Link to a Teaching](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-add-teachings-and-links.gif)
 
 #### Publishing a New Letter or Paper
