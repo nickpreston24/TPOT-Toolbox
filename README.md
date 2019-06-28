@@ -497,4 +497,36 @@ The following instructions will help new users get familiar with TPOT Toolbox's 
 
 #### Sign In
 
-First thing's first, you must sign in or register with your email and password.  If you are not regestered or forgot, click the
+First thing's first, you must sign in or register with your email and password.  If you are not registered or forgot your password, that's ok.  
+  You can recover your password by clicking the "Forgot Your Password?" link.  
+  Alternatively, you may create a new account by clicking the "Create an Account" link.
+
+![Login or Register](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/Login-and-register.png)
+
+Once that's done, you should see your email show up in the top right corner of the application.
+
+![User email](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/current-user-indicator.png)
+
+#### Actions
+
+![Typing Text](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-type-normally.gif)
+
+Or, you can load an existing letter or paper from your local disk:
+![Loading a File From Disk](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/Load%20a%20file%20from%20disk.gif)
+
+![Setting Quotes](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-quote-button.gif)
+
+![Adding a Line Break](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-line-break.gif)
+
+![Adding Bullets](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-bullets.gif)
+
+![Adding Emphases](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-bold-italics-and-underlines.gif)
+
+![Adding Colors](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-add-colors.gif)
+
+![Aligning Text](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-align-text.gif)
+
+![Adding a Link to a Teaching](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-add-teachings-and-links.gif)
+
+#### Publishing a New Letter or Paper
+![Publishing](https://github.com/HarvestHaven/TPOT-Toolbox/blob/Documentation-MikePreston17/screenshots/TPOT-Toolbox-publish-letter.gif)
