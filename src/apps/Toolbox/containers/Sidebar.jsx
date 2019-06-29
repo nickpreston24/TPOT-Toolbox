@@ -125,12 +125,6 @@ const appsSidebarButtonsConfig = [
         icon: faSlidersH,
         color: 'none'
     },
-    {
-        primaryText: 'AuthButton',
-        secondaryText: 'Account',
-        icon: faGlobeAmericas,
-        color: 'yellow'
-    }
 ]
 
 const Sidebar = observer((props) => {
