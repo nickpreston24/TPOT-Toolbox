@@ -15,15 +15,12 @@
 - [__What Is This App?__](#what-is-this-app)
 - [__How to Use Toolbox__](#how-to-use-toolbox)
     - [Create a TPOT Cloud Account](#create-a-tpot-cloud-account)
-    - [Reset Your Password](#)
-    - [Adjusting Your Settings](#)
-- __Using Toolbox Offline__ (coming soon)
-- [__News & Updates__](#news-&-updates)
-- [__App Specific Guides__](#)
+    - [Reset Your Password](#reset-your-password)
+    - [Adjusting Your Settings](#adjusting-your-settings)
+- [__App Specific Guides__](#app-specific-guides)
     - [__Letters__](#Letters)
-      - [Loading a Word document](#Letters)
-      - [Editing your paper](#Letters)
-      - [Publishing to TPOT](#Letters)
+- __Using Toolbox Offline__ (coming soon)
+- [__What's New?__](#whats-new)
 
 # What Is This App?
 
@@ -46,7 +43,7 @@ Next, lets learn [how to use it](#how-to-use-toolbox).
 Toolbox is a website based app you can visit. Go to [https://tpot.netlify.com](https://tpot.netlify.com) in your web browser to see Toolbox!
 
 <div id="welcome" align="center">
-    <img src="./docs/images/toolbox_full.png" alt="Toolbox Fullscreen">
+    <img src="./docs/images/toolbox_full.PNG" alt="Toolbox Fullscreen">
 </div>
 
 ## Create a TPOT Cloud Account
@@ -59,11 +56,11 @@ There are other apps that you can use that don't require sign in, such as the em
    
 1) In the top right corner, click __[`LOG IN`]()__
 
-<img src="./docs/images/toolbox_login.png">
+<img src="./docs/images/toolbox_login.PNG">
 
 2) Click __[`Create an Account`]()__
 
-<img src="./docs/images/toolbox_firebase_create.png">
+<img src="./docs/images/toolbox_firebase_create.PNG">
 
 3) Enter your account information, then click __[`Register`]()__
 
@@ -85,27 +82,11 @@ You will receive an email with a link to another wepage where you can reset your
 
 In the left sidebar, click  __[`Settings`]()__ or the icon with sliders on it.
 
-<img src="./docs/images/toolbox_settings.png">
+<img src="./docs/images/toolbox_settings.PNG">
 
 From here you can adjust global settings for Toolbox, or adjust settings for smaller apps like Letters. You can also personalize Toolbox to your liking by uploading a profile picture, selecting color themes, and other tweaks. More to come soon!
 
 ##### [Return to Getting Started](#getting-started)
-
-# News & Updates
-
-__6/29/19 - Installing on Mobile Devices__
-
-In conjunction with offline support, we are going to add the ability to install Toolbox on your tablet and smartphone. Internally, we were able to get Toolbox to work on the Surface Pro 3, and iPad, the  Raspberry Pi 3, and a few Android smartphones.
-
-While we can install Toolbox on these devices, we still have to re-build the user interface to work on smaller screens. This means not all apps in Toolbox will work right away as a mobile-version of the app. Please be patient while we work all this out. (There is only one person who works on the user interface!)
-
----
-
-__6/08/19 - Offline Support__
-
-We have been working on getting Toolbox available for offline support, which means you can use Toolbox without an internet connection for most of its task. When you are able to reconnect, then you can upload the files you were working on.
-
----
 
 # Letters
 
@@ -146,6 +127,22 @@ Or, you can load an existing letter or paper from your local disk:
 
 ## Adding Links
 ![Adding a Link to a Teaching](/docs/images/TPOT-Toolbox-add-teachings-and-links.gif)
+
+# What's New?
+
+__6/29/19 - Installing on Mobile Devices__
+
+In conjunction with offline support, we are going to add the ability to install Toolbox on your tablet and smartphone. Internally, we were able to get Toolbox to work on the Surface Pro 3, and iPad, the  Raspberry Pi 3, and a few Android smartphones.
+
+While we can install Toolbox on these devices, we still have to re-build the user interface to work on smaller screens. This means not all apps in Toolbox will work right away as a mobile-version of the app. Please be patient while we work all this out. (There is only one person who works on the user interface!)
+
+---
+
+__6/08/19 - Offline Support__
+
+We have been working on getting Toolbox available for offline support, which means you can use Toolbox without an internet connection for most of its task. When you are able to reconnect, then you can upload the files you were working on.
+
+---
 
 ## Publishing a New Letter or Paper
 ![Publishing](/docs/images/TPOT-Toolbox-publish-letter.gif)
