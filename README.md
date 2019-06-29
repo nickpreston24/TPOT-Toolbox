@@ -94,7 +94,7 @@ From here you can adjust global settings for Toolbox, or adjust settings for sma
 
 ## Sign In
 
-<img src="./docs/images/toolbox_firebase_create.png">
+<img src="./docs/images/toolbox_firebase_create.PNG">
 
 First thing's first, you must sign in or register with your email and password.  If you are not registered or forgot your password yet, that's ok.  See [creating a TPOT Cloud Account](Ecreate-a-tpot-cloud-account).
 
