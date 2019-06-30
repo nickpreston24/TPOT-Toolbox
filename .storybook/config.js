@@ -1,60 +1,61 @@
 // import React from 'react';
+import { configure, storiesOf, addDecorator,  addParameters } from '@storybook/react';
+import { ThemeProvider, install } from "@material-ui/styles";
+import { Provider } from 'mobx-react';
 // import '@storybook/addon-console';
-// import { addParameters, storiesOf, addDecorator, configure } from '@storybook/react';
 // import StoryRouter from 'storybook-react-router';
 // import { createMuiTheme } from "@material-ui/core/styles";
-// import { ThemeProvider, install } from "@material-ui/styles";
 // import { muiTheme } from 'storybook-addon-material-ui';
-// import { Provider } from 'mobx-react';
 // import Forage from '../src/shared/localforage'
 
-import { configure } from '@storybook/react';
 
-function loadStories() {
-  require('../src/stories');
-}
+// : Load all stories.jsx in /src, reguardless of where they are.
+configure(() => {
+    const req = require.context('../src', true, /\.stories\.jsx$/);
+    req.keys().forEach(filename => req(filename));
+}, module);
 
-configure(loadStories, module);
+
+// : Create  singletons of session required data
+const store = new MobxStore()
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#cddc39',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ff7961',
+      main: '#f44336',
+      dark: '#ba000d',
+      contrastText: '#000',
+    },
+    background: {
+      default: '#ede5da'
+      // default: '#313439'
+    }
+  },
+  typography: {
+    useNextVariants: true,
+  },
+});
 
 
-// const forage = new Forage()
-
-// const theme = createMuiTheme({
-//   palette: {
-//     primary: {
-//       light: '#757ce8',
-//       main: '#cddc39',
-//       dark: '#002884',
-//       contrastText: '#fff',
-//     },
-//     secondary: {
-//       light: '#ff7961',
-//       main: '#f44336',
-//       dark: '#ba000d',
-//       contrastText: '#000',
-//     },
-//     background: {
-//       default: '#ede5da'
-//       // default: '#313439'
-//     }
-//   },
-//   typography: {
-//     useNextVariants: true,
-//   },
-// });
-
+// : Apply decorators globally to all Storybook assets
 // addDecorator(muiTheme())
-
 // addDecorator(StoryRouter())
+addDecorator(storyFn =>
+  <ThemeProvider {...{ theme }}>
+    <Provider {...{ store }} >
+      {storyFn()}
+    </Provider>
+  </ThemeProvider>
+);
 
-// addDecorator(storyFn =>
-//   <ThemeProvider {...{ theme }}>
-//     <Provider forage={forage} >
-//       {storyFn()}
-//     </Provider>
-//   </ThemeProvider>
-// );
-
+// : Configure Parameters for various plugins
 // addParameters({
 //   viewport: {
 //     defaultViewport: 'responsive',
@@ -64,11 +65,3 @@ configure(loadStories, module);
 //     { name: 'paper', value: '#f4f3ef', default: true },
 //   ],
 // });
-
-// const req = require.context('../src', true, /\.stories\.jsx$/);
-
-// function loadStories() {
-//   req.keys().forEach(filename => req(filename));
-// }
-
-// configure(loadStories, module);

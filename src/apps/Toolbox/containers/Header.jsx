@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { RoutedBreadCrumbs } from './Breadcrumbs';
 import { toJS } from 'mobx';
 import AuthButton from '../views/AuthButton';
+import StorybookButton from '../../../shared/views/StorybookButton'
 
 
 // const electron = require('electron');
@@ -263,6 +264,7 @@ class Header extends Component {
                         {/* <Button onClick={this.signInTest}>Publish</Button> */}
                         {/* <Button onClick={this.loadTest}>Load</Button> */}
                         {/* <HeaderButton {...{ classes, icon: faUser, sessionStore, label: 'Sign In' }} /> */}
+                        {/* <StorybookButton /> */}
                         <AuthButton {...{ icon: faUser, editorStore, lettersStore, sessionStore, label: 'Sign In' }} />
                         {/* <HeaderButton {...{ classes, icon: faBell, label: "Notifications" }} /> */}
                         {/* <HeaderButton {...{ classes, icon: faFlag, sessionStore, label: 'Help' }} /> */}
