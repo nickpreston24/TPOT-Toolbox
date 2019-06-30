@@ -10,7 +10,7 @@ const styles = theme => ({
     },
 })
 
-@inject('store')
+// @inject('store')
 @withStyles(styles)
 @observer
 export class MobX extends Component {
@@ -21,11 +21,14 @@ export class MobX extends Component {
             this.open = !this.open
 
     render() {
-        const { store, classes } = this.props
+        const { store, classes, task, state, actions } = this.props
+        console.log('actions', this.props)
         const { toggle, open } = this
         return (
             <div className={classes.root}>
                 <button onClick={toggle}>{`${open}`}</button>
+                {!!task  && task.name}
+                {!!task  && task.state}
             </div>
         )
     }
