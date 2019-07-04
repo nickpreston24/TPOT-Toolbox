@@ -69,7 +69,7 @@ class AppShell extends Component {
         // console.log(this.props)
         return (
             <div className={classes.root}>
-                <LinkOverlay />
+                {/* <LinkOverlay /> */}
                 <Sidebar variant="compact" {...rest} />
                 <CurrentApp {...rest} />
                 {/* <div id="Content" className={classes.content}> */}
