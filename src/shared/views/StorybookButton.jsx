@@ -26,7 +26,7 @@ class StorybookButton extends Component {
         const { toggle, open } = this
         return (
             <div className={classes.root}>
-                <button onClick={toggle}>{`${open}Storybook`}</button>
+                <button onClick={toggle}>{`Storybooks: ${open}`}</button>
                 {!!task  && task.name}
                 {!!task  && task.state}
             </div>
