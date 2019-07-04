@@ -4,17 +4,17 @@ import StorybookButton from '../shared/views/StorybookButton';
 
 storiesOf('Storybook', module)
     // .addDecorator(withKnobs)
-    .add('default', () =>
+    .add('Welcome', () =>
         <StorybookButton />
     )
-    .add('task', () =>
+    .add('Getting Started', () =>
         <StorybookButton
             task={{
                 name: 'Task1'
             }}
         />
     )
-    .add('pinned', () =>
+    .add('API', () =>
         <StorybookButton
             task={{
                 name: 'Task2',

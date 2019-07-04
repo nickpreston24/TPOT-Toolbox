@@ -1,10 +1,12 @@
-// import React from 'react';
+import React from 'react';
 import { configure, storiesOf, addDecorator,  addParameters } from '@storybook/react';
 import { ThemeProvider, install } from "@material-ui/styles";
 import { Provider } from 'mobx-react';
+import MobxStore from '../src/shared/stores'
+import { withKnobs } from '@storybook/addon-knobs';
 // import '@storybook/addon-console';
 // import StoryRouter from 'storybook-react-router';
-// import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
 // import { muiTheme } from 'storybook-addon-material-ui';
 // import Forage from '../src/shared/localforage'
 
@@ -47,6 +49,7 @@ const theme = createMuiTheme({
 // : Apply decorators globally to all Storybook assets
 // addDecorator(muiTheme())
 // addDecorator(StoryRouter())
+addDecorator(withKnobs)
 addDecorator(storyFn =>
   <ThemeProvider {...{ theme }}>
     <Provider {...{ store }} >
