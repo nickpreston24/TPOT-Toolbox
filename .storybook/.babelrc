@@ -1,21 +1,31 @@
+// {
+//     "presets": [
+//         "@babel/preset-env",
+//         "@babel/preset-react"
+//     ],
+//     "plugins": [
+//         [
+//           "@babel/plugin-proposal-class-properties"
+//         ]
+//     ]
+// }
+
 {
     "plugins": [
-      [
-        "@babel/plugin-proposal-decorators",
-        {
-          "legacy": true,
-        //   "decoratorsBeforeExport": false,
-          "version": "jan-2019"
-        },
-      ],
-      [
-        "@babel/plugin-proposal-class-properties",
-        {
-          "loose": true
-        }
-      ]
+        [
+            "@babel/plugin-proposal-decorators",
+            {
+                "legacy": true
+            }
+        ],
+        [
+            "@babel/plugin-proposal-class-properties",
+            {
+                "loose": true
+            }
+        ]
     ],
     "presets": [
-      "react-app"
+        "react-app"
     ]
-  }
+}

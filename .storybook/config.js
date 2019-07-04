@@ -1,14 +1,23 @@
-import React from 'react';
-import '@storybook/addon-console';
-import { addParameters, storiesOf, addDecorator, configure } from '@storybook/react';
-import StoryRouter from 'storybook-react-router';
-import { createMuiTheme } from "@material-ui/core/styles";
+// import React from 'react';
+import { configure, storiesOf, addDecorator,  addParameters } from '@storybook/react';
 import { ThemeProvider, install } from "@material-ui/styles";
-import { muiTheme } from 'storybook-addon-material-ui';
 import { Provider } from 'mobx-react';
-import Forage from '../src/shared/localforage'
+// import '@storybook/addon-console';
+// import StoryRouter from 'storybook-react-router';
+// import { createMuiTheme } from "@material-ui/core/styles";
+// import { muiTheme } from 'storybook-addon-material-ui';
+// import Forage from '../src/shared/localforage'
 
-const forage = new Forage()
+
+// : Load all stories.jsx in /src, reguardless of where they are.
+configure(() => {
+    const req = require.context('../src', true, /\.stories\.jsx$/);
+    req.keys().forEach(filename => req(filename));
+}, module);
+
+
+// : Create  singletons of session required data
+const store = new MobxStore()
 
 const theme = createMuiTheme({
   palette: {
@@ -34,32 +43,25 @@ const theme = createMuiTheme({
   },
 });
 
-addDecorator(muiTheme())
 
-addDecorator(StoryRouter())
-
+// : Apply decorators globally to all Storybook assets
+// addDecorator(muiTheme())
+// addDecorator(StoryRouter())
 addDecorator(storyFn =>
   <ThemeProvider {...{ theme }}>
-    <Provider forage={forage} >
+    <Provider {...{ store }} >
       {storyFn()}
     </Provider>
   </ThemeProvider>
 );
 
-addParameters({
-  viewport: {
-    defaultViewport: 'responsive',
-  },
-  backgrounds: [
-    { name: 'default', value: '#FFFFFF' },
-    { name: 'paper', value: '#f4f3ef', default: true },
-  ],
-});
-
-const req = require.context('../src', true, /\.stories\.jsx$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
+// : Configure Parameters for various plugins
+// addParameters({
+//   viewport: {
+//     defaultViewport: 'responsive',
+//   },
+//   backgrounds: [
+//     { name: 'default', value: '#FFFFFF' },
+//     { name: 'paper', value: '#f4f3ef', default: true },
+//   ],
+// });
