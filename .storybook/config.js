@@ -1,5 +1,5 @@
 import React from 'react';
-import { configure, storiesOf, addDecorator,  addParameters } from '@storybook/react';
+import { configure, storiesOf, addDecorator, addParameters } from '@storybook/react';
 import { ThemeProvider, install } from "@material-ui/styles";
 import { Provider } from 'mobx-react';
 import MobxStore from '../src/shared/stores'
@@ -22,27 +22,30 @@ configure(() => {
 const store = new MobxStore()
 
 const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#757ce8',
-      main: '#cddc39',
-      dark: '#002884',
-      contrastText: '#fff',
+    palette: {
+        primary: {
+            light: '#757ce8',
+            main: '#cddc39',
+            dark: '#002884',
+            contrastText: '#fff',
+        },
+        secondary: {
+            light: '#ff7961',
+            main: '#f44336',
+            dark: '#ba000d',
+            contrastText: '#000',
+        },
+        accents: {
+            pink: '#FF0099'
+        },
+        background: {
+            default: '#ede5da'
+            // default: '#313439'
+        }
     },
-    secondary: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
-      contrastText: '#000',
+    typography: {
+        useNextVariants: true,
     },
-    background: {
-      default: '#ede5da'
-      // default: '#313439'
-    }
-  },
-  typography: {
-    useNextVariants: true,
-  },
 });
 
 
@@ -51,11 +54,11 @@ const theme = createMuiTheme({
 // addDecorator(StoryRouter())
 addDecorator(withKnobs)
 addDecorator(storyFn =>
-  <ThemeProvider {...{ theme }}>
-    <Provider {...{ store }} >
-      {storyFn()}
-    </Provider>
-  </ThemeProvider>
+    <ThemeProvider {...{ theme }}>
+        <Provider {...{ store }} >
+            {storyFn()}
+        </Provider>
+    </ThemeProvider>
 );
 
 // : Configure Parameters for various plugins
