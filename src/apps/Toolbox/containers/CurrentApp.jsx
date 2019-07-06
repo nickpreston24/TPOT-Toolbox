@@ -12,6 +12,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Screen } from './Screen';
 
 const Letters = Loadable({ loader: () => import('../../Letters'), loading: Loading, });
+const SiteScan = Loadable({ loader: () => import('../../SiteScan'), loading: Loading })
 // Letters.preload()
 
 const styles = theme => ({
@@ -49,21 +50,21 @@ class CurrentAppClass extends Component {
 
     @action switchApp = () =>
         this.apps = null
-
-        render() {
-            const { store, classes, location, match, history } = this.props
-            const { switchApp, currentApp, apps } = this
-            // console.log("PATH", match.path, match.params)
-            return (
-                <div id="Content" className={classes.root}>
-                    <Header id="Header" style={{ background: '#3e4552 !important' }} />
-                    <div id="Current App" className={classes.currentApp}>
-                        <Letters />
-                        <Notifier />
-                    </div>
+    render() {
+        const { store, classes, location, match, history } = this.props
+        const { switchApp, currentApp, apps } = this
+        // console.log("PATH", match.path, match.params)
+        return (
+            <div id="Content" className={classes.root}>
+                <Header id="Header" style={{ background: '#3e4552 !important' }} />
+                <div id="Current App" className={classes.currentApp}>
+                    <Letters />
+                    <Notifier />
+                    <SiteScan />
                 </div>
-            )
-        }
+            </div>
+        )
+    }
 
     // render() {
     //     const { store, classes, location, match, history } = this.props
