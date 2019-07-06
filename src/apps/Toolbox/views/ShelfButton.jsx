@@ -14,6 +14,7 @@ const styles = theme => ({
         // color: 'red !important',
         // background: 'red !important',
         // #292b2f
+        
         '& Button': {
             background: '#292b2f',
             borderRadius: '50%',
@@ -25,8 +26,14 @@ const styles = theme => ({
             marginRight: 12,
             marginTop: 4,
             marginBottom: 4,
+            transition: 'all 300ms ease-in-out',
             '& svg': {
-                fill: '#43b581',
+                fill: '#7289da',
+            },
+            '& img': {
+                height: 24,
+                width: 24,
+                marginBottom: 6,
             }
         },
         '& .indicator': {
@@ -35,11 +42,12 @@ const styles = theme => ({
             height: 0,
             width: 0,
             borderRadius: '0px 4px 4px 0px',
+            transition: 'all 300ms ease-in-out',
         },
         '&:hover': {
             '& Button': {
                 borderRadius: 16,
-                background: '#43b581',
+                background: '#7289da',
                 transition: 'border-radius 300ms ease-in-out, background 200ms ease-in-out',
                 '& svg': {
                     fill: 'white',
@@ -64,14 +72,14 @@ const styles = theme => ({
 export class ShelfButton extends Component {
 
     render() {
-        const { store, classes, variant, expanded, tooltip, children, onClick } = this.props
+        const { store, classes, variant, expanded, tooltip, children, onClick, color } = this.props
         return (
             <Box bgcolor="grey" className={classes.root} display="flex" alignItems="center">
                 <span className='indicator' />
                 <Tooltip title={tooltip ? tooltip : 'Tooltip'} placement="right" transitionComponent={Zoom} style={{fontSize: '40px !important'}}
                     classes={{popper: classes.popper}}
                 >
-                    <Button className={classes.button} onClick={onClick}>
+                    <Button className={classes.button} onClick={onClick} style={color && {background: color}}>
                         {children ? children : <DefaultIcon />}
                     </Button>
                 </Tooltip>

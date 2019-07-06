@@ -5,11 +5,6 @@ import { storiesOf } from '@storybook/react';
 import { AppShelf } from '../apps/Toolbox/views/AppShelf'
 import { ShelfButton } from '../apps/Toolbox/views/ShelfButton';
 
-const expanded = boolean(
-    'Expanded',
-    false
-)
-
 const theme = select(
     'Theme',
     {
@@ -19,21 +14,27 @@ const theme = select(
     }
 )
 
-const appShelf = () =>
-    <AppShelf
-        {...{ expanded, theme }}
-    >
-        <ShelfButton tooltip='Letters' icon='fa-letters' route='/letters' active={true} />
-        <ShelfButton tooltip='Patch' icon='fa-letters' route='/letters' active={false} />
-        <ShelfButton tooltip='Sort' icon='fa-letters' route='/letters'  active={false} />
-    </AppShelf>
-
 storiesOf('Toolbox/Dashboard', module)
     .addDecorator(withKnobs)
     .add('default', () =>
         <Dashboard
-            appShelf={appShelf}
-            {...{ expanded, theme }}
+            shelf={
+                <AppShelf >
+                    <ShelfButton tooltip='Letters' icon='fa-letters' route='/letters' active={true} />
+                    <ShelfButton tooltip='Patch' icon='fa-letters' route='/letters' active={false} />
+                    <ShelfButton tooltip='Sort' icon='fa-letters' route='/letters' active={false} />
+                </AppShelf>
+            }
+            sidebar={
+                null
+            }
+            header={
+                null
+            }
+            currentApp={
+                null
+            }
+            {...{ theme }}
         />
     )
     .add('empty', () =>

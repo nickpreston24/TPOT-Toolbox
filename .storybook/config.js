@@ -35,7 +35,7 @@ const theme = createMuiTheme({
             dark: '#ba000d',
             contrastText: '#000',
         },
-        accents: {
+        accent: {
             pink: '#FF0099'
         },
         background: {
