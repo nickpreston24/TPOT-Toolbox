@@ -2,12 +2,6 @@ import { observable, action, decorate, runInAction } from 'mobx'
 import { db, auth, firebase } from '../firebase'
 import { persist } from 'mobx-persist';
 
-// const electron = window.require('electron')
-// const remote = electron.remote
-// const app = remote.app
-// const fs = remote.require('fs')
-// const path = remote.require('path')
-
 export default class SessionStore {
 
     @observable enqueueSnackbar = null
@@ -22,8 +16,8 @@ export default class SessionStore {
         console.log('SessionStore() => auth user loaded? ', !!auth.authUser && auth.authUser);
 
         // : Set Listeners
-        firebase.auth.onAuthStateChanged((authUser) => {
-            console.log('onAuthStateChanged() => authUser:', authUser)
+        firebase.auth.onAuthStateChanged((user) => {
+            console.log('onAuthStateChanged() => user:', user)
         })
 
         // : Load Initial Configuration from File
@@ -124,6 +118,4 @@ export default class SessionStore {
         this.closeSnackbar = closeSnackbar
         console.log('Notification enabled.', this.enqueueSnackbar, this.closeSnackbar)
     }
-
-
 }

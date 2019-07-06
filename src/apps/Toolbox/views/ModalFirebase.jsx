@@ -172,7 +172,13 @@ class SignIn extends Component {
                                         </Button>
                                     <Typography variant="body2">
                                         {`Already Have an Account?  `}
-                                        <Typography className={classes.link} variant="body2" onClick={() => setKey('loginMode', 'login')}>Log In</Typography>
+                                        <Typography
+                                            onClick={() => setKey('loginMode', 'login')}
+                                            className={classes.link}
+                                            variant="body2"
+                                        >
+                                            Log In
+                                        </Typography>
                                     </Typography>
                                 </Fragment>
                             )}
@@ -188,7 +194,7 @@ class SignIn extends Component {
                                         className={classes.textField}
                                         onChange={e => { setLoginData('email', e.target.value) }}
                                     />
-                                    <Typography variant="body2" align="center" style={{ marginTop: 16 }} onClick={() => setKey('loginMode', 'reset')}>{`An email will be send to the email registered with your account. Clicking on the link will send you to a webpage where you can reset your password. Be sure to check your spam folder if you do not see the request!`}</Typography>
+                                    <Typography variant="body2" align="center" style={{ marginTop: 16 }} onClick={() => setKey('loginMode', 'reset')}>{`An email will be sent to the email registered with your account. Clicking on the link will send you to a webpage where you can reset your password. Be sure to check your spam folder if you do not see the request!`}</Typography>
                                     <Button
                                         fullWidth
                                         color="primary"
