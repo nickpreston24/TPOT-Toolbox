@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppShelf } from '../apps/Toolbox/views/AppShelf'
+import { Shelf } from '../apps/Toolbox/views/Shelf'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import { ShelfButton } from '../apps/Toolbox/views/ShelfButton';
@@ -18,17 +18,17 @@ const theme = select(
     }
 )
 
-storiesOf('Toolbox/AppShelf', module)
+storiesOf('Toolbox/Shelf', module)
     .addDecorator(withKnobs)
     .add('default', () =>
-        <AppShelf
+        <Shelf
             {...{ expanded, theme }}
         >
             <ShelfButton tooltip='Letters' icon='fa-letters' route='/letters' active={true} />
             <ShelfButton tooltip='Patch' icon='fa-letters' route='/letters' active={false} />
             <ShelfButton tooltip='Sort' icon='fa-letters' route='/letters' active={false} />
-        </AppShelf>
+        </Shelf>
     )
     .add('empty', () =>
-        <AppShelf {...{ expanded, theme }} />
+        <Shelf {...{ expanded, theme }} />
     )

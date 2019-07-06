@@ -7,6 +7,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 // import '@storybook/addon-console';
 // import StoryRouter from 'storybook-react-router';
 import { createMuiTheme } from "@material-ui/core/styles";
+import Box from '@material-ui/core/Box';
 // import { muiTheme } from 'storybook-addon-material-ui';
 // import Forage from '../src/shared/localforage'
 
@@ -56,7 +57,11 @@ addDecorator(withKnobs)
 addDecorator(storyFn =>
     <ThemeProvider {...{ theme }}>
         <Provider {...{ store }} >
-            {storyFn()}
+            <Box display="flex" flexDirection="row" justifyContent="flex-start" style={{
+                position: 'absolute', boxSizing: 'border-box', height: '100%', width: '100%', overflow: 'hidden'
+            }}>
+                {storyFn()}
+            </Box>
         </Provider>
     </ThemeProvider>
 );

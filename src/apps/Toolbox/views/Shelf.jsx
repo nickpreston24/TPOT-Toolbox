@@ -20,13 +20,9 @@ const styles = theme => ({
 @inject('store')
 @withStyles(styles)
 @observer
-export class AppShelf extends Component {
+export class Shelf extends Component {
 
     @observable expanded = false
-
-    @action expand = () => {
-        this.expanded = !this.expanded
-    }
 
     @action expand = () => {
         this.expanded = !this.expanded
@@ -35,14 +31,13 @@ export class AppShelf extends Component {
     render() {
         const { store, classes, variant, children } = this.props
         const { expanded } = this
+        console.log('props', this.props)
         return (
             <Box
                 minWidth={expanded === true ? 160 : 72}
                 maxWidth={expanded === true ? 160 : 72}
                 bgcolor="#202225" py={1} className={classes.root}
-                display="flex" flexDirection="column" justifyContent="space-between" style={{
-                    position: 'relative', boxSizing: 'border-box', height: '100%', width: '100%'
-                }}
+                display="flex" flexDirection="column" justifyContent="flex-start"
             >
                 <ShelfButton tooltip="Expand" onClick={this.expand} color="#e35644">
                     <ToolboxIcon />
