@@ -14,7 +14,7 @@ const styles = theme => ({
         // color: 'red !important',
         // background: 'red !important',
         // #292b2f
-        
+
         '& Button': {
             background: '#292b2f',
             borderRadius: '50%',
@@ -28,11 +28,12 @@ const styles = theme => ({
             marginBottom: 4,
             transition: 'all 300ms ease-in-out',
             '& svg': {
+                fontSize: 24,
                 fill: '#7289da',
             },
             '& img': {
-                height: 24,
-                width: 24,
+                height: 32,
+                width: 32,
                 marginBottom: 6,
             }
         },
@@ -72,15 +73,15 @@ const styles = theme => ({
 export class ShelfButton extends Component {
 
     render() {
-        const { store, classes, variant, expanded, tooltip, children, onClick, color } = this.props
+        const { store, classes, variant, expanded, tooltip, children, onClick, color, icon } = this.props
         return (
             <Box bgcolor="grey" className={classes.root} display="flex" alignItems="center">
                 <span className='indicator' />
-                <Tooltip title={tooltip ? tooltip : 'Tooltip'} placement="right" transitionComponent={Zoom} style={{fontSize: '40px !important'}}
-                    classes={{popper: classes.popper}}
+                <Tooltip title={tooltip ? tooltip : 'Tooltip'} placement="right" transitionComponent={Zoom} style={{ fontSize: '40px !important' }}
+                    classes={{ popper: classes.popper }}
                 >
-                    <Button className={classes.button} onClick={onClick} style={color && {background: color}}>
-                        {children ? children : <DefaultIcon />}
+                    <Button className={classes.button} onClick={onClick} style={color && { background: color }}>
+                        {icon === 'scribe' ? <ScribeIcon /> : children}
                     </Button>
                 </Tooltip>
             </Box>
@@ -88,8 +89,8 @@ export class ShelfButton extends Component {
     }
 }
 
-const DefaultIcon = () => (
-    <SvgIcon >
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+const ScribeIcon = () => (
+    <SvgIcon viewBox='0 0 512 512'>
+        <path fill="#324a5e" d="M71.46 287.61c-4.85 41.95-7.25 84.14-7.38 126.37L7.03 471.03c-9.37 9.37-9.37 24.57 0 33.94 9.37 9.37 24.57 9.37 33.94 0l57.05-57.05c42.23-.12 84.42-2.53 126.37-7.38C473.8 415.14 508.44 51.72 512 0 460.28 3.56 96.87 38.2 71.46 287.61zm147.42 105.25c-23.41 2.71-47.3 4.36-71.31 5.51L193.94 352h125.37c-27.89 21.72-60.89 36.83-100.43 40.86zM352.81 320H225.94l64-64h106.12c-12.11 23.11-26.54 44.76-43.25 64zm-30.87-96l13.54-13.54c9.37-9.37 9.37-24.57 0-33.94-9.37-9.37-24.57-9.37-33.94 0l-187.9 187.9c1.16-24.09 2.83-48.13 5.58-71.96C136.33 124.4 349.77 70.87 457.48 54.51c-6.89 45.3-20.53 109.25-46.37 169.49h-89.17z" />
     </SvgIcon>
 )

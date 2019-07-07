@@ -7,6 +7,21 @@ import { compose, withProps } from 'recompose'
 import { Button } from '@material-ui/core';
 
 const styles = theme => ({
+    // Dashboard is topmost component, so it should also handle global css for now
+    '@global': {
+        'body' :{
+            fontFamily: 'Poppins',
+        },
+        '*::-webkit-scrollbar': {
+            height: 14,
+            width: 16,
+        },
+        '*::-webkit-scrollbar-thumb': {
+            boxShadow: 'inset 0 0 10px 10px #7289da',
+            border: '4px transparent solid',
+            borderRadius: 12,
+        },
+    },
     root: {
         // color: 'red',
     },
@@ -19,17 +34,6 @@ const styles = theme => ({
         overflowY: 'scroll',
         overflowX: 'hidden',
     },
-    '@global': {
-        '*::-webkit-scrollbar': {
-            height: 14,
-            width: 16,
-        },
-        '*::-webkit-scrollbar-thumb': {
-            boxShadow: 'inset 0 0 10px 10px #7289da',
-            border: '4px transparent solid',
-            borderRadius: 12,
-        },
-    }
 })
 
 @inject('store')
@@ -46,11 +50,11 @@ export class Dashboard extends Component {
     render() {
         const { store, classes, variant, shelf, sidebar, header, currentApp } = this.props
         return (
-            <Box flexGrow={2} display="flex" flexDirection="row" justifyContent="flex-start">
+            <Box flexGrow={1} display="flex" flexDirection="row" justifyContent="flex-start" height="100%" >
                 <Box width={72} bgcolor="#202225"  >
                     {shelf}
                 </Box>
-                <Box bgcolor="#2f3136" width={240} color="primary.main">
+                <Box bgcolor="#2f3136" width={240}>
                     {sidebar}
                 </Box>
                 <Box flexGrow={1} bgcolor="#f6f6f7" display="flex" flexDirection="column">

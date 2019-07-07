@@ -45,6 +45,7 @@ const theme = createMuiTheme({
         }
     },
     typography: {
+        fontFamily: "Poppins,'Helvetica Neue','Helvetica','Arial',sans-serif",
         useNextVariants: true,
     },
 });
@@ -57,7 +58,7 @@ addDecorator(withKnobs)
 addDecorator(storyFn =>
     <ThemeProvider {...{ theme }}>
         <Provider {...{ store }} >
-            <Box display="flex" flexDirection="row" justifyContent="flex-start" style={{
+            <Box display="flex" flexDirection="row" justifyContent="flex-start" alignItems="flex-start" style={{
                 position: 'absolute', boxSizing: 'border-box', height: '100%', width: '100%', overflow: 'hidden'
             }}>
                 {storyFn()}

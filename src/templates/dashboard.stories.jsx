@@ -4,6 +4,7 @@ import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import { Shelf } from '../apps/Toolbox/views/Shelf'
 import { ShelfButton } from '../apps/Toolbox/views/ShelfButton';
+import { Sidebar } from '../apps/Toolbox/views/Sidebar';
 
 const theme = select(
     'Theme',
@@ -20,14 +21,14 @@ storiesOf('Toolbox/Dashboard', module)
         <Dashboard
             shelf={
                 <Shelf >
-                    <ShelfButton tooltip='Letters' icon='fa-letters' route='/letters' active={true} />
-                    <ShelfButton tooltip='Patch' icon='fa-letters' route='/letters' active={false} />
-                    <ShelfButton tooltip='Sort' icon='fa-letters' route='/letters' active={false} />
+                    <ShelfButton tooltip='Scribe' icon='scribe' route='/scribe' color="#f9b54c" active={true} />
+                    <ShelfButton tooltip='Sort' icon='fa-letters' route='/sort' active={false} />
+                    <ShelfButton tooltip='Patch' icon='fa-letters' route='/patch' active={false} />
                 </Shelf>
             }
             sidebar={
                 <Sidebar>
-                    null
+
                 </Sidebar>
             }
             header={
