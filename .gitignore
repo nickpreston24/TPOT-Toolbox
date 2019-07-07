@@ -66,3 +66,4 @@ typings/
 
 # test directories
 test/videos
+src/shared/stores/wp-credentials.js
