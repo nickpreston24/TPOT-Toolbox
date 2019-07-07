@@ -11,9 +11,7 @@ import AuthButton from '../views/AuthButton';
 import StorybookButton from '../../../shared/views/StorybookButton'
 
 
-// const electron = require('electron');
-// const ipc = electron.ipcRenderer
-// const shell = electron.shell
+
 
 const styles = theme => ({
     root: {
@@ -232,19 +230,20 @@ class Header extends Component {
         // ipc.send('update-confirm-restart')
     }
 
-    signInTest = () => {
-        // console.log('Login Info!',toJS( this.props.store.sessionStore.loginData))
-        // console.log('Sign Into!', this.props.store.sessionStore.signIn())
-        this.props.store.lettersStore.setCurrentModal('PublishScreen')
-        console.log('MODAL',  this.props.store.lettersStore.currentModal)
-    }
+    // signInTest = () => {
+    // alert('sign in test complete!');
+    // console.log('Login Info!',toJS( this.props.store.sessionStore.loginData))
+    // console.log('Sign Into!', this.props.store.sessionStore.signIn())
+    //     this.props.store.lettersStore.setCurrentModal('PublishScreen')
+    //     console.log('MODAL',  this.props.store.lettersStore.currentModal)
+    // }
 
-    loadTest = () => {
-        // console.log('Login Info!',toJS( this.props.store.sessionStore.loginData))
-        // console.log('Sign Into!', this.props.store.sessionStore.signIn())
-        this.props.store.lettersStore.setCurrentModal('LoadScreen')
-        console.log('MODAL',  this.props.store.lettersStore.currentModal)
-    }
+    // loadTest = () => {
+    //     // console.log('Login Info!',toJS( this.props.store.sessionStore.loginData))
+    //     // console.log('Sign Into!', this.props.store.sessionStore.signIn())
+    //     this.props.store.lettersStore.setCurrentModal('LoadScreen')
+    //     console.log('MODAL', this.props.store.lettersStore.currentModal)
+    // }
 
     render() {
         const { classes, store } = this.props;
@@ -260,9 +259,6 @@ class Header extends Component {
                         {/* <RoutedBreadCrumbs /> */}
                     </Grid>
                     <Grid item container direction="row" justify="flex-end" alignItems="center" style={{ flexWrap: 'nowrap', flexGrow: 2 }} >
-                        {/* <AuthButton>Sign In</AuthButton> */}
-                        {/* <Button onClick={this.signInTest}>Publish</Button> */}
-                        {/* <Button onClick={this.loadTest}>Load</Button> */}
                         {/* <HeaderButton {...{ classes, icon: faUser, sessionStore, label: 'Sign In' }} /> */}
                         {/* <StorybookButton /> */}
                         <AuthButton {...{ icon: faUser, editorStore, lettersStore, sessionStore, label: 'Sign In' }} />
@@ -278,9 +274,9 @@ class Header extends Component {
 
 export const HeaderButton = observer(({ classes, children, icon, label, sessionStore }) => {
     return (
-        <Button classes={{root: classes.headerButton}} onClick={() => {
+        <Button classes={{ root: classes.headerButton }} onClick={() => {
             // sessionStore.signIn()
-            }} >
+        }} >
             <FontAwesomeIcon className={classes.extendedIcon} icon={icon} size="lg" />
             {label && label}
         </Button>
