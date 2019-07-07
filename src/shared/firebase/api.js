@@ -31,7 +31,9 @@ export const deleteUser = (email, password) =>
 export const signIn = action((email, password) => {
     return new Promise(action((resolve, reject) => {
         auth.signInWithEmailAndPassword(email, password)
-            .then(action((authUser) => {
+            .then(action((user) => {
+                // console.log('user:', user)
+                console.log('refresh token: ', user.refreshToken)
                 // : TODO
                 // const fileName = path.join(app.getPath('userData'), 'Local Storage', 'auth.json')
                 // fs.writeFile(fileName, JSON.stringify({
@@ -39,7 +41,7 @@ export const signIn = action((email, password) => {
                 // }), (err) => {
                 //     if (err) reject({message: err.toString()})
                 // })
-                resolve(authUser.user)
+                resolve(user.user)
             }))
             .catch(error => {
                 reject(error)
@@ -63,3 +65,10 @@ export const resetPassword = (email) =>
 // Password Change
 export const updatePassword = (password) =>
     auth.currentUser.updatePassword(password);
+
+// // Verify a jwt token as being a valid firebase Id Token
+// export const verifyToken = (idToken) =>
+//     auth.verifyToken(idToken);
+
+// export const onIdTokenChanged = () =>
+//     auth.onIdTokenChanged();
