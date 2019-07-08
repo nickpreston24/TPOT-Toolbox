@@ -1,5 +1,6 @@
 import React from 'react';
 import { configure, storiesOf, addDecorator, addParameters } from '@storybook/react';
+import StoryRouter from 'storybook-react-router';
 import { ThemeProvider, install } from "@material-ui/styles";
 import { Provider } from 'mobx-react';
 import MobxStore from '../src/shared/stores'
@@ -53,7 +54,7 @@ const theme = createMuiTheme({
 
 // : Apply decorators globally to all Storybook assets
 // addDecorator(muiTheme())
-// addDecorator(StoryRouter())
+addDecorator(StoryRouter())
 addDecorator(withKnobs)
 addDecorator(storyFn =>
     <ThemeProvider {...{ theme }}>

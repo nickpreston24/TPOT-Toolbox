@@ -6,16 +6,13 @@ import { observable, action } from 'mobx'
 import { compose } from 'recompose'
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { Button, Tooltip, Zoom } from '@material-ui/core';
+import { Link, Redirect } from 'react-router-dom';
+
 
 
 const styles = theme => ({
     root: {
-        // border: '1px solid black',
-        // color: 'red !important',
-        // background: 'red !important',
-        // #292b2f
-
-        '& Button': {
+        '& Button ': {
             background: '#292b2f',
             borderRadius: '50%',
             color: 'white',
@@ -67,22 +64,31 @@ const styles = theme => ({
     }
 })
 
+// The usage of React.forwardRef will no longer be required for react-router-dom v6.
+// see https://github.com/ReactTraining/react-router/issues/6056
+const LinkAdapter = React.forwardRef((props, ref) => <Link innerRef={ref} {...props} ><Button>{props.children}</Button></Link>)
+
 @inject('store')
 @withStyles(styles)
 @observer
 export class ShelfButton extends Component {
 
     render() {
-        const { store, classes, variant, expanded, tooltip, children, onClick, color, icon } = this.props
+        const { store, classes, variant, expanded, tooltip, children, onClick, color, icon, path } = this.props
         return (
             <Box bgcolor="grey" className={classes.root} display="flex" alignItems="center">
                 <span className='indicator' />
                 <Tooltip title={tooltip ? tooltip : 'Tooltip'} placement="right" transitionComponent={Zoom} style={{ fontSize: '40px !important' }}
                     classes={{ popper: classes.popper }}
                 >
-                    <Button className={classes.button} onClick={onClick} style={color && { background: color }}>
-                        {icon === 'scribe' ? <ScribeIcon /> : children}
-                    </Button>
+                    {path
+                        ? <Button component={LinkAdapter} to={path}  className={classes.button}>
+                            {icon === 'scribe' ? <ScribeIcon /> : children}
+                        </Button>
+                        : <Button className={classes.button} style={color && { background: color }}>
+                            {icon === 'scribe' ? <ScribeIcon /> : children}
+                        </Button>
+                    }
                 </Tooltip>
             </Box>
         )

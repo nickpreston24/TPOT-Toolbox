@@ -21,9 +21,9 @@ storiesOf('Toolbox/Dashboard', module)
         <Dashboard
             shelf={
                 <Shelf >
-                    <ShelfButton tooltip='Scribe' icon='scribe' route='/scribe' color="#f9b54c" active={true} />
-                    <ShelfButton tooltip='Sort' icon='fa-letters' route='/sort' active={false} />
-                    <ShelfButton tooltip='Patch' icon='fa-letters' route='/patch' active={false} />
+                    <ShelfButton tooltip='Scribe' icon='scribe' path='/scribe' color="#f9b54c" active={true} />
+                    <ShelfButton tooltip='Sort' icon='fa-letters' path='/sort' active={false} />
+                    <ShelfButton tooltip='Patch' icon='fa-letters' path='/patch' active={false} />
                 </Shelf>
             }
             sidebar={
