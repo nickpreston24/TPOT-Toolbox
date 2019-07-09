@@ -12,6 +12,9 @@ export default class AuthStore {
         firebase.app.auth().onAuthStateChanged((user) => {
 
             user.getIdToken()
+                .then(response =>
+                    console.log('getIdToken():', response)
+                );
 
             console.log('authStateChanged():\n')
             console.log('user authenticated?', !!user)
