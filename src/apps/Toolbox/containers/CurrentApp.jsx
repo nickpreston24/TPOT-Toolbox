@@ -60,7 +60,7 @@ class CurrentAppClass extends Component {
                 <div id="Current App" className={classes.currentApp}>
                     <Letters />
                     <Notifier />
-                    <SiteScan />
+                    {/* <SiteScan /> */}
                 </div>
             </div>
         )
