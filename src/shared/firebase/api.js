@@ -1,10 +1,5 @@
 import { action } from 'mobx';
 import { auth } from './firebase';
-// const electron = window.require("electron");
-// const remote = electron.remote;
-// const app = remote.app;
-// const fs = remote.require("fs");
-// const path = remote.require("path");
 
 // Create User
 export const createUser = (email, password) => {
@@ -32,15 +27,7 @@ export const signIn = action((email, password) => {
     return new Promise(action((resolve, reject) => {
         auth.signInWithEmailAndPassword(email, password)
             .then(action((user) => {
-                // console.log('user:', user)
                 console.log('refresh token: ', user.refreshToken)
-                // : TODO
-                // const fileName = path.join(app.getPath('userData'), 'Local Storage', 'auth.json')
-                // fs.writeFile(fileName, JSON.stringify({
-                //     authUser: authUser.user,
-                // }), (err) => {
-                //     if (err) reject({message: err.toString()})
-                // })
                 resolve(user.user)
             }))
             .catch(error => {
@@ -50,13 +37,8 @@ export const signIn = action((email, password) => {
 })
 
 // Sign out
-export const signOut = () => {
-    auth.signOut()
-    // TODO :
-    // fs.unlink(path.join(app.getPath('userData'), 'Local Storage', 'auth.json'), () => {
-    //     // console.log('Signed Out User')
-    // })
-}
+export const signOut = () =>
+    auth.signOut();
 
 // Password Reset
 export const resetPassword = (email) =>
