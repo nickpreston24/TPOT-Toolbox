@@ -46,7 +46,7 @@ const theme = createMuiTheme({
         }
     },
     typography: {
-        fontFamily: "Poppins,'Helvetica Neue','Helvetica','Arial',sans-serif",
+        fontFamily: "Poppins, 'Helvetica Neue','Helvetica','Arial',sans-serif",
         useNextVariants: true,
     },
 });

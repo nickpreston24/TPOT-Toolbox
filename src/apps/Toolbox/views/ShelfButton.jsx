@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Fragment, Component } from 'react'
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles'
@@ -93,6 +94,10 @@ export class ShelfButton extends Component {
             </Box>
         )
     }
+}
+
+ShelfButton.propTypes = {
+	// path: PropTypes.string.isRequired
 }
 
 const ScribeIcon = () => (

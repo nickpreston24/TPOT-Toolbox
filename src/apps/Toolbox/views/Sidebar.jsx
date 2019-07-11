@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 import { compose } from 'recompose'
 import { ShelfButton } from './ShelfButton';
-import { SvgIcon, Avatar } from '@material-ui/core';
+import { SvgIcon, Avatar, Button } from '@material-ui/core';
 import { width } from '@material-ui/system';
 
 const styles = theme => ({
@@ -17,6 +17,34 @@ const styles = theme => ({
     },
 })
 
+const menu = [
+    {
+        name: 'save',
+        icon: '',
+        action: '',
+    },
+    {
+        name: 'load',
+        icon: '',
+        action: '',
+    },
+    {
+        name: 'publish',
+        icon: '',
+        action: '',
+    },
+    {
+        name: 'preview',
+        icon: '',
+        action: '',
+    },
+    {
+        name: 'clear',
+        icon: '',
+        action: '',
+    },
+]
+
 @inject('store')
 @withStyles(styles)
 @observer
@@ -24,6 +52,8 @@ export class Sidebar extends Component {
 
     render() {
         const { store, classes, variant, children, expanded } = this.props
+        console.log(menu)
+        console.log(menu[0].name)
         return (
             <Box bgcolor="#2f3136" width={240} height='100%' >
                 <Box className={classes.title} height={48} color="white" display="flex" alignItems="center" fontSize={20} mx={1}>
@@ -32,7 +62,11 @@ export class Sidebar extends Component {
                     </Box>
                     Scribe
                 </Box>
-
+                {menu.map((item) => (
+                    <Box >
+                        <Button>{item.name}</Button>
+                    </Box>
+                ))}
             </Box>
         )
     }

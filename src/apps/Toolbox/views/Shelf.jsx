@@ -47,7 +47,7 @@ export class Shelf extends Component {
                     {children}
                 </Box>
                 <Divider />
-                <ShelfButton tooltip="Settings" route='/settings' color="#4a89ee">
+                <ShelfButton tooltip="Settings" route='/settings' >
                     <SettingsIcon />
                 </ShelfButton>
             </Box>
