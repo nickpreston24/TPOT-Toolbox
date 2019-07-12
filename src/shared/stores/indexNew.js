@@ -1,17 +1,23 @@
+import localForage from 'localforage';
+import { create } from 'mobx-persist'
 import { action } from 'mobx';
 
 // RESPONSIBILITIES:
 // Create, Update, Tweak and Destroy MobX store instances for each app
 // Provide some methods that any app can use by calling their own, this.root
 
+localForage.config({ name: 'Toolbox', storeName: `MobX Persistent Storage` })
+
 export default class MobxStore {
     constructor() {
-        this.appNames = ['services', 'settings', 'letters', 'editor', 'session', 'auth']
+        this.appNames = ['services', 'settings', 'letters', 'editor', 'session', 'auth', 'scribe']
+        this.hydrate = create({ storage: localForage, jsonify: false })
         this.init()
     }
 
     @action init = () => {
         this.reloadStore(this.appNames)
+        console.log('MobX: ', this)
     }
 
     @action reloadStore = (string) => {
@@ -19,7 +25,8 @@ export default class MobxStore {
             if (!this.appNames.includes(storeName)) return
             const resolvedStore = require(`./${storeName}`)
             const storeConstructor = resolvedStore.default
-            this[`${storeName}Store`] = new storeConstructor(this)
+            this[`${storeName}Store`] = new storeConstructor(this) // Create an Instance of the Store to be used in the App
+            this.hydrate(`${storeName}Store`, this[`${storeName}Store`], { clean: true }) // Have the Store Instance suscribe to persistant localforage
             console.log(`Refreshed: ${storeName}Store`)
         }
         Array.isArray(string) ? string.forEach(string => loadConstructor(string)) : loadConstructor(string)
