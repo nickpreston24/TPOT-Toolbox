@@ -30,8 +30,8 @@ export default class ScribeStore {
                 }
             })
             console.log(version)
-            const newSessionName = `${newSessionInfo.filename}(${version}).docx`
-            console.log(newSessionName)
+            // const newSessionName = `${newSessionInfo.filename}(${version}).docx`
+            // console.log(newSessionName)
             if (!this.sessions[index].name) {
                 const doc = new Session({ name: name })
                 this.sessions.push(doc)
