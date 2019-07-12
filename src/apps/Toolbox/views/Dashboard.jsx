@@ -64,7 +64,7 @@ export const Dashboard = compose(
                     <Box flexGrow={1} bgcolor="#f6f6f7" display="flex" flexDirection="column">
                         <Box className={classes.header} px={1} display="flex" alignItems="center" justifyContent="flex-end" color="accent.pink">
                             {header}
-                            <Button color="inherit" onClick={() => this.props.store.reloadStore('letters')} >Test Button</Button>
+                            <Button color="inherit" onClick={() => this.props.store.scribeStore.createSession()} >Test Button</Button>
                         </Box>
                         <Box className={classes.currentApp} flexGrow={1} id="CurrentApp">
                             {currentApp}
@@ -81,5 +81,5 @@ export const Dashboard = compose(
 )
 
 Dashboard.propTypes = {
-    store: PropTypes.object.isRequired,
+    store: PropTypes.object
 }

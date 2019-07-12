@@ -82,7 +82,7 @@ export const ShelfButton = compose(
             return (
                 <Box bgcolor="grey" className={classes.root} display="flex" alignItems="center">
                     <span className='indicator' />
-                    <Tooltip title={tooltip ? tooltip : 'Tooltip'} placement="right" transitionComponent={Zoom} style={{ fontSize: '40px !important' }}
+                    <Tooltip title={tooltip ? tooltip : 'Tooltip'} placement="right" transitioncomponent={Zoom} style={{ fontSize: '40px !important' }}
                         classes={{ popper: classes.popper }}
                     >
                         {path
@@ -101,7 +101,7 @@ export const ShelfButton = compose(
 )
 
 ShelfButton.propTypes = {
-    store: PropTypes.object.isRequired,
+    store: PropTypes.object
 }
 
 const ScribeIcon = () => (

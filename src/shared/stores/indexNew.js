@@ -26,7 +26,7 @@ export default class MobxStore {
             const resolvedStore = require(`./${storeName}`)
             const storeConstructor = resolvedStore.default
             this[`${storeName}Store`] = new storeConstructor(this) // Create an Instance of the Store to be used in the App
-            this.hydrate(`${storeName}Store`, this[`${storeName}Store`], { clean: true }) // Have the Store Instance suscribe to persistant localforage
+            this.hydrate(`${storeName}Store`, this[`${storeName}Store`], { clean: false }) // Have the Store Instance suscribe to persistant localforage
             console.log(`Refreshed: ${storeName}Store`)
         }
         Array.isArray(string) ? string.forEach(string => loadConstructor(string)) : loadConstructor(string)

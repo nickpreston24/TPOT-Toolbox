@@ -25,7 +25,7 @@ export default class LettersStore {
 
     @persist @observable clean = true
     @persist @observable authUser = null
-    @persist @observable notification = {
+    @observable notification = {
         message: '',
         config: {}
     }

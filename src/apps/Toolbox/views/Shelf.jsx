@@ -61,7 +61,7 @@ export const Shelf = compose(
 )
 
 Shelf.propTypes = {
-    store: PropTypes.object.isRequired,
+    store: PropTypes.object
 }
 
 

@@ -127,9 +127,9 @@ const Toolbox = compose(
 
 Toolbox.propTypes = {
     classes: PropTypes.object,
-    store: PropTypes.object.isRequired,
-    enqueueSnackbar: PropTypes.func.isRequired,
-    closeSnackbar: PropTypes.func.isRequired,
+    closeSnackbar: PropTypes.func,
+    enqueueSnackbar: PropTypes.func,
+    store: PropTypes.object
 }
 
 const LinkOverlay = observer(() =>

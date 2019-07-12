@@ -65,8 +65,8 @@ export const Sidebar = compose(
                         </Box>
                         Scribe
                     </Box>
-                    {menu.map((item) => (
-                        <Box >
+                    {menu.map((item, index) => (
+                        <Box key={index}>
                             <Button>{item.name}</Button>
                         </Box>
                     ))}
@@ -77,7 +77,7 @@ export const Sidebar = compose(
 )
 
 Sidebar.propTypes = {
-    store: PropTypes.object.isRequired,
+    store: PropTypes.object
 }
 
 const ScribeIcon = () => (
