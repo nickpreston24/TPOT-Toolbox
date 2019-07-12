@@ -1,13 +1,14 @@
+import React, { Component } from 'react'
 import PropTypes from "prop-types";
-import React, { Fragment, Component } from 'react'
+import { compose } from 'recompose'
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles'
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
-import { compose } from 'recompose'
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { Button, Tooltip, Zoom } from '@material-ui/core';
 import { Link, Redirect } from 'react-router-dom';
+import { Shelf } from './Shelf';
 
 
 
@@ -69,35 +70,38 @@ const styles = theme => ({
 // see https://github.com/ReactTraining/react-router/issues/6056
 const LinkAdapter = React.forwardRef((props, ref) => <Link innerRef={ref} {...props} ><Button>{props.children}</Button></Link>)
 
-@inject('store')
-@withStyles(styles)
-@observer
-export class ShelfButton extends Component {
+export const ShelfButton = compose(
+    inject('store'),
+    withStyles(styles),
+    observer
+)(
+    class ShelfButton extends Component {
 
-    render() {
-        const { store, classes, variant, expanded, tooltip, children, onClick, color, icon, path } = this.props
-        return (
-            <Box bgcolor="grey" className={classes.root} display="flex" alignItems="center">
-                <span className='indicator' />
-                <Tooltip title={tooltip ? tooltip : 'Tooltip'} placement="right" transitionComponent={Zoom} style={{ fontSize: '40px !important' }}
-                    classes={{ popper: classes.popper }}
-                >
-                    {path
-                        ? <Button component={LinkAdapter} to={path}  className={classes.button}>
-                            {icon === 'scribe' ? <ScribeIcon /> : children}
-                        </Button>
-                        : <Button className={classes.button} style={color && { background: color }}>
-                            {icon === 'scribe' ? <ScribeIcon /> : children}
-                        </Button>
-                    }
-                </Tooltip>
-            </Box>
-        )
+        render() {
+            const { store, classes, variant, expanded, tooltip, children, onClick, color, icon, path } = this.props
+            return (
+                <Box bgcolor="grey" className={classes.root} display="flex" alignItems="center">
+                    <span className='indicator' />
+                    <Tooltip title={tooltip ? tooltip : 'Tooltip'} placement="right" transitionComponent={Zoom} style={{ fontSize: '40px !important' }}
+                        classes={{ popper: classes.popper }}
+                    >
+                        {path
+                            ? <Button component={LinkAdapter} to={path}  className={classes.button}>
+                                {icon === 'scribe' ? <ScribeIcon /> : children}
+                            </Button>
+                            : <Button className={classes.button} style={color && { background: color }}>
+                                {icon === 'scribe' ? <ScribeIcon /> : children}
+                            </Button>
+                        }
+                    </Tooltip>
+                </Box>
+            )
+        }
     }
-}
+)
 
 ShelfButton.propTypes = {
-	// path: PropTypes.string.isRequired
+    store: PropTypes.object.isRequired,
 }
 
 const ScribeIcon = () => (

@@ -1,12 +1,14 @@
-import React, { Fragment, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from "prop-types";
+import { compose } from 'recompose'
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles'
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
-import { compose } from 'recompose'
-import { ShelfButton } from './ShelfButton';
+import {ShelfButton} from './ShelfButton';
 import { SvgIcon, Avatar } from '@material-ui/core';
 import { width } from '@material-ui/system';
+
 
 const styles = theme => ({
     root: {
@@ -17,43 +19,51 @@ const styles = theme => ({
     }
 })
 
-@inject('store')
-@withStyles(styles)
-@observer
-export class Shelf extends Component {
+export const Shelf = compose(
+    inject('store'),
+    withStyles(styles),
+    observer
+)(
+    class Shelf extends Component {
 
-    @observable expanded = false
+        @observable expanded = false
 
-    @action expand = () => {
-        this.expanded = !this.expanded
-    }
+        @action expand = () => {
+            this.expanded = !this.expanded
+        }
 
-    render() {
-        const { store, classes, variant, children } = this.props
-        const { expanded } = this
-        console.log('props', this.props)
-        return (
-            <Box
-                bgcolor="#202225" py={1} className={classes.root}
-                display="flex" flexDirection="column" justifyContent="space-between" style={{
-                    boxSizing: 'border-box', height: '100%'
-                }}
-            >
-                <ShelfButton tooltip="Expand" onClick={this.expand} color="#e35644">
-                    <ToolboxIcon />
-                </ShelfButton>
-                <Divider />
-                <Box flexGrow={1}>
-                    {children}
+        render() {
+            const { store, classes, variant, children } = this.props
+            const { expanded } = this
+            console.log('props', this.props)
+            return (
+                <Box
+                    bgcolor="#202225" py={1} className={classes.root}
+                    display="flex" flexDirection="column" justifyContent="space-between" style={{
+                        boxSizing: 'border-box', height: '100%'
+                    }}
+                >
+                    <ShelfButton tooltip="Expand" onClick={this.expand} color="#e35644">
+                        <ToolboxIcon />
+                    </ShelfButton>
+                    <Divider />
+                    <Box flexGrow={1}>
+                        {children}
+                    </Box>
+                    <Divider />
+                    <ShelfButton tooltip="Settings" route='/settings' >
+                        <SettingsIcon />
+                    </ShelfButton>
                 </Box>
-                <Divider />
-                <ShelfButton tooltip="Settings" route='/settings' >
-                    <SettingsIcon />
-                </ShelfButton>
-            </Box>
-        )
+            )
+        }
     }
+)
+
+Shelf.propTypes = {
+    store: PropTypes.object.isRequired,
 }
+
 
 {/* <Box display="flex" flexDirection="row" justifyContent="stretch" alignItems="stretch" style={{
     position: 'absolute', boxSizing: 'border-box', height: '100%', width: '100%'

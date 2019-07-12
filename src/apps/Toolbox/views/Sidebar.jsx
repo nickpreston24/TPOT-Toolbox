@@ -1,9 +1,10 @@
-import React, { Fragment, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from "prop-types";
+import { compose } from 'recompose'
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles'
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
-import { compose } from 'recompose'
 import { ShelfButton } from './ShelfButton';
 import { SvgIcon, Avatar, Button } from '@material-ui/core';
 import { width } from '@material-ui/system';
@@ -45,31 +46,38 @@ const menu = [
     },
 ]
 
-@inject('store')
-@withStyles(styles)
-@observer
-export class Sidebar extends Component {
+export const Sidebar = compose(
+    inject('store'),
+    withStyles(styles),
+    observer
+)(
+    class Sidebar extends Component {
 
-    render() {
-        const { store, classes, variant, children, expanded } = this.props
-        console.log(menu)
-        console.log(menu[0].name)
-        return (
-            <Box bgcolor="#2f3136" width={240} height='100%' >
-                <Box className={classes.title} height={48} color="white" display="flex" alignItems="center" fontSize={20} mx={1}>
-                    <Box mx={2} display="flex" alignItems="center" color="#aaabad" >
-                        <ScribeIcon />
+        render() {
+            const { store, classes, variant, children, expanded } = this.props
+            console.log(menu)
+            console.log(menu[0].name)
+            return (
+                <Box bgcolor="#2f3136" width={240} height='100%' >
+                    <Box className={classes.title} height={48} color="white" display="flex" alignItems="center" fontSize={20} mx={1}>
+                        <Box mx={2} display="flex" alignItems="center" color="#aaabad" >
+                            <ScribeIcon />
+                        </Box>
+                        Scribe
                     </Box>
-                    Scribe
+                    {menu.map((item) => (
+                        <Box >
+                            <Button>{item.name}</Button>
+                        </Box>
+                    ))}
                 </Box>
-                {menu.map((item) => (
-                    <Box >
-                        <Button>{item.name}</Button>
-                    </Box>
-                ))}
-            </Box>
-        )
+            )
+        }
     }
+)
+
+Sidebar.propTypes = {
+    store: PropTypes.object.isRequired,
 }
 
 const ScribeIcon = () => (

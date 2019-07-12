@@ -20,5 +20,5 @@ const theme = select(
 storiesOf('Toolbox/ShelfButton', module)
     .addDecorator(withKnobs)
     .add('default', () =>
-        <ShelfButton  {...{ expanded, theme }} />
+        <ShelfButton />
     )
