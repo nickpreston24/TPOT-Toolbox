@@ -17,7 +17,6 @@ export default class ScribeStore {
         this.editorStore = new EditorStore(this.rootStore)
         this.session = new Session(null, this.editorStore)
         this.editorStore.suscribe(this.session)
-        console.log(this.session)
     }
 
     @computed get currentSession() {
@@ -27,7 +26,6 @@ export default class ScribeStore {
     @action createSession = (file) => {
         this.session = new Session(file, this.editorStore)
         this.editorStore.suscribe(this.session)
-        console.log(this.session, file)
     }
 
     @action saveSession = () => {
@@ -83,7 +81,6 @@ class Session {
     constructor(file, editorStore) {
         this.name = file ? file.name:  'Untitled'
         this.editorStore = editorStore
-        console.log("BMP", this.editorStore)
         if (file) this.convertFile(file)
     }
 
@@ -92,10 +89,11 @@ class Session {
         return JSON.stringify(convertToRaw(this.editorState.getCurrentContent()))
     }
 
-    @action convertFile = async (file) => {
-        console.log('file to convert', file)
-        let html = await convertFile(file)
-        console.log('html', html)
+    @action convertFile =  (file) => {
+        this.editorStore.convertFileToDraftState(file)
+        // console.log('file to convert', file)
+        // let html = await convertFile(file)
+        // console.log('html', html)
     }
 
 }

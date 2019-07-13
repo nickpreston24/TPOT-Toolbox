@@ -72,7 +72,7 @@ export default class EditorStore {
         this.baseStyleMap = newBaseStyleMap
         this.originalState = html
         this.baseStyleMap = newBaseStyleMap
-        this.editorState = EditorState.createWithContent(newContentState);
+        this.session.editorState = EditorState.createWithContent(newContentState);
         this.codeState = draftContentToHtml(this.editorState, newContentState);
         let that = this
         setTimeout(function () {
