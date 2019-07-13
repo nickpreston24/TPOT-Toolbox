@@ -75,7 +75,7 @@ class Draft extends Component {
 					id={"DraftJS"}
 					ref={this.handleRef}
 					placeholder="Click to start typing a note..."
-					editorState={store.editorState}
+					editorState={session.editorState}
 					// onFocus={()=>{console.log('focus')}}
 					// onBlur={this.handleBlur.bind(this)}
 					onChange={editorState => store.onChange(editorState)}

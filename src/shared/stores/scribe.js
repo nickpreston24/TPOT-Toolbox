@@ -14,8 +14,9 @@ export default class ScribeStore {
     constructor(rootStore) {
         this.rootStore = rootStore
         this.notify = this.rootStore.lettersStore.notify
-        this.editorStore = new EditorStore(this.rootStore, this.currentSession)
+        this.editorStore = new EditorStore(this.rootStore)
         this.session = new Session(null, this.editorStore)
+        this.editorStore.suscribe(this.session)
         console.log(this.session)
     }
 
@@ -25,6 +26,7 @@ export default class ScribeStore {
 
     @action createSession = (file) => {
         this.session = new Session(file, this.editorStore)
+        this.editorStore.suscribe(this.session)
         console.log(this.session, file)
     }
 
@@ -76,7 +78,7 @@ class Session {
     @observable dateCreated = ''
     @observable lastModified = ''
     @observable editorStore = null
-    @observable editorState = createEditorStateWithText('Click to start typing a notes...')
+    @observable editorState = createEditorStateWithText('Click to start typing a note...')
 
     constructor(file, editorStore) {
         this.name = file ? file.name:  'Untitled'

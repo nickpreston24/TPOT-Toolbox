@@ -12,13 +12,9 @@ export default class EditorStore {
 
     @observable editorState = createEditorStateWithText('Click catch a cat...')
 
-    constructor(rootStore, session) {
-        console.log("SESE", session)
+    constructor(rootStore) {
         this.rootStore = rootStore
-        this.session = session
         this.notify = this.rootStore.lettersStore.notify
-
-        console.log(session)
 
         window.addEventListener("message", msg => {
             if (msg.data.event === "draftjs-editor-reload") this.loadEditorFromDocx(msg.data.html)
@@ -41,9 +37,14 @@ export default class EditorStore {
         'edited',
         'code',
     ]
+    
+    @action suscribe = session =>{
+        this.session = session
+        console.log("AB", this.session)
+    }
 
     @action onChange = editorState =>
-        this.editorState = editorState
+        this.session.editorState = editorState
 
     @action setRef = node =>
         this.editor = node
@@ -99,7 +100,7 @@ export default class EditorStore {
     }
 
     @action handleKeyCommand = (command, store) => {
-        const notify = store.notify
+        const notify = this.notify
         if (command === 'save') {
             this.saveSession(this.notify)
             return 'handled';
