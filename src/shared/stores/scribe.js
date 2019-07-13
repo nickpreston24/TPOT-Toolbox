@@ -9,12 +9,13 @@ import EditorStore from './editor'
 
 export default class ScribeStore {
 
-    @observable session = new Session
+    @observable session = null
 
     constructor(rootStore) {
         this.rootStore = rootStore
         this.notify = this.rootStore.lettersStore.notify
-        this.editorStore = new EditorStore(this.rootStore, this)
+        this.editorStore = new EditorStore(this.rootStore, this.currentSession)
+        this.session = new Session(null, this.editorStore)
         console.log(this.session)
     }
 
@@ -23,7 +24,7 @@ export default class ScribeStore {
     }
 
     @action createSession = (file) => {
-        this.session = new Session(file)
+        this.session = new Session(file, this.editorStore)
         console.log(this.session, file)
     }
 
@@ -47,15 +48,15 @@ export default class ScribeStore {
     }
 
     @action publish = () => {
-        // Publish the code contents of this.currentSession.editorState
+        // Publish the code contents of this.currentSession.editorState [or this.editorStore.code]
     }
 
     @action load = () => {
-        // Publish the code contents of this.currentSession.editorState
+        // get the editorStore.convertfile(file)
     }
 
     @action preview = () => {
-        // Publish the code contents of this.currentSession.editorState
+        // 
     }
 
 }
@@ -74,15 +75,18 @@ class Session {
     @observable excerpt = ''
     @observable dateCreated = ''
     @observable lastModified = ''
+    @observable editorStore = null
     @observable editorState = createEditorStateWithText('Click to start typing a notes...')
 
-    constructor(file) {
+    constructor(file, editorStore) {
         this.name = file ? file.name:  'Untitled'
-        if (!file) {return}
-        this.convertFile(file)
+        this.editorStore = editorStore
+        console.log("BMP", this.editorStore)
+        if (file) this.convertFile(file)
     }
 
     @computed get code() {
+        /// editor is subscribed to the current session.editorState. To get the code, get the currenteditorstore.code at this level
         return JSON.stringify(convertToRaw(this.editorState.getCurrentContent()))
     }
 

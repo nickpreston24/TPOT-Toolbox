@@ -10,23 +10,28 @@ import { convertFile } from "../utilities/converter";
 
 export default class EditorStore {
 
+    @observable editorState = createEditorStateWithText('Click catch a cat...')
+
     constructor(rootStore, session) {
+        console.log("SESE", session)
         this.rootStore = rootStore
+        this.session = session
         this.notify = this.rootStore.lettersStore.notify
+
+        console.log(session)
 
         window.addEventListener("message", msg => {
             if (msg.data.event === "draftjs-editor-reload") this.loadEditorFromDocx(msg.data.html)
         });
 
     }
-    
+
     @persist @observable clean = true
     @persist @observable editMode = 'edited'
     @persist @observable originalState = 'Original'
     @observable editor = null
     @observable editorNode = null
     @observable baseStyleMap = baseStyleMap
-    @observable editorState = createEditorStateWithText('Click to start typing a note...')
     @observable codeState = 'Code'
     @observable baseBlockStyleFn = baseBlockStyleFn
     @observable blockRenderer = blockRenderer
