@@ -12,19 +12,40 @@ import { Scribe } from '../../Scribe'
 const styles = theme => ({
     // Dashboard is topmost component, so it should also handle global css for now
     '@global': {
+        '::-webkit-scrollbar': {
+            width: '14px'
+        },
+        '::-webkit-scrollbar-track': {
+            boxShadow: 'inset 0 0 14px 14px transparent',
+            border: 'solid 4px transparent'
+        },  
+        '::-webkit-scrollbar-thumb': {
+            boxShadow: 'inset 0 0 14px 14px #bbbbbe',
+            border: 'solid 4px transparent',
+            borderRadius: '14px'
+        },
+        '::-webkit-scrollbar-button': {
+            display: 'none'
+        },
         'body': {
             fontFamily: 'Poppins',
         },
-        '*::-webkit-scrollbar': {
-            height: 14,
-            width: 16,
-        },
-        '*::-webkit-scrollbar-thumb': {
-            boxShadow: 'inset 0 0 10px 10px #7289da',
-            border: '4px transparent solid',
-            borderRadius: 12,
-        },
     },
+    // '@global': {
+    //     'body': {
+    //         fontFamily: 'Poppins',
+    //     },
+    //     '*::-webkit-scrollbar': {
+    //         height: 14,
+    //         width: 16,
+    //         border: 'solid 4px transparent'
+    //     },
+    //     '*::-webkit-scrollbar-thumb': {
+    //         boxShadow: 'inset 0 0 10px 10px #7289da',
+    //         border: '4px solid transparent',
+    //         borderRadius: 12,
+    //     },
+    // },
     root: {
         // color: 'red',
     },
@@ -65,7 +86,8 @@ export const Dashboard = compose(
                     <Box flexGrow={1} bgcolor="#f6f6f7" display="flex" flexDirection="column">
                         <Box className={classes.header} px={1} display="flex" alignItems="center" justifyContent="flex-end" color="accent.pink">
                             {header}
-                            <Button color="inherit" onClick={() => this.props.store.scribeStore.createSession()} >Test Button</Button>
+                            <Button color="inherit" onClick={() => this.props.store.scribeStore.createSession()} >Create</Button>
+                            <Button color="inherit" onClick={() => this.props.store.scribeStore.closeSession()} >Destroy</Button>
                         </Box>
                         <Box className={classes.currentApp} flexGrow={1} id="CurrentApp">
                             {currentApp}

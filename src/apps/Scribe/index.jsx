@@ -11,16 +11,11 @@ export const Scribe = compose(
 
         handleFile = event => {
             const file = event.target.files[0];
-            console.log('File blob: ', file)
-            console.log(this.props.store)
-            this.props.store.scribeStore.createSession(file)
+            !!file && this.props.store.scribeStore.createSession(file)
         }
 
         render() {
             const session = this.props.store.scribeStore.currentSession
-            const store = session.editorStore
-            console.log('code', session.code)
-            console.log('tty', this.props.store.scribeStore.currentSession.editorStore)
             return (
                 <div>
                     <h1>Welcome to Scribe!</h1>

@@ -15,7 +15,7 @@ const MUIstyles = theme => ({
         alignItems: 'center',
         display: 'flex',
         flex: 1,
-        background: theme.palette.background.default,
+        // background: theme.palette.background.default,
         height: '100%',
         // minHeight: '100vh',
         // height: "calc(100vh - 104px)",

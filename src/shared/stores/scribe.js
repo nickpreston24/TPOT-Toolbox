@@ -6,6 +6,7 @@ import { createEditorStateWithText } from "draft-js-plugins-editor";
 import { convertToRaw } from 'draft-js';
 import { convertFile } from "../utilities/converter";
 import EditorStore from './editor'
+import { draftContentToHtml } from "../../apps/Editor/utils/transforms";
 
 export default class ScribeStore {
 
@@ -33,6 +34,8 @@ export default class ScribeStore {
     }
 
     @action closeSession = () => {
+        this.session = new Session(null, this.editorStore)
+        this.editorStore.suscribe(this.session)
         // delete the current session in this.sessions[] and set this.currentSession to be one index back or forward
     }
 
@@ -82,22 +85,21 @@ class Session {
         this.name = file ? file.name:  'Untitled'
         this.editorStore = editorStore
         if (file) this.convertFile(file)
+        console.log(this)
     }
 
     @computed get code() {
-        /// editor is subscribed to the current session.editorState. To get the code, get the currenteditorstore.code at this level
-        return JSON.stringify(convertToRaw(this.editorState.getCurrentContent()))
+        return draftContentToHtml(
+            this.editorState,
+            this.editorState.getCurrentContent()
+        );
     }
 
     @action convertFile =  (file) => {
         this.editorStore.convertFileToDraftState(file)
-        // console.log('file to convert', file)
-        // let html = await convertFile(file)
-        // console.log('html', html)
     }
 
 }
-
 
 const getVersionInfo = (name) => {
     const VER_REGX = /(?:\(([\d]{1,3})\)){0,1}(\.docx)/g

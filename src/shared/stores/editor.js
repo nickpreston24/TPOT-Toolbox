@@ -73,7 +73,7 @@ export default class EditorStore {
         this.originalState = html
         this.baseStyleMap = newBaseStyleMap
         this.session.editorState = EditorState.createWithContent(newContentState);
-        this.codeState = draftContentToHtml(this.editorState, newContentState);
+        this.codeState = draftContentToHtml(this.session.editorState, newContentState);
         let that = this
         setTimeout(function () {
             that.focus()
@@ -137,8 +137,8 @@ export default class EditorStore {
 
     @computed get editorCode() {
         return draftContentToHtml(
-            this.editorState,
-            this.editorState.getCurrentContent()
+            this.session.editorState,
+            this.session.editorState.getCurrentContent()
         );
     }
 
