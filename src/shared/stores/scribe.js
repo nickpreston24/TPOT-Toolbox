@@ -1,78 +1,130 @@
-import { observable, computed, action, decorate, configure, toJS } from "mobx"
-import { auth, app, firebase } from '../firebase';
+import { action, observable, computed } from "mobx";
 import { persist } from "mobx-persist";
+import { serializable } from 'serializr'
+import { EditorState, getDefaultKeyBinding, KeyBindingUtil } from "draft-js";
+import { createEditorStateWithText } from "draft-js-plugins-editor";
+import { convertToRaw } from 'draft-js';
+import { convertFile } from "../utilities/converter";
+import EditorStore from './editor'
 
 export default class ScribeStore {
+
+    @observable session = new Session
 
     constructor(rootStore) {
         this.rootStore = rootStore
         this.notify = this.rootStore.lettersStore.notify
+        this.editorStore = new EditorStore(this.rootStore, this)
+        console.log(this.session)
     }
 
-    @persist @observable clean = true
-    @persist('list', Session) @observable sessions = []
+    @computed get currentSession() {
+        return this.session
+    }
 
-    @action createSession = file => {
-        // const name = !!file ? file : 'Untitled.docx'
-        // const name = !!file ? file : 'Untitled(5).docx'
-        const name = !!file ? file : 'Untoit Space_ thing 4,!@#$%^&*(this is the way it is) led(18)(19).docx'
+    @action createSession = (file) => {
+        this.session = new Session(file)
+        console.log(this.session, file)
+    }
 
-        let duplicate = this.sessions.some(session => session.name === name)
-        if (duplicate) {
-            console.log('bump')
-            let version = 0
-            let index = 0
-            this.sessions.forEach((session, index) => {
-                const newVersion = this.getVersionInfo(session.name).version + 1
-                if (newVersion > version) {
-                    version = newVersion
-                    index = index
-                }
-            })
-            console.log(version)
-            // const newSessionName = `${newSessionInfo.filename}(${version}).docx`
-            // console.log(newSessionName)
-            if (!this.sessions[index].name) {
-                const doc = new Session({ name: name })
-                this.sessions.push(doc)
-            }
-        } else {
-            if (!this.sessions[0].name) {
-                const doc = new Session({ name: name })
-                this.sessions.push(doc)
-            }
-        }
+    @action saveSession = () => {
+        // Forcefully hydrate the persisted data using the root store's hydrate function
     }
 
     @action closeSession = () => {
-
+        // delete the current session in this.sessions[] and set this.currentSession to be one index back or forward
     }
 
-    @action refreshSession = () => {
-
+    @action clearSession = () => {
+        // pull up the session info, like the file reference and create a new Session(fileReference) to refresh completely.
     }
 
-    @action updateSession = () => {
-
+    @action setCurrentSession = () => {
+        // this.currentSession needs to be subscribed to by the Draft editor created inside the Scribe app. 
+        // When the current session is changed, the Draft editor will accept the incoming EditorState 
+        // without editing the history. At the same time, the route will change, which will update the tab ui.
+        // Example Editor setup: () => <Editor editorState={this.props.store.scribe.currentSession.editorState} />
     }
 
-    getVersionInfo = (name) => {
-        const VER_REGX = /(?:\(([\d]{1,3})\)){0,1}(\.docx)/g
-        const matches = VER_REGX.exec(name)
-        const sample = matches[0]
-        const version = new Number(matches[1])
-        const index = name.length - sample.length
-        const filename = name.slice(0, index)
-        return { matches, sample, version, filename, index, name }
+    @action publish = () => {
+        // Publish the code contents of this.currentSession.editorState
+    }
+
+    @action load = () => {
+        // Publish the code contents of this.currentSession.editorState
+    }
+
+    @action preview = () => {
+        // Publish the code contents of this.currentSession.editorState
+    }
+
+}
+
+
+class Session {
+
+    @observable name = 'Untitled'
+    @observable fullname = 'Untitled.docx'
+    @observable version = 0
+    @observable file = ''
+    @observable contributer = ''
+    @observable route = ''
+    @observable slug = ''
+    @observable title = ''
+    @observable excerpt = ''
+    @observable dateCreated = ''
+    @observable lastModified = ''
+    @observable editorState = createEditorStateWithText('Click to start typing a notes...')
+
+    constructor(file) {
+        this.name = file ? file.name:  'Untitled'
+        if (!file) {return}
+        this.convertFile(file)
+    }
+
+    @computed get code() {
+        return JSON.stringify(convertToRaw(this.editorState.getCurrentContent()))
+    }
+
+    @action convertFile = async (file) => {
+        console.log('file to convert', file)
+        let html = await convertFile(file)
+        console.log('html', html)
     }
 
 }
 
-export class Session {
-    @persist @observable name = 'Untitled.docx'
 
-    constructor(config) {
-        this.name = config.name
-    }
-
+const getVersionInfo = (name) => {
+    const VER_REGX = /(?:\(([\d]{1,3})\)){0,1}(\.docx)/g
+    const matches = VER_REGX.exec(name)
+    const sample = matches[0]
+    const version = new Number(matches[1])
+    const index = name.length - sample.length
+    const filename = name.slice(0, index)
+    return { matches, sample, version, filename, index, name }
 }
+
+
+
+/*
+
+Scribe
+\-- UI states, loading, etc.
+\-- CRUD session
+\-- currentSession
+\-- session(s)
+    \-- name
+    \-- filepath
+    \-- publishData
+    \--  person editing
+    \-- editorState  =====>>
+
+Editor
+constructor ties to ref => Scribe.currentSession.editorState  <<======
+\-- editorState
+\-- currentCode
+\-- saveState
+... etc.
+
+*/

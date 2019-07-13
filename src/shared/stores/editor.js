@@ -10,7 +10,7 @@ import { convertFile } from "../utilities/converter";
 
 export default class EditorStore {
 
-    constructor(rootStore) {
+    constructor(rootStore, session) {
         this.rootStore = rootStore
         this.notify = this.rootStore.lettersStore.notify
 

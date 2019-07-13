@@ -7,6 +7,7 @@ import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 import { Route, Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
+import { Scribe } from '../../Scribe'
 
 const styles = theme => ({
     // Dashboard is topmost component, so it should also handle global css for now
@@ -68,7 +69,7 @@ export const Dashboard = compose(
                         </Box>
                         <Box className={classes.currentApp} flexGrow={1} id="CurrentApp">
                             {currentApp}
-                            <Route path="/scribe" render={() => <h3>Welcome to Scribe!</h3>} />
+                            <Route path="/scribe" render={() => <Scribe />} />
                             <Route path="/sort" render={() => <h3>Welcome to Email Sort!</h3>} />
                             <Route path="/patch" render={() => <h3>Welcome to Patch</h3>} />
                             <div style={{ height: '600%' }} />
