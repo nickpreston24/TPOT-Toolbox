@@ -374,6 +374,7 @@ const flattenStyles = async (baseDom, augDom) => {
 
     }
 
+    // icing nodes are CSS styles applied onto cake (html) nodes which are from Mammoth
     function createHighlights(highlights) {
         highlights.forEach(icingNode => {
 
@@ -383,10 +384,13 @@ const flattenStyles = async (baseDom, augDom) => {
             console.log('icing node parent', icingNode.parentElement)
             console.log('old icing node parent', $(icingNode.parentElement))
 
-            let blockChildren = getParentsUntil(icingNode.parentElement, "div")[0];
+            // $('#cat')[0].children
+            // element.children
+
+            let blockChildren = getParentsUntil(icingNode.parentElement, "div")[0].children;
             let blockChildren2 = $(icingNode.parentElement).parentsUntil("div").prevObject[0].children
             //TODO: figure out why, even though blockChildren 1 and 2 are identical, the targetElements is undefined at line 403
-            console.log('until result', blockChildren.children || blockChildren);
+            console.log('until result', blockChildren);
             console.log('old until result', blockChildren2);
             // blockChildren = blockChildren2
 
@@ -397,9 +401,15 @@ const flattenStyles = async (baseDom, augDom) => {
                     index: index
                 })
             }
+
+            console.log(parentChildren);
+
             let targetElements = parentChildren.filter(child => {
                 return icingNode.textContent === child.element.textContent
             })
+
+            console.log(targetElements);
+
             let targetElementIndex = targetElements[0].index
             let targetElement = icingNode.parentElement.children[targetElementIndex]
             let targetElementText = targetElement.textContent
