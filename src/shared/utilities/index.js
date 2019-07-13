@@ -1,4 +1,4 @@
-console.log("Branch b change!");
+console.log("Branch a change!");
 
 function getParentsUntil(elem, parent, selector) {
 
