@@ -90,10 +90,9 @@ class Session {
     @observable editorState = createEditorStateWithText('Click to start typing a note...')
 
     constructor(file, editorStore) {
-        this.name = file ? file.name:  'Untitled'
+        this.name = bumpName(file)
         this.editorStore = editorStore
         if (file) this.convertFile(file)
-        console.log(this)
     }
 
     @computed get code() {
@@ -109,14 +108,28 @@ class Session {
 
 }
 
-const getVersionInfo = (name) => {
+const bumpName = file => {
+    const filename = file ? file.name:  'Untitled.docx'
     const VER_REGX = /(?:\(([\d]{1,3})\)){0,1}(\.docx)/g
-    const matches = VER_REGX.exec(name)
+    const matches = VER_REGX.exec(filename)
+    const sample = matches[0]
+    const version = matches[1] ?  new Number(matches[1]) : 0
+    const verString = version !== 0 ? `(${version})` : ''
+    const length = filename.length - sample.length
+    const name = filename.slice(0, length).replace(/\s/g, '-')
+    // console.table({sample, version, verString, length, name})
+    let sessionName = `${name}${verString}`
+    return sessionName
+}
+
+const getVersionInfo = (filename) => {
+    const VER_REGX = /(?:\(([\d]{1,3})\)){0,1}(\.docx)/g
+    const matches = VER_REGX.exec(filename)
     const sample = matches[0]
     const version = new Number(matches[1])
-    const index = name.length - sample.length
-    const filename = name.slice(0, index)
-    return { matches, sample, version, filename, index, name }
+    const index = filename.length - sample.length
+    const name = filename.slice(0, index)
+    return { matches, sample, version, name, index, filename }
 }
 
 
