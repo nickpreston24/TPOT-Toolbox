@@ -20,12 +20,9 @@ export default class ScribeStore {
         this.editorStore.suscribe(this.session)
     }
 
-    @computed get currentSession() {
-        return this.session
-    }
-
     @action createSession = (file) => {
         this.session = new Session(file, this.editorStore)
+        this.history.push(`/scribe/${this.session.name}`)
         this.editorStore.suscribe(this.session)
     }
 
@@ -61,6 +58,17 @@ export default class ScribeStore {
     @action preview = () => {
         // 
     }
+
+    @action register = (keys) => {
+        for (const key in keys) {
+            this[`${key}`] = keys[key]
+        }
+    }
+
+    @computed get currentSession() {
+        return this.session
+    }
+    
 
 }
 

@@ -10,6 +10,12 @@ export const Scribe = compose(
 )(
     class Scribe extends Component {
 
+        componentDidMount() {
+            console.log('mount')
+            let { store, match, history, location } = this.props
+            store.scribeStore.register({match, history, location})
+        }
+
         render() {
             const { match, store } = this.props
             const session = this.props.store.scribeStore.currentSession
@@ -35,16 +41,11 @@ export const Homepage = compose(
 
         handleFile = event => {
             const file = event.target.files[0];
-            console.log(file)
-            if (file) {
-                !!file && this.props.store.scribeStore.createSession(file)
-            }
-            this.props.history.replace('/scribe/Untitled')
+            this.props.store.scribeStore.createSession(file)
         }
 
         createNew = () => {
             this.props.store.scribeStore.createSession()
-            this.props.history.push('/scribe/Untitled')
         }
 
         render() {
