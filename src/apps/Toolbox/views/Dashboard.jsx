@@ -12,40 +12,20 @@ import { Scribe } from '../../Scribe'
 const styles = theme => ({
     // Dashboard is topmost component, so it should also handle global css for now
     '@global': {
-        '::-webkit-scrollbar': {
-            width: '14px'
-        },
-        '::-webkit-scrollbar-track': {
-            boxShadow: 'inset 0 0 14px 14px transparent',
-            border: 'solid 4px transparent'
-        },  
-        '::-webkit-scrollbar-thumb': {
-            boxShadow: 'inset 0 0 14px 14px #bbbbbe',
-            border: 'solid 4px transparent',
-            borderRadius: '14px'
-        },
-        '::-webkit-scrollbar-button': {
-            display: 'none'
-        },
         'body': {
             fontFamily: 'Poppins',
         },
+        '*::-webkit-scrollbar': {
+            height: 14,
+            width: 16,
+            border: 'solid 4px transparent'
+        },
+        '*::-webkit-scrollbar-thumb': {
+            boxShadow: 'inset 0 0 10px 10px #7289da',
+            border: '4px solid transparent',
+            borderRadius: 12,
+        },
     },
-    // '@global': {
-    //     'body': {
-    //         fontFamily: 'Poppins',
-    //     },
-    //     '*::-webkit-scrollbar': {
-    //         height: 14,
-    //         width: 16,
-    //         border: 'solid 4px transparent'
-    //     },
-    //     '*::-webkit-scrollbar-thumb': {
-    //         boxShadow: 'inset 0 0 10px 10px #7289da',
-    //         border: '4px solid transparent',
-    //         borderRadius: 12,
-    //     },
-    // },
     root: {
         // color: 'red',
     },
@@ -91,7 +71,7 @@ export const Dashboard = compose(
                         </Box>
                         <Box className={classes.currentApp} flexGrow={1} id="CurrentApp">
                             {currentApp}
-                            <Route path="/scribe" render={() => <Scribe />} />
+                            <Route path="/scribe" component={Scribe} />
                             <Route path="/sort" render={() => <h3>Welcome to Email Sort!</h3>} />
                             <Route path="/patch" render={() => <h3>Welcome to Patch</h3>} />
                             <div style={{ height: '600%' }} />

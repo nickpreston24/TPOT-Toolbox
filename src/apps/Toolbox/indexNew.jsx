@@ -138,8 +138,8 @@ const LinkOverlay = observer(() =>
         position: 'fixed', bottom: 0, zIndex: 9999, right: 20, padding: 10, borderRadius: 4, boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)', listStylePosition: "inside", background: 'lightgrey', paddingTop: 0, paddingBottom: 0, fontSize: 12,
     }}>
         <li><Link to="/">/</Link></li>
-        <li><Link to="/letters">/letters</Link></li>
-        <li><Link to="/letters/publish">/letters/publish</Link></li>
+        <li><Link to="/scribe">/scribe</Link></li>
+        <li><Link to="/scribe/Untitled">/scribe/Untitled</Link></li>
         <li><Link to="/letters/load">/library/load</Link></li>
         <li><Link to="/settings">/settings</Link></li>
         <li><Link to="/splash">/splash</Link></li>
