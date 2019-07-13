@@ -1,19 +1,51 @@
 import React from 'react';
 import { Dashboard } from '../apps/Toolbox/views/Dashboard'
-import { withKnobs, select } from '@storybook/addon-knobs';
+import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
+import { Shelf } from '../apps/Toolbox/views/Shelf'
+import { ShelfButton } from '../apps/Toolbox/views/ShelfButton';
+import { Sidebar } from '../apps/Toolbox/views/Sidebar';
 
-const variant = select (
-    'Variant', 
+const theme = select(
+    'Theme',
     {
-        Default: 'default',
-        Empty: 'empty',
-        Loading: 'loading',
-        Error: 'error'
-    },
-    'default',
-    'gp10'
+        Mixed: 'mixed',
+        Dark: 'dark',
+        Light: 'light'
+    }
 )
 
 storiesOf('Toolbox/Dashboard', module)
-    .add('dynamic', () => <Dashboard {...{variant}} />)
+    .addDecorator(withKnobs)
+    .add('default', () =>
+        <Dashboard
+            shelf={
+                <Shelf >
+                    <ShelfButton tooltip='Scribe' icon='scribe' path='/scribe' color="#f9b54c" active={true} />
+                    <ShelfButton tooltip='Sort' icon='fa-letters' path='/sort' active={false} />
+                    <ShelfButton tooltip='Patch' icon='fa-letters' path='/patch' active={false} />
+                </Shelf>
+            }
+            sidebar={
+                <Sidebar>
+
+                </Sidebar>
+            }
+            header={
+                null
+            }
+            currentApp={
+                null
+            }
+            {...{ theme }}
+        />
+    )
+    .add('empty', () =>
+        <Dashboard variant='loading'  {...{ theme }} />
+    )
+    .add('loading', () =>
+        <Dashboard variant='loading'  {...{ theme }} />
+    )
+    .add('error', () =>
+        <Dashboard variant='error'  {...{ theme }} />
+    )
