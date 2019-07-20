@@ -8,6 +8,16 @@ import { isPrimitive } from "util";
 
 // : Anything that  uses @persist will be automatically subscribed to offline localforage storage
 
+// Text input cannot be null or be whitespace but **can contain whitespace**.
+const isNullOrWhitespace = (input) => {
+    if (typeof input === 'undefined' || input == null)
+        return true;
+    return input.replace(/\s/g, '').length < 1;
+}
+
+// Title and slugs must contain NO Whitespaces and must NOT be null or empty
+const isValidField = (input) => !isNullOrWhitespace(input) && !input.includes(" ")
+
 class PublishData {
     // @persist @observable slug = ''
     // @persist @observable title = ''
@@ -20,7 +30,7 @@ class PublishData {
 export default class LettersStore {
     constructor(rootStore) {
         this.rootStore = rootStore
-        this.notify = rootStore ? rootStore.servicesStore.notify : () => {}
+        this.notify = rootStore ? rootStore.servicesStore.notify : () => { }
     }
 
     @persist @observable clean = true
@@ -61,7 +71,7 @@ export default class LettersStore {
     }
 
     @action setPublishData = (key, value) => {
-        this.publishData[key] = value
+        this.publishData[key] = value.trim()
     }
 
     // @action notify = (message, config) => {
@@ -115,56 +125,37 @@ export default class LettersStore {
                 // console.log('firstcreds', wpCreds)
                 try {
                     this.setWordpressCredentials(wpCreds)
-                    console.log(toJS(this.wordpressCredentials))
+                    // console.log(toJS(this.wordpressCredentials))
 
                     let username = toJS(this.wordpressCredentials).username
                     let password = toJS(this.wordpressCredentials).password
 
-                    if (username && password) {
-                        console.log(username,password)
-                        const { slug, title, excerpt } = this.publishData
-                        console.log({"slug": slug, "title": title, "excerpt": excerpt})
-                        if (slug === '') {
-                            console.log('bad slug')
-                            this.notify('Could not Publish! Please enter a slug', { variant: 'error', autoHideDuration: 3000 })
-                        }
-                        if (title === '') {
-                            this.notify('Could not Publish! Please enter a title', { variant: 'error', autoHideDuration: 3000 })
-                        }
-                        if (slug !== '' && title !== '') {
-                            wp.createPage(this.wordpressCredentials, {
-                                content: html,
-                                slug,
-                                title,
-                                excerpt
-                            }, this.notify)
-                        }
-                    } else {
-                        this.notify('Could not Publish! Please log in again to TPOT Cloud', { variant: 'error', autoHideDuration: 5000 })
+                    if (!username || !password) {
+                        this.notify('Could not Publish! Please log in again to TPOT Cloud',
+                            { variant: 'error', autoHideDuration: 5000 });
+                        return;
                     }
 
-                    // if (!!this.wordpressCredentials) {
-                    //     const { slug, title, excerpt } = this.publishData
-                    //     if (slug === '') {
-                    //         console.log('bad slug')
-                    //         this.notify('Could not Publish! Please enter a slug', { variant: 'error', autoHideDuration: 3000 })
-                    //     }
-                    //     if (title  === '') {
-                    //         this.notify('Could not Publish! Please enter a title', { variant: 'error', autoHideDuration: 3000 })
-                    //     }
-                    //     if (slug  === '' && title  === '') {
-                    //         wp.createPage(this.wordpressCredentials, {
-                    //             content: html,
-                    //             slug,
-                    //             title,
-                    //             excerpt
-                    //         }, this.notify)
-                    //     }
-                    // } else {
-                    //     console.log('bad notify')
-                    //     this.notify('Could not Publish! Please log in again to TPOT Cloud', { variant: 'error', autoHideDuration: 5000 })
-                    // }
+                    const { slug, title, excerpt } = this.publishData
 
+                    if (!isValidField(slug)) {
+                        this.notify('Could not Publish! Please enter a valid slug',
+                            { variant: 'error', autoHideDuration: 3000 });
+                        return;
+                    }
+
+                    if (!isValidField(title)) {
+                        this.notify('Could not Publish! Please enter a valid title',
+                            { variant: 'error', autoHideDuration: 3000 })
+                        return;
+                    }
+
+                    wp.createPage(this.wordpressCredentials, {
+                        content: html,
+                        slug,
+                        title,
+                        excerpt
+                    }, this.notify)
                 } catch (error) {
                     console.log(error)
                 }
@@ -173,37 +164,5 @@ export default class LettersStore {
             .catch(error => {
 
             })
-
-        // console.log('creds')
-        // this.wordpressCredentials.username = toJS(wpCreds).username
-        // this.setWordpressCredentials(wpCreds)
-
-        // runInAction(() =>{
-        //     this.wordpressCredentials = !!wpCreds
-        //     ? wpCreds
-        //     : null
-        //     // console.log(this.wordpressCredentials)
-        // })
-        // this.setWordpressCredentials(wpCreds)
-        // if (!!this.wordpressCredentials) {
-        //     const { slug, title, excerpt } = this.publishData
-        //     if (!slug) {
-        //         this.notify('Could not Publish! Please enter a slug', { variant: 'error', autoHideDuration: 3000 })
-        //     }
-        //     if (!title) {
-        //         this.notify('Could not Publish! Please enter a title', { variant: 'error', autoHideDuration: 3000 })
-        //     }
-        //     if (slug && title) {
-        //         wp.createPage(this.wordpressCredentials, {
-        //             content: html,
-        //             slug,
-        //             title,
-        //             excerpt
-        //         }, this.notify)
-        //     }
-        // } else {
-        //     this.notify('Could not Publish! Please log in again to TPOT Cloud', { variant: 'error', autoHideDuration: 5000 })
-        // }
     }
-
 }
