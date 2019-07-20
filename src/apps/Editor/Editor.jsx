@@ -56,17 +56,30 @@ const MUIstyles = theme => ({
 
 class Editor extends React.Component {
 
+    componentDidMount() {
+        const { session, match } = this.props
+        const { routeSession } = session.sessionStore
+        routeSession(match)
+    }
+
+    shouldComponentUpdate(nextProps) {
+        const { session, match } = this.props
+        const { routeSession } = session.sessionStore
+        routeSession(match, nextProps.match)
+        return true
+    }
+
+
     render() {
         const { classes, session } = this.props;
-        // const { editorStore } = store
+        console.log("EDITORS", this.props)
+        console.log("EDITORS", this.props.session.editorStore)
         const store = session.editorStore
         const { focus, editMode } = store
-        // const { editMode } = store
 
         return (
             <div id="Editor" className={classes.root}>
                 <div id="Paper" className={classes.paperFrame}>
-                    {/* <EditMode /> */}
                     <div id="Frame" className={classes.editorFrame} onClick={() => { focus() }}>
                         {editMode === "edited" && <Draft {...{ store, session }} />}
                         {editMode === "original" && <Original {...{ store, session }} />}

@@ -12,8 +12,11 @@ export default class EditorStore {
 
     @observable editorState = createEditorStateWithText('Click catch a cat...')
 
-    constructor(rootStore) {
+    constructor(rootStore, sessionStore) {
         this.rootStore = rootStore
+        this.sessionStore = sessionStore
+        // this.session = sessionStore.currentSession
+        console.log(sessionStore)
         this.notify = this.rootStore.lettersStore.notify
 
         window.addEventListener("message", msg => {
@@ -39,12 +42,12 @@ export default class EditorStore {
     ]
     
     @action suscribe = session =>{
-        this.session = session
+        // this.session = session
         console.log("AB", this.session)
     }
 
     @action onChange = editorState =>
-        this.session.editorState = editorState
+        this.sessionStore.currentSession.editorState = editorState
 
     @action setRef = node =>
         this.editor = node
@@ -72,8 +75,8 @@ export default class EditorStore {
         this.baseStyleMap = newBaseStyleMap
         this.originalState = html
         this.baseStyleMap = newBaseStyleMap
-        this.session.editorState = EditorState.createWithContent(newContentState);
-        this.codeState = draftContentToHtml(this.session.editorState, newContentState);
+        this.sessionStore.currentSession.editorState = EditorState.createWithContent(newContentState);
+        this.codeState = draftContentToHtml(this.sessionStore.currentSession.editorState, newContentState);
         let that = this
         setTimeout(function () {
             that.focus()
