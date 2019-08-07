@@ -5,7 +5,7 @@ import { observable, action, toJS } from 'mobx'
 import { compose } from 'recompose'
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
-import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
+// import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
 import { Typography, Popover, Menu, MenuItem } from '@material-ui/core';
 import { faEnvelopeOpen, faHdd, faPaperPlane, faSave, faTrashAlt, } from '@fortawesome/free-regular-svg-icons';
 import { faGlasses, faSlidersH, faCaretDown, faHamburger, faGripHorizontal, faBars, } from '@fortawesome/free-solid-svg-icons';
@@ -179,7 +179,7 @@ class RoutedBreadCrumbsClass extends Component {
 		// console.log(location, match)
 		return (
 			<Fragment>
-				<Breadcrumbs
+				{/* <Breadcrumbs
 					className={classes.root}
 					maxItems={3}
 					separator={''}
@@ -232,7 +232,7 @@ class RoutedBreadCrumbsClass extends Component {
 						)
 					})}
 
-				</Breadcrumbs>
+				</Breadcrumbs> */}
 				<Menu
 					disableAutoFocusItem
 					open={Boolean(anchorEl)}
