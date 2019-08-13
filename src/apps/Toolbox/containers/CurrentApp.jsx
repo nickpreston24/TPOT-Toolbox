@@ -12,7 +12,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Screen } from './Screen';
 
 const Letters = Loadable({ loader: () => import('../../Letters'), loading: Loading, });
-const SiteScan = Loadable({ loader: () => import('../../SiteScan/SiteScan'), loading: Loading })
+const SiteScan = Loadable({ loader: () => import('../../SiteScan'), loading: Loading })
 // Letters.preload()
 
 const styles = theme => ({
