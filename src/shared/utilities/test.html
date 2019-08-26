@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Test html is FROM https://api.jquery.com/parentsUntil/ -->
+
+<head>
+    <meta charset="utf-8">
+    <title>parentsUntil demo</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body>
+
+    <ul class="level-1 yes">
+        <li class="item-i">I</li>
+        <li class="item-ii">II
+            <ul class="level-2 yes">
+                <li class="item-a">A</li>
+                <li class="item-b">B
+                    <ul class="level-3">
+                        <li class="item-1">1</li>
+                        <li class="item-2">2</li>
+                        <li class="item-3">3</li>
+                    </ul>
+                </li>
+                <li class="item-c">C</li>
+            </ul>
+        </li>
+        <li class="item-iii">III</li>
+    </ul>
+
+    <script>
+
+        var getParentsUntil = function (elem, parent, selector) {
+
+            var parents = [];
+            if (parent) {
+                var parentType = parent.charAt(0);
+            }
+            if (selector) {
+                var selectorType = selector.charAt(0);
+            }
+
+            // Get matches
+            for (; elem && elem !== document; elem = elem.parentNode) {
+
+                // Check if parent has been reached
+                if (parent) {
+
+                    // If parent is a class
+                    if (parentType === '.') {
+                        if (elem.classList.contains(parent.substr(1))) {
+                            break;
+                        }
+                    }
+
+                    // If parent is an ID
+                    if (parentType === '#') {
+                        if (elem.id === parent.substr(1)) {
+                            break;
+                        }
+                    }
+
+                    // If parent is a data attribute
+                    if (parentType === '[') {
+                        if (elem.hasAttribute(parent.substr(1, parent.length - 1))) {
+                            break;
+                        }
+                    }
+
+                    // If parent is a tag
+                    if (elem.tagName.toLowerCase() === parent) {
+                        break;
+                    }
+
+                }
+
+                if (selector) {
+
+                    // If selector is a class
+                    if (selectorType === '.') {
+                        if (elem.classList.contains(selector.substr(1))) {
+                            parents.push(elem);
+                        }
+                    }
+
+                    // If selector is an ID
+                    if (selectorType === '#') {
+                        if (elem.id === selector.substr(1)) {
+                            parents.push(elem);
+                        }
+                    }
+
+                    // If selector is a data attribute
+                    if (selectorType === '[') {
+                        if (elem.hasAttribute(selector.substr(1, selector.length - 1))) {
+                            parents.push(elem);
+                        }
+                    }
+
+                    // If selector is a tag
+                    if (elem.tagName.toLowerCase() === selector) {
+                        parents.push(elem);
+                    }
+
+                } else {
+                    parents.push(elem);
+                }
+
+            }
+
+            // Return parents if any exist
+            if (parents.length === 0) {
+                return null;
+            } else {
+                return parents;
+            }
+
+        };
+
+
+        $("li.item-a")
+            .parentsUntil(".level-1")
+            .css("background-color", "red");
+
+        $("li.item-2")
+            .parentsUntil($("ul.level-1"), ".yes")
+            .css("border", "3px solid green");
+    </script>
+
+</body>
+
+</html>
