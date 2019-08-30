@@ -96,7 +96,7 @@ From here you can adjust global settings for Toolbox, or adjust settings for sma
 
 <img src="./docs/images/toolbox_firebase_create.PNG">
 
-First thing's first, you must sign in or register with your email and password.  If you are not registered or forgot your password yet, that's ok.  See [creating a TPOT Cloud Account](Ecreate-a-tpot-cloud-account).
+First thing's first, you must sign in or register with your email and password.  If you are not registered or forgot your password yet, that's ok.  See [creating a TPOT Cloud Account](#create-a-tpot-cloud-account).
 
 Once you are signed in, you can start using Letters. Here is how:
 
