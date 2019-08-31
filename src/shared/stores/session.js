@@ -15,6 +15,7 @@ export default class SessionStore {
 
     constructor(rootStore) {
         this.rootStore = rootStore
+        console.log(rootStore)
         this.notify = rootStore.servicesStore.notify
         // this.auth = auth;
 
