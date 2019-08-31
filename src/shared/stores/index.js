@@ -13,7 +13,7 @@ localForage.config({ name: 'Toolbox', storeName: `MobX Persistent Storage` })
 
 export default class MobxStore {
     constructor() {
-        this.appNames = ['services', 'settings', 'letters', 'editor', 'session', 'auth', 'scribe']
+        this.appNames = ['settings', 'letters', 'editor', 'session', 'auth', 'scribe']
         this.hydrate = create({ storage: localForage, jsonify: false })
         this.routing = routingStore
         this.init()
