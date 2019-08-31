@@ -10,8 +10,13 @@ import { convertFile } from "../utilities/converter";
 
 export default class EditorStore {
 
-    constructor(rootStore) {
+    @observable editorState = createEditorStateWithText('Click catch a cat...')
+
+    constructor(rootStore, sessionStore) {
         this.rootStore = rootStore
+        this.sessionStore = sessionStore
+        // this.session = sessionStore.currentSession
+        // console.log(sessionStore)
         this.notify = this.rootStore.lettersStore.notify
 
         window.addEventListener("message", msg => {
@@ -19,14 +24,13 @@ export default class EditorStore {
         });
 
     }
-    
+
     @persist @observable clean = true
     @persist @observable editMode = 'edited'
     @persist @observable originalState = 'Original'
     @observable editor = null
     @observable editorNode = null
     @observable baseStyleMap = baseStyleMap
-    @observable editorState = createEditorStateWithText('Click to start typing a note...')
     @observable codeState = 'Code'
     @observable baseBlockStyleFn = baseBlockStyleFn
     @observable blockRenderer = blockRenderer
@@ -36,9 +40,15 @@ export default class EditorStore {
         'edited',
         'code',
     ]
+    
+    @action suscribe = session =>{
+        // this.session = session
+        console.log("AB", this.session)
+    }
 
     @action onChange = editorState =>
-        this.editorState = editorState
+        // this.sessionStore.currentSession.editorState = editorState
+        this.sessionStore.session.editorState = editorState
 
     @action setRef = node =>
         this.editor = node
@@ -66,8 +76,8 @@ export default class EditorStore {
         this.baseStyleMap = newBaseStyleMap
         this.originalState = html
         this.baseStyleMap = newBaseStyleMap
-        this.editorState = EditorState.createWithContent(newContentState);
-        this.codeState = draftContentToHtml(this.editorState, newContentState);
+        this.sessionStore.currentSession.editorState = EditorState.createWithContent(newContentState);
+        this.codeState = draftContentToHtml(this.sessionStore.currentSession.editorState, newContentState);
         let that = this
         setTimeout(function () {
             that.focus()
@@ -81,7 +91,7 @@ export default class EditorStore {
 
     @action clearSession = (notify) => {
         this.editorState = EditorState.createEmpty()
-        this.notify('Cleared Editor')
+        this.notify('Cleared Editor', {variant: "error"})
     }
 
     @action setEditMode = (e, tab) =>
@@ -94,7 +104,7 @@ export default class EditorStore {
     }
 
     @action handleKeyCommand = (command, store) => {
-        const notify = store.notify
+        const notify = this.notify
         if (command === 'save') {
             this.saveSession(this.notify)
             return 'handled';
@@ -131,8 +141,8 @@ export default class EditorStore {
 
     @computed get editorCode() {
         return draftContentToHtml(
-            this.editorState,
-            this.editorState.getCurrentContent()
+            this.session.editorState,
+            this.session.editorState.getCurrentContent()
         );
     }
 

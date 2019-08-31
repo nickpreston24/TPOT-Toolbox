@@ -18,34 +18,6 @@ const styles = theme => ({
     },
 })
 
-const menu = [
-    {
-        name: 'save',
-        icon: '',
-        action: '',
-    },
-    {
-        name: 'load',
-        icon: '',
-        action: '',
-    },
-    {
-        name: 'publish',
-        icon: '',
-        action: '',
-    },
-    {
-        name: 'preview',
-        icon: '',
-        action: '',
-    },
-    {
-        name: 'clear',
-        icon: '',
-        action: '',
-    },
-]
-
 export const Sidebar = compose(
     inject('store'),
     withStyles(styles),
@@ -55,8 +27,38 @@ export const Sidebar = compose(
 
         render() {
             const { store, classes, variant, children, expanded } = this.props
-            console.log(menu)
-            console.log(menu[0].name)
+            const menu = [
+                {
+                    name: 'new',
+                    icon: '',
+                    action: () => store.scribeStore.createSession(),
+                },
+                {
+                    name: 'load',
+                    icon: '',
+                    action: () => store.lettersStore.setCurrentModal('LoadScreen'),
+                },
+                {
+                    name: 'save',
+                    icon: '',
+                    action: () => store.scribeStore.saveSession(),
+                },
+                {
+                    name: 'publish',
+                    icon: '',
+                    action: () => alert('This feature will be added soon!'),
+                },
+                {
+                    name: 'preview',
+                    icon: '',
+                    action: () => alert('This feature will be added soon!'),
+                },
+                {
+                    name: 'clear',
+                    icon: '',
+                    action: () => store.scribeStore.clearSession(),
+                }
+            ]
             return (
                 <Box bgcolor="#2f3136" width={240} height='100%' >
                     <Box className={classes.title} height={48} color="white" display="flex" alignItems="center" fontSize={20} mx={1}>
@@ -66,8 +68,8 @@ export const Sidebar = compose(
                         Scribe
                     </Box>
                     {menu.map((item, index) => (
-                        <Box key={index}>
-                            <Button>{item.name}</Button>
+                        <Box key={index} width="100%" color="#aaabad">
+                            <Button fullWidth color="inherit" onClick={() => item.action()}>{item.name}</Button>
                         </Box>
                     ))}
                 </Box>

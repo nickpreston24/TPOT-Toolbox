@@ -33,22 +33,22 @@
 }
 
 /* width */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 0px;
     height: 0px;
-  }
+  } */
   
   /* Track */
-  ::-webkit-scrollbar-track {
+  /* ::-webkit-scrollbar-track {
     background: #303030; 
-  }
+  } */
    
   /* Handle */
-  ::-webkit-scrollbar-thumb {
+  /* ::-webkit-scrollbar-thumb {
     background: rgb(106, 104, 124); 
-  }
+  } */
   
   /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+  /* ::-webkit-scrollbar-thumb:hover {
     background: #555; 
-  }
+  } */

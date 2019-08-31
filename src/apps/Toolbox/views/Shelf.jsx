@@ -35,7 +35,7 @@ export const Shelf = compose(
         render() {
             const { store, classes, variant, children } = this.props
             const { expanded } = this
-            console.log('props', this.props)
+            // console.log('props', this.props)
             return (
                 <Box
                     bgcolor="#202225" py={1} className={classes.root}
@@ -43,7 +43,7 @@ export const Shelf = compose(
                         boxSizing: 'border-box', height: '100%'
                     }}
                 >
-                    <ShelfButton tooltip="Expand" onClick={this.expand} color="#e35644">
+                    <ShelfButton tooltip="Expand" onClick={this.expand} color="#e35644" onClick={() => alert('This feature will be added soon!')} >
                         <ToolboxIcon />
                     </ShelfButton>
                     <Divider />
@@ -51,7 +51,7 @@ export const Shelf = compose(
                         {children}
                     </Box>
                     <Divider />
-                    <ShelfButton tooltip="Settings" route='/settings' >
+                    <ShelfButton tooltip="Settings" route='/settings' onClick={() => alert('This feature will be added soon!')} >
                         <SettingsIcon />
                     </ShelfButton>
                 </Box>
