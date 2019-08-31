@@ -1,4 +1,4 @@
-import { action, observable, computed, toJS } from "mobx";
+import { action, observable, computed, toJS, reaction } from "mobx";
 import { persist } from "mobx-persist";
 import { serializable } from 'serializr'
 import { EditorState, getDefaultKeyBinding, KeyBindingUtil } from "draft-js";
@@ -6,130 +6,59 @@ import { createEditorStateWithText } from "draft-js-plugins-editor";
 import { convertToRaw } from 'draft-js';
 import { convertFile } from "../utilities/converter";
 import EditorStore from './editor'
+import { matchPath } from 'react-router'
 import { draftContentToHtml } from "../../apps/Editor/utils/transforms";
 
 export default class ScribeStore {
 
     @observable sessions = []
     @observable current = 0
+    @observable session = null
 
-    constructor(rootStore) {
-        this.rootStore = rootStore
-        this.notify = this.rootStore.lettersStore.notify
-        this.editorStore = new EditorStore(this.rootStore, this)
-        this.sessions.push(new Session(null, this))
-        // if(this.sessions.length -1 === 0) this.createSession()
+    constructor(root) {
+        this.root = root
+        this.notify = this.root.lettersStore.notify
+        this.init()
     }
 
-    @action createSession = (file) => {
-        console.log('create new')
-        console.log(this.current, this.sessions, this.sessions.length, this.sessions.length - 1)
-        let sessionLength = this.sessions.length
-        if (sessionLength < 1) {
-            console.log('TA: create first session')
-            this.current = 0
-        } else if (sessionLength = 1) {
-            console.log('TA: only one session')
-            this.current = 0
+    @action init = () => {
+        // Create an inital empty document
+        this.editorStore = new EditorStore(this.root, this)
+        this.session = new Session(null, this)
+    }
+
+    @action createSession = async (file) => {
+        // confirm('Clear the Editor?')
+        if (file) {
+            this.sessions.push(new Session(file, this))
+            this.current = this.sessions.length - 1
+            this.root.routing.push(`/scribe/${this.currentSession ? this.currentSession.name : 'Untitled.docx'}`)
         } else {
-            console.log('TA: there are many sessions')
+            this.session = new Session(null, this)
         }
-        this.sessions.push(new Session(file, this))
-        this.current = this.sessions.length - 1
-        // this.current = this.sessions.length < 0 ? this.sessions.length - 1 : 0
-        // console.log(this.current)/
-        if (this.history) this.history.push(`/scribe/${this.currentSession.name}`)
     }
 
     @action saveSession = () => {
-        // Forcefully hydrate the persisted data using the root store's hydrate function
-    }
-
-    @action closeSession = idx => {
-        // this.session = new Session(null, this.editorStore)
-        // this.editorStore.suscribe(this.session)
-        // let remove = !!idx ? idx : this.sessions.length ? this.sessions.length - 1 : this.current ? this.current: 0
-        console.log('idx', idx, this.current, this.sessions.length)
-        // THIS FUNCTION IS NOT REMOVING THE LAST REMAINING SESSION EVERY TIME
-        if (!!idx) {
-            this.current = idx
-            return
-        }
-        this.sessions = this.sessions.filter((value, index, arr) => {
-            console.log(value, index, arr)
-            if (index !== this.current - 1) {
-                return value
-            }
-        })
-        let remove = this.current - 1
-        // if (remove < 1) {
-        //     this.history.push(`/scribe`)
-        //     remove = 0
-        // }
-        this.current = this.sessions.length - 1
-        // this.editorStore.suscribe(this.sessions[remove + 1])
-        console.log(remove, toJS(this.sessions))
-        // delete the current session in this.sessions[] and set this.currentSession to be one index back or forward
+        this.session.saveFile()
     }
 
     @action clearSession = idx => {
-        // pull up the session info, like the file reference and create a new Session(fileReference) to refresh completely.
+        this.session.clearFile()
+        this.session = new Session(null, this)
     }
 
-    @action setCurrentSession = index => {
-        console.log("Set Session to: ", index)
-        this.current = index
-        // if (index) {
-        //     this.current = index
-        // }
-        // const currentIndexes = []
-        // this.sessions.forEach((value, index, arr) =>  {
-        //     if (value.name === name) currentIndexes.push(index)
-        // })
-        // console.log("BAD", currentIndexes, currentIndexes.pop())
-        // this.current = currentIndexes.length !== 0 ? currentIndexes.pop() + 1 : this.current
-    }
-
-    @action routeSession = (prevMatch, nextMatch) => {
-        console.log("Set Session to: ", prevMatch, nextMatch)
-        // if (this.sessions.length === 0) {
-        //     this.sessions.push(new Session(null, this))
-        //     this.current = 0
-        // }
-        // this.current = 0
-        // if (index) {
-        //     this.current = index
-        // }
-        // const currentIndexes = []
-        // this.sessions.forEach((value, index, arr) =>  {
-        //     if (value.name === name) currentIndexes.push(index)
-        // })
-        // console.log("BAD", currentIndexes, currentIndexes.pop())
-        // this.current = currentIndexes.length !== 0 ? currentIndexes.pop() + 1 : this.current
-    }
-
-    @action publish = () => {
+    @action publishSession = () => {
         // Publish the code contents of this.currentSession.editorState [or this.editorStore.code]
+        // this.session.editorState.code
     }
 
-    @action load = () => {
-        // get the editorStore.convertfile(file)
+    @action loadSession= () => {
+        // load a Draft editorState from IndexedDB
     }
 
-    @action preview = () => {
-        // 
+    @action previewSession = () => {
+        //  TBA
     }
-
-    @action register = (keys) => {
-        for (const key in keys) {
-            this[`${key}`] = keys[key]
-        }
-    }
-
-    @computed get currentSession() {
-        return this.sessions[this.current]
-    }
-
 
 }
 
@@ -152,6 +81,7 @@ class Session {
     @observable editorState = createEditorStateWithText('Click to start typing a note...')
 
     constructor(file, sessionStore) {
+        console.log('session created', file, sessionStore.sessions.length, toJS(sessionStore.currentSession))
         this.sessionStore = sessionStore
         this.editorStore = sessionStore.editorStore
         this.name = bumpName(file, this.sessionStore.sessions)
@@ -167,7 +97,17 @@ class Session {
 
     @action convertFile = async (file) => {
         await this.editorStore.convertFileToDraftState(file)
+        // const routeName = this.sessionStore.currentSession.name
+        // this.sessionStore.root.routing.push(`/scribe/${routeName}`)
         // this.current = this.sessionStore.setCurrentSession(this.name)
+    }
+
+    @action saveFile = () => {
+        this.editorStore.saveSession()
+    }
+
+    @action clearFile = () => {
+        this.editorStore.clearSession()
     }
 
 }

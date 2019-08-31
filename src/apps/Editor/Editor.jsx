@@ -56,24 +56,24 @@ const MUIstyles = theme => ({
 
 class Editor extends React.Component {
 
-    componentDidMount() {
-        const { session, match } = this.props
-        const { routeSession } = session.sessionStore
-        routeSession(match)
-    }
+    // componentDidMount() {
+    //     const { session, match } = this.props
+    //     const { routeSession } = session.sessionStore
+    //     routeSession(match)
+    // }
 
-    shouldComponentUpdate(nextProps) {
-        const { session, match } = this.props
-        const { routeSession } = session.sessionStore
-        routeSession(match, nextProps.match)
-        return true
-    }
+    // shouldComponentUpdate(nextProps) {
+    //     const { session, match } = this.props
+    //     const { routeSession } = session.sessionStore
+    //     routeSession(match, nextProps.match)
+    //     return true
+    // }
 
 
     render() {
         const { classes, session } = this.props;
-        console.log("EDITORS", this.props)
-        console.log("EDITORS", this.props.session.editorStore)
+        // console.log("EDITORS", this.props)
+        // console.log("EDITORS", this.props.session.editorStore)
         const store = session.editorStore
         const { focus, editMode } = store
 

@@ -16,7 +16,7 @@ export default class EditorStore {
         this.rootStore = rootStore
         this.sessionStore = sessionStore
         // this.session = sessionStore.currentSession
-        console.log(sessionStore)
+        // console.log(sessionStore)
         this.notify = this.rootStore.lettersStore.notify
 
         window.addEventListener("message", msg => {
@@ -47,7 +47,8 @@ export default class EditorStore {
     }
 
     @action onChange = editorState =>
-        this.sessionStore.currentSession.editorState = editorState
+        // this.sessionStore.currentSession.editorState = editorState
+        this.sessionStore.session.editorState = editorState
 
     @action setRef = node =>
         this.editor = node
@@ -90,7 +91,7 @@ export default class EditorStore {
 
     @action clearSession = (notify) => {
         this.editorState = EditorState.createEmpty()
-        this.notify('Cleared Editor')
+        this.notify('Cleared Editor', {variant: "error"})
     }
 
     @action setEditMode = (e, tab) =>

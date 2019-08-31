@@ -5,9 +5,12 @@ import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles'
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { Scribe } from '../../Scribe'
+import AuthButton from './AuthButton';
+import ModalLoad from '../../Letters/containers/ModalLoad';
+import ModalFirebase from './ModalFirebase';
 
 const styles = theme => ({
     // Dashboard is topmost component, so it should also handle global css for now
@@ -55,6 +58,7 @@ export const Dashboard = compose(
 
         render() {
             const { store, classes, variant, shelf, sidebar, header, currentApp } = this.props
+            const {editorStore, lettersStore, sessionStore} = store
             return (
                 <Box flexGrow={1} display="flex" flexDirection="row" justifyContent="flex-start" height="100%" >
                     <Box width={72} bgcolor="#202225"  >
@@ -66,14 +70,14 @@ export const Dashboard = compose(
                     <Box flexGrow={1} bgcolor="#f6f6f7" display="flex" flexDirection="column">
                         <Box className={classes.header} px={1} display="flex" alignItems="center" justifyContent="flex-end" color="accent.pink">
                             {header}
-                            <Button color="inherit" onClick={() => this.props.store.scribeStore.createSession()} >Create</Button>
-                            <Button color="inherit" onClick={() => this.props.store.scribeStore.closeSession()} >Destroy</Button>
+                            <AuthButton {...{ editorStore, lettersStore, sessionStore, label: 'Sign In' }}/>
+                            {/* <Button color="inherit" onClick={() => this.props.store.scribeStore.createSession()} >Create</Button>
+                            <Button color="inherit" onClick={() => this.props.store.scribeStore.closeSession()} >Destroy</Button> */}
                         </Box>
                         <Box className={classes.currentApp} flexGrow={1} id="CurrentApp">
                             {currentApp}
-                            <Route path="/scribe" component={Scribe} />
-                            <Route path="/sort" render={() => <h3>Welcome to Email Sort!</h3>} />
-                            <Route path="/patch" render={() => <h3>Welcome to Patch</h3>} />
+                            <ModalLoad />
+                            <ModalFirebase />
                             <div style={{ height: '600%' }} />
                         </Box>
                     </Box>

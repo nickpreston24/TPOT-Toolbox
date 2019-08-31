@@ -1,30 +1,29 @@
 import React, { Component } from 'react'
 import { compose } from 'recompose'
 import { inject, observer } from 'mobx-react';
+import { matchPath } from 'react-router'
 import Editor from '../Editor/Editor';
 import { BrowserRouter, Link, Route, Redirect, Switch, withRouter } from 'react-router-dom'
 import { Tab, Tabs, Button, SvgIcon } from '@material-ui/core'
+import { toJS } from 'mobx';
+import { LoadScreen } from './views/LoadScreen'
 
 export const Scribe = compose(
     inject('store'),
-    observer
+    // observer
 )(
     class Scribe extends Component {
 
-        componentDidMount() {
-            console.log('mount')
-            let { store, match, history, location } = this.props
-            store.scribeStore.register({match, history, location})
-        }
-
         render() {
-            const { match, store } = this.props
-            const session = this.props.store.scribeStore.currentSession
-            console.log(match)
+            const { match, history, location } = this.props
+            // let redirect = !matchPath(window.location.pathname, {path: '/scribe'}).params.document
             return (
                 <>
-                    <Route exact path={`${match.path}`} component={Homepage} />
-                    <Route path={`${match.path}/:document`} component={RoutedEditor} />
+                    {/* <Route exact path={`/scribe`} component={Homepage} /> */}
+                    <Route path={`/scribe/load`} render={() => <h1>Router</h1>} />
+                    <Route exact path={`/scribe`} component={RoutedEditor} />
+                    <LoadScreen base="/:mode" path="/load" {...{ match, history}} />
+                    {/* {redirect && <Redirect to='/scribe'  />} */}
                 </>
             )
         }
@@ -46,13 +45,13 @@ export const Homepage = compose(
         }
 
         createNew = () => {
-            this.props.store.scribeStore.createSession()
+            this.props.store.routing.push('/scribe/Untitled.docx')
         }
 
         render() {
             const session = this.props.store.scribeStore.currentSession
             const { match } = this.props
-            console.log(this.props)
+            // console.log(this.props)
             return (
                 <>
                     <h1>Welcome to Scribe!</h1>
@@ -74,16 +73,12 @@ export const RoutedEditor = compose(
             // const session = this.props.store.scribeStore.sessions[this.props.store.scribeStore.current]
             // const session = this.props.store.scribeStore.currentSession
             const { match, store } = this.props
-            const { scribeStore } = store
-            const { currentSession, sessions } = scribeStore
-            const session = this.props.store.scribeStore.currentSession
-            console.log(match)
-            console.log('ZZ', this.props.store.scribeStore.currentSession)
+            const { scribeStore, routing } = store
+            const { currentSession, current, sessions, session } = scribeStore
+            console.log('sesss', scribeStore.session)
             return (
                 <>
-                    <SessionTabs store={this.props.store.scribeStore}/>
-                    <Editor session={currentSession} {...{match}}/>
-                    <CodeView code={currentSession.code} />
+                    <Editor {...{match, session}}/>
                 </>
             )
         }
@@ -93,7 +88,7 @@ export const RoutedEditor = compose(
 const SessionTabs = observer(({store}) => (
     <Tabs value={store.current}>
         {store.sessions.map((session, index) => (
-            <Tab label={session.name} onClick={() => store.setCurrentSession(index)} icon={
+            <Tab label={session.name} onClick={() => store.setCurrentSession(session.name)} icon={
                 <ScribeIcon onClick={() => store.closeSession(index)} />
             }/>
         ))}

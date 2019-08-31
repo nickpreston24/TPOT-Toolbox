@@ -63,7 +63,7 @@ const createLinkDecoratorsPlugin = () => {
         initialize: ({ getEditorState, setEditorState, getProps, ...rest }) => {
             store.setItem('currentEditorState', getEditorState())
             store.setItem('getProps', getProps)
-            console.log(getProps)
+            // console.log(getProps)
             const editor = store.getProps().editorRef
             if (editor) {
                 // editor.focus()
