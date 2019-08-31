@@ -9,6 +9,7 @@ import EditorStore from './editor';
 import SessionStore from './session';
 import AuthStore from './auth';
 import ScribeStore from './scribe';
+import ServicesStore from './services';
 
 // RESPONSIBILITIES:
 // Create, Update, Tweak and Destroy MobX store instances for each app
@@ -19,13 +20,14 @@ localForage.config({ name: 'Toolbox', storeName: `MobX Persistent Storage` })
 
 export default class MobxStore {
     constructor() {
-        this.appNames = ['settings', 'letters', 'editor', 'session', 'auth', 'scribe']
+        this.appNames = ['services', 'settings', 'letters', 'editor', 'session', 'auth', 'scribe']
         this.hydrate = create({ storage: localForage, jsonify: false })
         this.routing = routingStore
         this.init()
     }
 
     @action init = () => {
+        this.servicesStore = new ServicesStore(this)
         this.settingsStore = new SettingsStore(this)
         this.lettersStore = new LettersStore(this)
         this.editorStore = new EditorStore(this)
