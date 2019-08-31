@@ -3,6 +3,12 @@ import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { createBrowserHistory } from 'history';
 import { create } from 'mobx-persist'
 import { action } from 'mobx';
+import SettingsStore from './settings';
+import LettersStore from './letters';
+import EditorStore from './editor';
+import SessionStore from './session';
+import AuthStore from './auth';
+import ScribeStore from './scribe';
 
 // RESPONSIBILITIES:
 // Create, Update, Tweak and Destroy MobX store instances for each app
@@ -20,20 +26,26 @@ export default class MobxStore {
     }
 
     @action init = () => {
-        this.reloadStore(this.appNames)
+        this.settingsStore = new SettingsStore(this)
+        this.lettersStore = new LettersStore(this)
+        this.editorStore = new EditorStore(this)
+        this.sessionStore = new SessionStore(this)
+        this.authStore = new AuthStore(this)
+        this.scribeStore = new ScribeStore(this)
+        // this.reloadStore(this.appNames)
         console.log('MobX: ', this)
     }
 
-    @action reloadStore = (string) => {
-        const loadConstructor = (storeName) => {
-            if (!this.appNames.includes(storeName)) return
-            const resolvedStore = require(`./${storeName}`)
-            const storeConstructor = resolvedStore.default
-            this[`${storeName}Store`] = new storeConstructor(this) // Create an Instance of the Store to be used in the App
-            this.hydrate(`${storeName}Store`, this[`${storeName}Store`], { clean: false }) // Have the Store Instance suscribe to persistant localforage
-            console.log(`Refreshed: ${storeName}Store`)
-        }
-        Array.isArray(string) ? string.forEach(string => loadConstructor(string)) : loadConstructor(string)
-    }
+    // @action reloadStore = (string) => {
+    //     const loadConstructor = (storeName) => {
+    //         if (!this.appNames.includes(storeName)) return
+    //         const resolvedStore = require(`./${storeName}`)
+    //         const storeConstructor = resolvedStore.default
+    //         this[`${storeName}Store`] = new storeConstructor(this) // Create an Instance of the Store to be used in the App
+    //         this.hydrate(`${storeName}Store`, this[`${storeName}Store`], { clean: false }) // Have the Store Instance suscribe to persistant localforage
+    //         console.log(`Refreshed: ${storeName}Store`)
+    //     }
+    //     Array.isArray(string) ? string.forEach(string => loadConstructor(string)) : loadConstructor(string)
+    // }
 
 }
