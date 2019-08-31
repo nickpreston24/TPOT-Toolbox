@@ -1,10 +1,13 @@
 import localForage from 'localforage';
+import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
+import { createBrowserHistory } from 'history';
 import { create } from 'mobx-persist'
 import { action } from 'mobx';
 
 // RESPONSIBILITIES:
 // Create, Update, Tweak and Destroy MobX store instances for each app
 // Provide some methods that any app can use by calling their own, this.root
+const routingStore = new RouterStore();
 
 localForage.config({ name: 'Toolbox', storeName: `MobX Persistent Storage` })
 
@@ -12,6 +15,7 @@ export default class MobxStore {
     constructor() {
         this.appNames = ['services', 'settings', 'letters', 'editor', 'session', 'auth', 'scribe']
         this.hydrate = create({ storage: localForage, jsonify: false })
+        this.routing = routingStore
         this.init()
     }
 
