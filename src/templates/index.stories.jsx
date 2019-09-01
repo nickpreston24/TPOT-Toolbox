@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 import { action as actionSB } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 import { Button, Welcome } from '@storybook/react/demo';
-import Toolbox from '../apps/Toolbox/indexNew'
+import Toolbox from '../apps/Toolbox'
 
 storiesOf('Master', module)
     .add('Full Static App', () => <Toolbox />);
