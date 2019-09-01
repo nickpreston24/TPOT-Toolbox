@@ -30,7 +30,8 @@ class PublishData {
 export default class LettersStore {
     constructor(rootStore) {
         this.rootStore = rootStore
-        this.notify = rootStore ? rootStore.servicesStore.notify : () => { }
+        // this.notify = () => {}
+        // this.notify = rootStore ? rootStore.servicesStore.notify : () => { }
     }
 
     @persist @observable clean = true
