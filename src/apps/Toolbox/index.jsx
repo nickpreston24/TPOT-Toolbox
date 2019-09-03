@@ -90,12 +90,12 @@ const Toolbox = compose(
     class Toolbox extends Component {
 
         componentWillMount() {
-            // const { servicesStore } = this.props.store
-            // const { enqueueSnackbar, closeSnackbar } = this.props
-            // // console.log(this.props)
+            const { servicesStore } = this.props.store
+            const { enqueueSnackbar, closeSnackbar } = this.props
+            // console.log(this.props)
 
-            // // : Pass the calling function for notifications to the store
-            // servicesStore.setNotifyFunctions({ enqueueSnackbar, closeSnackbar })
+            // : Pass the calling function for notifications to the store
+            servicesStore.setNotifyFunctions({ enqueueSnackbar, closeSnackbar })
         }
 
         render() {
@@ -103,7 +103,7 @@ const Toolbox = compose(
                 <Box display="flex" flexDirection="row" justifyContent="flex-start" alignItems="flex-start" style={{
                     position: 'absolute', boxSizing: 'border-box', height: '100%', width: '100%', overflow: 'hidden'
                 }}>
-                    <Route path={`/`} render={(match) => (
+                    <Route path={`/`} render={({ match, history}) => (
                         <Dashboard
                             shelf={
                                 <Shelf >
@@ -111,9 +111,7 @@ const Toolbox = compose(
                                 </Shelf>
                             }
                             sidebar={
-                                <Sidebar>
-
-                                </Sidebar>
+                                <Sidebar {...{ history }} />
                             }
                             header={
                                 null

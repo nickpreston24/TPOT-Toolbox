@@ -36,6 +36,7 @@ export default class ScribeStore {
         } else {
             this.session = new Session(null, this)
         }
+        this.session.newFile()
     }
 
     @action saveSession = () => {
@@ -58,6 +59,10 @@ export default class ScribeStore {
 
     @action previewSession = () => {
         //  TBA
+    }
+
+    @action pushRoute = (path, history) => {
+        history.push(`/scribe${path}`)
     }
 
 }
@@ -108,6 +113,10 @@ class Session {
 
     @action clearFile = () => {
         this.editorStore.clearSession()
+    }
+
+    @action newFile = () => {
+        this.editorStore.newSession()
     }
 
 }

@@ -1,13 +1,16 @@
-import React, { Component } from 'react'
-import PropTypes from "prop-types";
-import { compose } from 'recompose'
+import { List, ListItem, ListItemIcon, ListItemText, SvgIcon, ListSubheader } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
-import { withStyles } from '@material-ui/core/styles'
-import { inject, observer } from 'mobx-react'
-import { observable, action } from 'mobx'
-import { ShelfButton } from './ShelfButton';
-import { SvgIcon, Avatar, Button } from '@material-ui/core';
-import { width } from '@material-ui/system';
+import { withStyles } from '@material-ui/core/styles';
+import FolderIcon from '@material-ui/icons/Folder';
+import InboxIcon from '@material-ui/icons/Inbox';
+import { inject, observer } from 'mobx-react';
+import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { compose } from 'recompose';
+import { faEnvelopeOpen, faHdd, faPaperPlane, faSave, faTrashAlt, faFile } from '@fortawesome/free-regular-svg-icons';
+import { faGlasses, faSlidersH, faCaretDown, faHamburger, faGripHorizontal, faBars, faEdit, faCartArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import mdiDashboard from 'mdi-material-ui/ViewDashboard'
 
 const styles = theme => ({
     root: {
@@ -26,52 +29,98 @@ export const Sidebar = compose(
     class Sidebar extends Component {
 
         render() {
-            const { store, classes, variant, children, expanded } = this.props
-            const menu = [
+            const { store, classes, variant, children, expanded, history } = this.props
+            const navMenu = [
                 {
-                    name: 'new',
-                    icon: '',
-                    action: () => store.scribeStore.createSession(),
+                    name: 'Overview',
+                    icon: faGripHorizontal,
+                    action: () => store.scribeStore.pushRoute('/overview', history),
                 },
                 {
-                    name: 'load',
-                    icon: '',
-                    action: () => store.lettersStore.setCurrentModal('LoadScreen'),
+                    name: 'Checkout',
+                    icon: faCartArrowDown,
+                    action: () => store.scribeStore.pushRoute('/checkout', history),
                 },
                 {
-                    name: 'save',
-                    icon: '',
+                    name: 'Editor',
+                    icon: faEdit,
+                    action: () => store.scribeStore.pushRoute('/edit', history),
+                }
+            ]
+            const actionMenu = [
+                {
+                    name: 'Save',
+                    icon: faSave,
                     action: () => store.scribeStore.saveSession(),
                 },
                 {
-                    name: 'publish',
-                    icon: '',
-                    action: () => alert('This feature will be added soon!'),
+                    name: 'New',
+                    icon: faFile,
+                    action: () => store.scribeStore.createSession(),
                 },
                 {
-                    name: 'preview',
-                    icon: '',
-                    action: () => alert('This feature will be added soon!'),
+                    name: 'Load',
+                    icon: faHdd,
+                    action: () => store.lettersStore.setCurrentModal('LoadScreen'),
                 },
                 {
-                    name: 'clear',
-                    icon: '',
+                    name: 'Reset',
+                    icon: faTrashAlt,
                     action: () => store.scribeStore.clearSession(),
+                },
+                {
+                    name: 'Preview',
+                    icon: faGlasses,
+                    action: () => alert('This feature will be added soon!'),
+                },
+                {
+                    name: 'Publish',
+                    icon: faPaperPlane,
+                    action: () => alert('This feature will be added soon!'),
                 }
             ]
             return (
-                <Box bgcolor="#2f3136" width={240} height='100%' >
-                    <Box className={classes.title} height={48} color="white" display="flex" alignItems="center" fontSize={20} mx={1}>
-                        <Box mx={2} display="flex" alignItems="center" color="#aaabad" >
-                            <ScribeIcon />
+                <Box width={240} height='100%' >
+                    <Box className={classes.title} height={48} display="flex" alignItems="center" fontSize={20} mx={1}>
+                        <Box mx={2} display="flex" alignItems="center"  >
+                            <FontAwesomeIcon icon={faEnvelopeOpen} size="lg" />
                         </Box>
-                        Scribe
+                        TPOT Toolbox
                     </Box>
-                    {menu.map((item, index) => (
-                        <Box key={index} width="100%" color="#aaabad">
-                            <Button fullWidth color="inherit" onClick={() => item.action()}>{item.name}</Button>
-                        </Box>
-                    ))}
+                    <Box>
+                        <List dense>
+                            <ListSubheader component={Box} >Navigate</ListSubheader>
+                            {navMenu.map((item, index) => {
+                                const Icon = item.icon || faBars
+                                return (
+                                    <ListItem button onClick={item.action} key={index}>
+                                        <ListItemIcon>
+                                            <FontAwesomeIcon icon={Icon} size="lg" />
+                                        </ListItemIcon>
+                                        <ListItemText
+                                            primary={item.name}
+                                        // secondary={secondary ? 'Secondary text' : null}
+                                        />
+                                    </ListItem>
+                                )
+                            })}
+                            <ListSubheader component={Box} >Editor Actions</ListSubheader>    
+                            {actionMenu.map((item, index) => {
+                                const Icon = item.icon || faBars
+                                return (
+                                    <ListItem button onClick={item.action} key={index}>
+                                        <ListItemIcon>
+                                            <FontAwesomeIcon icon={Icon} size="lg" />
+                                        </ListItemIcon>
+                                        <ListItemText
+                                            primary={item.name}
+                                        // secondary={secondary ? 'Secondary text' : null}
+                                        />
+                                    </ListItem>
+                                )
+                            })}
+                        </List>
+                    </Box>
                 </Box>
             )
         }
