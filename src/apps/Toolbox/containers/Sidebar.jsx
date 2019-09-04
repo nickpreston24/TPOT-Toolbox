@@ -37,7 +37,7 @@ const styles = theme => ({
         maxWidth: 260,
     },
     logo: {
-        margin: theme.spacing.unit * 2.5,
+        margin: theme.spacing(2.5),
         minHeight: 30,
         minWidth: 30,
         cursor: 'pointer'

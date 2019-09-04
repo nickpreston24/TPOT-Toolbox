@@ -40,9 +40,9 @@ const styles = theme => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         width: 0,
-        // width: theme.spacing.unit * 7,
+        // width: theme.spacing(7),
         // [theme.breakpoints.up('sm')]: {
-        //     width: theme.spacing.unit * 9,
+        //     width: theme.spacing(9),
         // },
     },
     preview: {

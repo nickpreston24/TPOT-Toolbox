@@ -22,25 +22,25 @@ const styles = theme => ({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        padding: theme.spacing.unit * 3,
+        padding: theme.spacing(3),
     },
     logo: {
         width: 267,
         height: 66,
-        margin: theme.spacing.unit * 3
+        margin: theme.spacing(3)
     },
     margin: {
-        margin: theme.spacing.unit
+        margin: theme.spacing(1)
     },
     withoutLabel: {
-        marginTop: theme.spacing.unit * 3
+        marginTop: theme.spacing(3)
     },
     confirm: {
         minWidth: 150,
-        margin: theme.spacing.unit * 3
+        margin: theme.spacing(3)
     },
     textField: {
-        marginTop: theme.spacing.unit * 2
+        marginTop: theme.spacing(2)
     },
     link: {
         display: 'inline',

@@ -32,7 +32,7 @@ const styles = theme => ({
         borderBottom: `1px solid ${theme.palette.text.disabled}`,
     },
     margin: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing(1),
     },
     headerbutton: {
         fontWeight: `400 !important`,
@@ -43,7 +43,7 @@ const styles = theme => ({
     },
     extendedIcon: {
         // fontSize: 16,
-        marginRight: theme.spacing.unit * 3,
+        marginRight: theme.spacing(3),
     },
     headerRow: {
         // border: `1px solid ${theme.palette.primary.dark}`,
