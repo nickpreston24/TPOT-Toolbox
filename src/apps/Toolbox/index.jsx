@@ -89,7 +89,7 @@ const Toolbox = compose(
 )(
     class Toolbox extends Component {
 
-        componentWillMount() {
+        componentDidMount() {
             const { servicesStore } = this.props.store
             const { enqueueSnackbar, closeSnackbar } = this.props
             // console.log(this.props)
