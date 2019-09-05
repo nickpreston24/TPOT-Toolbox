@@ -231,7 +231,7 @@ class Header extends Component {
 
     render() {
         const { classes, sessionStore } = this.props;
-        console.log(sessionStore)
+//        console.log(sessionStore)
         return (
             <div id="Header" className={classes.root}>
                 <Grid container direction="row" justify="flex-start" alignItems="center" style={{ flexWrap: 'nowrap' }} >

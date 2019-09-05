@@ -9,10 +9,10 @@ export default class AuthStore {
         this.notify = this.rootStore.lettersStore.notify
 
         firebase.app.auth().onAuthStateChanged((authUser) => {
-            console.log('authStateChanged', authUser)
+//            console.log('authStateChanged', authUser)
         })
     }
-    
+
     @persist @observable clean = true
     @observable authUser = null
     @observable wordpressCredentials = {

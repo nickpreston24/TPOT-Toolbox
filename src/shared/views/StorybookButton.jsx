@@ -17,12 +17,12 @@ class StorybookButton extends Component {
 
     @observable open = true
 
-    @action toggle = () => 
+    @action toggle = () =>
             this.open = !this.open
 
     render() {
         const { store, classes, task, state, actions } = this.props
-        console.log('actions', this.props)
+//        console.log('actions', this.props)
         const { toggle, open } = this
         return (
             <div className={classes.root}>

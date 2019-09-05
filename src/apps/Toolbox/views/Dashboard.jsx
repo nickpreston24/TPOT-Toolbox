@@ -56,7 +56,7 @@ export const Dashboard = compose(
 
         render() {
             const { store, classes, variant, shelf, sidebar, header, currentApp, history } = this.props
-            console.log('history', this.props)
+//            console.log('history', this.props)
             const SidebarWrapped = sidebar
             const {editorStore, lettersStore, sessionStore} = store
             return (

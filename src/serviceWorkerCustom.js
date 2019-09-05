@@ -31,7 +31,7 @@ self.addEventListener('message', (event) => {
     if (event.data.type === 'SET_REFRESHED') {
         self.refreshed = event.data.payload
     }
-    // : Give the refresh variable to workbox-window so the client 
+    // : Give the refresh variable to workbox-window so the client
     // : can be prompted when updates have occured after a page refresh
     if (event.data.type === 'GET_REFRESHED') {
         event.ports[0].postMessage({
@@ -79,15 +79,15 @@ workbox.routing.registerRoute(
         const videoUrl = url.href
         self.videos.setItem(`${videoUrl}}`, videoUrl)
             .then((value) => {
-                console.log(`Downloading ${videoUrl} from Youtube...`)
-                console.log('<3')
+//                console.log(`Downloading ${videoUrl} from Youtube...`)
+//                console.log('<3')
                 hello();
                 testscript.hello();
 
                 let stream = ytdl(videoUrl, {
                     format: 'mp4'
                 });
-                console.log('stream: ', stream);
+//                console.log('stream: ', stream);
 
                 // console.log(`Set [${videoUrl}] as '${value}'`)
             })
@@ -110,8 +110,8 @@ workbox.routing.registerRoute(
         const videoID = url.href
         self.videos.setItem(`${videoID}}`, videoID)
             .then((value) => {
-                console.log(`Downloading ${videoID} from Youtube...`)
-                console.log(`Set [${videoID}] as '${value}'`)
+//                console.log(`Downloading ${videoID} from Youtube...`)
+//                console.log(`Set [${videoID}] as '${value}'`)
             })
             .catch(function (err) {
                 console.error(`Video ${videoID} Failed to Download`, err)

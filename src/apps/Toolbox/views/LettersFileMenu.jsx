@@ -72,7 +72,7 @@ class MiniDrawer extends React.Component {
 
     handleDrawerClose = () => {
         this.props.drawerOpen = false
-        console.log("clicked!")
+//        console.log("clicked!")
     }
 
     saveEditorStateToDisk = () => {

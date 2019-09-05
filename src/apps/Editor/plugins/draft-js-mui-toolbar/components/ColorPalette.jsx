@@ -35,7 +35,7 @@ const styles = theme => ({
 // Determines how to render children from parent style button and how it should display inside a palette.
 
 const ColorPalette = (props) => {
-    console.log('BUNNY', props)
+//    console.log('BUNNY', props)
     return (
         <Palette
             open={props.open}

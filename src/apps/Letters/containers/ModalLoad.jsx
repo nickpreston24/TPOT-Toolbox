@@ -72,12 +72,12 @@ class ModalLoad extends React.Component {
         this.props.store.lettersStore.setPublishData('title', '')
         this.props.store.lettersStore.setPublishData('slug', '')
         this.props.store.lettersStore.setPublishData('excerpt', '')
-        console.log('cleared publish data', toJS(this.props.store.lettersStore.publishData))
+//        console.log('cleared publish data', toJS(this.props.store.lettersStore.publishData))
     }
 
     @observable open = true
     @action handleClose = () => {
-        console.log('close')
+//        console.log('close')
         this.open = false
         const { history, match } = this.props
         if (!!history && history.push) {
@@ -90,7 +90,7 @@ class ModalLoad extends React.Component {
 
     handleFile = (e) => {
         const file = e.target.files[0];
-        console.log('File blob: ', file)
+//        console.log('File blob: ', file)
         // convertFile(file); // Old
         const { store } = this.props
         const { editorStore } = store

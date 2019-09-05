@@ -41,7 +41,7 @@ const styles = theme => ({
     //     justifyContent: 'flex-end',
     //     '& > *': {
     //         border: '1px solid red !important'
-    //     } 
+    //     }
     //     // flexGrow: 1
     //     // alignItems: 'stretch',
     //     // maxHeight: '100vh',
@@ -61,7 +61,7 @@ class AppShell extends Component {
     // }
     handleDrawerClose = () => {
         this.props.drawerOpen = false
-        console.log("clicked!")
+//        console.log("clicked!")
     }
 
     render() {

@@ -97,15 +97,15 @@ export default class LettersStore {
     }
 
     @action.bound setWordpressCredentials = (credentials) => {
-        console.log('recieved', credentials)
-        console.log(typeof credentials)
-        console.log(typeof toJS(credentials))
-        console.log(isPrimitive(toJS(credentials)))
-        console.log(isPrimitive(credentials))
+//        console.log('recieved', credentials)
+//        console.log(typeof credentials)
+//        console.log(typeof toJS(credentials))
+//        console.log(isPrimitive(toJS(credentials)))
+//        console.log(isPrimitive(credentials))
         let wordpressCredentials = toJS(credentials)
         this.wordpressCredentials.username = !!wordpressCredentials ? wordpressCredentials.username : ''
         this.wordpressCredentials.password = !!wordpressCredentials ? wordpressCredentials.password : ''
-        console.log(toJS(this.wordpressCredentials))
+//        console.log(toJS(this.wordpressCredentials))
         // this.wordpressCredentials = !!wordpressCredentials
         // ? wordpressCredentials
         // : null
@@ -119,7 +119,7 @@ export default class LettersStore {
     }
 
     @action.bound async publishToWordpress(html) {
-        console.log('submit')
+//        console.log('submit')
         // const wpCreds = await db.wordpressCredentials
         db.getWordpressCredentials
             .then((wpCreds) => {
@@ -158,7 +158,7 @@ export default class LettersStore {
                         excerpt
                     }, this.notify)
                 } catch (error) {
-                    console.log(error)
+//                    console.log(error)
                 }
 
             })

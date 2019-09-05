@@ -24,7 +24,7 @@ export const createProfile = (firstName, lastName, userCredential) => {
 export const getUser = (id) => {
     db.collection('users').doc(id).get()
         .then((documentSnapshot) => {
-            console.log(documentSnapshot.data())
+//            console.log(documentSnapshot.data())
         })
 }
 

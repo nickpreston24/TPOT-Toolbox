@@ -23,21 +23,21 @@ export default class VideoForage {
                 // console.log(`Set Video [${key}] as '${value}'`)
                 // we got our value
             }).catch(function (err) {
-                console.log(err)
+//                console.log(err)
                 // we got an error
             });
     }
 
     get = async () => {
-        console.log('I am the senate!');
+//        console.log('I am the senate!');
 
         // const that = this
         fetch("http://localhost:4000/download?URL=https://www.youtube.com/watch?v=i6USBe9Gr3U")
             .then(readableStream => {
-                console.log('app -> localhost 4000 stream: ', readableStream);
+//                console.log('app -> localhost 4000 stream: ', readableStream);
 
                 readableStream.on('data', (chunk) => {
-                    console.log('got a chunk')
+//                    console.log('got a chunk')
                 })
 
                 // let data = {};
@@ -81,16 +81,16 @@ export default class VideoForage {
     clear = async () => {
         this.$.clear().then(function () {
             // Run this code once the database has been entirely deleted.
-            console.log('Database is now empty.');
+//            console.log('Database is now empty.');
         }).catch(function (err) {
             // This code runs if there were any errors
-            console.log(err);
+//            console.log(err);
         });
     }
 
     drop = async () => {
         this.$.dropInstance().then(function () {
-            console.log('Dropped the store of the current instance');
+//            console.log('Dropped the store of the current instance');
         });
     }
 

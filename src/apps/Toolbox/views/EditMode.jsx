@@ -111,11 +111,11 @@ class EditMode extends Component {
     }
 
     getValueFromTab = (currentTab) => {
-        console.log(currentTab)
+//        console.log(currentTab)
     }
 
     getCodeFromEditor = () => {
-        console.log("GET CODE")
+//        console.log("GET CODE")
         // Send Data
         let message = {
             event: 'draftjs-editor-get-code',
@@ -151,9 +151,9 @@ class EditMode extends Component {
 
         return (
             <Tabs
-                classes={{ 
-                    root: classes.tabsRoot, 
-                    indicator: classes.indicator 
+                classes={{
+                    root: classes.tabsRoot,
+                    indicator: classes.indicator
                 }}
                 value={store.editModeKey}
                 onChange={(e, tab)=> store.setEditMode(e, tab)}
@@ -163,12 +163,12 @@ class EditMode extends Component {
             >
                 {this.tabs.map((tab) => {
                     return (
-                        <Tab classes={{ 
-                            root: classes.tabRoot, 
-                            wrapper: classes.tabWrapper, 
-                            labelContainer: classes.tabLabel, 
+                        <Tab classes={{
+                            root: classes.tabRoot,
+                            wrapper: classes.tabWrapper,
+                            labelContainer: classes.tabLabel,
                             labelIcon: classes.labelIcon,
-                            selected: classes.tabSelected 
+                            selected: classes.tabSelected
                         }} icon={tab.icon} label={tab.name} key={Math.random(tab.name)} />
                     );
                 })}

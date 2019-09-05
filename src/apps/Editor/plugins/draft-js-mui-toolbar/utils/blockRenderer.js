@@ -8,10 +8,10 @@ export default (contentBlock, pluginFunctions) => {
     //         editable: false,
     //     };
     // }
-    console.log(contentBlock, pluginFunctions)
+//    console.log(contentBlock, pluginFunctions)
 
     if (type === 'atomic') {
-        console.log(pluginFunctions.getEditorState())
+//        console.log(pluginFunctions.getEditorState())
         const editorState = pluginFunctions.getEditorState()
         const contentState = editorState.getCurrentContent();
         const entityKey = contentBlock.getEntityAt(0);

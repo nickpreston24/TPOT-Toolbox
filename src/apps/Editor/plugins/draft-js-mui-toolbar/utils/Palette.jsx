@@ -64,7 +64,7 @@ class Palette extends Component {
     render() {
         const { handleClickAway } = this
         const { classes, children, store } = this.props
-        console.log('MENUS', this.props, store)
+//        console.log('MENUS', this.props, store)
         const { menuOpen } = store
         const style = this.getStyle()
         const carrotStyle = !!style && { top: style.carrotTop, left: style.carrotLeft }

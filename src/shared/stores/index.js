@@ -35,7 +35,7 @@ export default class MobxStore {
         this.authStore = new AuthStore(this)
         this.scribeStore = new ScribeStore(this)
         // this.reloadStore(this.appNames)
-        console.log('MobX: ', this)
+//        console.log('MobX: ', this)
     }
 
     // @action reloadStore = (string) => {

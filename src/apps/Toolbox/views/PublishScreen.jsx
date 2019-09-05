@@ -51,10 +51,10 @@ const styles = theme => ({
 
 // Main Class
 const PublishScreen = observer(({ classes, store, editorCode, container, ...rest }) => {
-    console.log(container)
+//    console.log(container)
     return (
         <main id="PublishScreen">
-            <Dialog open={true} 
+            <Dialog open={true}
             container={container}
             // disablePortal
             closeAfterTransition

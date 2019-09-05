@@ -259,7 +259,7 @@ class RoutedBreadCrumbsClass extends Component {
 						)
 					})}
 					{/* {this.paths.index + 1 && routes[this.paths.index + 1 ].map((route, index) => {
-						console.log(route, index)
+//						console.log(route, index)
 						return (
 							<Link
 								to={route.to}

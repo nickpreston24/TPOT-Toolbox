@@ -86,7 +86,7 @@ class Session {
     @observable editorState = createEditorStateWithText('Click to start typing a note...')
 
     constructor(file, sessionStore) {
-        console.log('session created', file, sessionStore.sessions.length, toJS(sessionStore.currentSession))
+//        console.log('session created', file, sessionStore.sessions.length, toJS(sessionStore.currentSession))
         this.sessionStore = sessionStore
         this.editorStore = sessionStore.editorStore
         this.name = bumpName(file, this.sessionStore.sessions)

@@ -15,16 +15,16 @@ export default class SessionStore {
 
     constructor(rootStore) {
         this.rootStore = rootStore
-        console.log(rootStore)
+//        console.log(rootStore)
         this.notify = rootStore.servicesStore.notify
         // this.auth = auth;
 
-        console.log('SessionStore() => auth loaded? ', !!auth && auth);
-        console.log('SessionStore() => auth user loaded? ', !!auth.authUser && auth.authUser);
+//        console.log('SessionStore() => auth loaded? ', !!auth && auth);
+//        console.log('SessionStore() => auth user loaded? ', !!auth.authUser && auth.authUser);
 
         // : Set Listeners
         firebase.auth.onAuthStateChanged((authUser) => {
-            console.log('onAuthStateChanged() => authUser:', authUser)
+//            console.log('onAuthStateChanged() => authUser:', authUser)
         })
 
         // : Load Initial Configuration from File
@@ -57,13 +57,13 @@ export default class SessionStore {
     }
 
     @action.bound async signIn() {
-        console.log('sign in')
+//        console.log('sign in')
         try {
             const { email, password } = this.loginData
             const authUser = await auth.signIn(email, password)
             runInAction(() => {
                 this.authUser = authUser
-                console.log(this.authUser)
+//                console.log(this.authUser)
                 // setCurrentModal(null)
             })
         } catch (error) {
@@ -123,7 +123,7 @@ export default class SessionStore {
         const { enqueueSnackbar, closeSnackbar } = functions
         this.enqueueSnackbar = enqueueSnackbar
         this.closeSnackbar = closeSnackbar
-        console.log('Notification enabled.', this.enqueueSnackbar, this.closeSnackbar)
+//        console.log('Notification enabled.', this.enqueueSnackbar, this.closeSnackbar)
     }
 
 

@@ -38,7 +38,7 @@ const styles = theme => ({
 class Auth extends Component {
 
     componentDidMount() {
-        console.log('Auth props: ', this.props.classes)
+//        console.log('Auth props: ', this.props.classes)
         this.props.editorStore.focus()
     }
 
@@ -58,10 +58,10 @@ class Auth extends Component {
         const { currentModal, setCurrentModal } = this.props.lettersStore
         const { signOut, authUser, auth, signIn } = this.props.sessionStore
 
-        console.log('auth? ', !!auth && auth)
-        console.log('sessionStore? ', !!this.props.sessionStore && this.props.sessionStore);
-        console.log('AuthButton => auth user loaded? ', !!authUser && authUser);
-        console.log('signOut => signout exists? ', !!signOut);
+//        console.log('auth? ', !!auth && auth)
+//        console.log('sessionStore? ', !!this.props.sessionStore && this.props.sessionStore);
+//        console.log('AuthButton => auth user loaded? ', !!authUser && authUser);
+//        console.log('signOut => signout exists? ', !!signOut);
 
         return (
             <div

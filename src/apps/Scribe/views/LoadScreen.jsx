@@ -28,8 +28,8 @@ export const LoadScreen = compose(
         render() {
             const { store, classes, match, history, base, path } = this.props
             const { toggle, open } = this
-            console.log('MAZ', this.props)
-            console.log(`${match.path}${path}`)
+//            console.log('MAZ', this.props)
+//            console.log(`${match.path}${path}`)
             return (
                 <RoutedModal>
                     <Route exact path={`${match.path}${path}`} render={()=> <h1>Test Modal</h1>} />

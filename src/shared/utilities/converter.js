@@ -44,15 +44,15 @@ export async function convertFile(file) {
     return new Promise((resolve, reject) => {
 
         var reader = new FileReader();
-        console.log('Attempting to read blob/file: ', file);
+//        console.log('Attempting to read blob/file: ', file);
         reader.readAsArrayBuffer(file);
 
         reader.onload = async function () {
             var raw = reader.result;
-            console.log('raw', raw);
+//            console.log('raw', raw);
 
             let buffer = Buffer.from(raw, 'utf-8');
-            console.log('buffer', buffer);
+//            console.log('buffer', buffer);
 
             // Convert Data
             let dataFile2Html = await convertFile2Html(buffer)
@@ -243,10 +243,10 @@ const flattenStyles = async (baseDom, augDom) => {
     });
 
     // Print Trees and Arrays
-    console.log("Cake Tree", cake)
-    console.log("Cake Array", cakeArray)
-    console.log("Icing Tree", icing)
-    console.log("Icing Array", icingArray)
+//    console.log("Cake Tree", cake)
+//    console.log("Cake Array", cakeArray)
+//    console.log("Icing Tree", icing)
+//    console.log("Icing Array", icingArray)
 
     // Ignore Parent Divs for cake and icing
     cakeArray = cakeArray.slice(1)
@@ -381,8 +381,8 @@ const flattenStyles = async (baseDom, augDom) => {
             // let $ = document.getElementById('');
             // Get Target Element and Index
 
-            console.log('icing node parent', icingNode.parentElement)
-            console.log('old icing node parent', $(icingNode.parentElement))
+//            console.log('icing node parent', icingNode.parentElement)
+//            console.log('old icing node parent', $(icingNode.parentElement))
 
             // $('#cat')[0].children
             // element.children
@@ -390,8 +390,8 @@ const flattenStyles = async (baseDom, augDom) => {
             let blockChildren = getParentsUntil(icingNode.parentElement, "div")[0].children;
             let blockChildren2 = $(icingNode.parentElement).parentsUntil("div").prevObject[0].children
             //TODO: figure out why, even though blockChildren 1 and 2 are identical, the targetElements is undefined at line 403
-            console.log('until result', blockChildren);
-            console.log('old until result', blockChildren2);
+//            console.log('until result', blockChildren);
+//            console.log('old until result', blockChildren2);
             // blockChildren = blockChildren2
 
             let parentChildren = []
@@ -402,13 +402,13 @@ const flattenStyles = async (baseDom, augDom) => {
                 })
             }
 
-            console.log(parentChildren);
+//            console.log(parentChildren);
 
             let targetElements = parentChildren.filter(child => {
                 return icingNode.textContent === child.element.textContent
             })
 
-            console.log(targetElements);
+//            console.log(targetElements);
 
             let targetElementIndex = targetElements[0].index
             let targetElement = icingNode.parentElement.children[targetElementIndex]
