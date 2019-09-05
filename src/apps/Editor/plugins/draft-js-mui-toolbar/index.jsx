@@ -3,8 +3,8 @@ import createStyles from 'draft-js-custom-styles';
 // import createStore from './utils/createStore';
 import MuiToolbar from './components/MuiToolbar'
 import React from 'react'
-import { configure, toJS } from 'mobx'
-import { Provider, inject } from 'mobx-react';
+import { configure} from 'mobx'
+import { Provider} from 'mobx-react';
 import ToolbarStore from './utils/toolbar'
 
 configure({ enforceActions: "never" })

@@ -1,12 +1,6 @@
-import { action, observable, computed, toJS, reaction } from "mobx";
-import { persist } from "mobx-persist";
-import { serializable } from 'serializr'
-import { EditorState, getDefaultKeyBinding, KeyBindingUtil } from "draft-js";
+import { action, observable, computed} from "mobx";
 import { createEditorStateWithText } from "draft-js-plugins-editor";
-import { convertToRaw } from 'draft-js';
-import { convertFile } from "../utilities/converter";
 import EditorStore from './editor'
-import { matchPath } from 'react-router'
 import { draftContentToHtml } from "../../apps/Editor/utils/transforms";
 
 export default class ScribeStore {
@@ -86,7 +80,7 @@ class Session {
     @observable editorState = createEditorStateWithText('Click to start typing a note...')
 
     constructor(file, sessionStore) {
-        console.log('session created', file, sessionStore.sessions.length, toJS(sessionStore.currentSession))
+//        console.log('session created', file, sessionStore.sessions.length, toJS(sessionStore.currentSession))
         this.sessionStore = sessionStore
         this.editorStore = sessionStore.editorStore
         this.name = bumpName(file, this.sessionStore.sessions)

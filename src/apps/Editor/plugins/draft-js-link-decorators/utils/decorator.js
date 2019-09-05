@@ -1,4 +1,4 @@
-import { action, computed, decorate, observable, toJS } from 'mobx';
+import { action, computed, decorate, observable} from 'mobx';
 
 class DecoratorStore {
 

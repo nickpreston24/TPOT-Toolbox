@@ -1,14 +1,11 @@
-import { faBell, faCaretSquareDown, faFlag, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { RoutedBreadCrumbs } from './Breadcrumbs';
-import { toJS } from 'mobx';
 import AuthButton from '../views/AuthButton';
-import StorybookButton from '../../../shared/views/StorybookButton'
 
 
 // const electron = require('electron');
@@ -236,22 +233,22 @@ class Header extends Component {
         // console.log('Login Info!',toJS( this.props.store.sessionStore.loginData))
         // console.log('Sign Into!', this.props.store.sessionStore.signIn())
         this.props.store.lettersStore.setCurrentModal('PublishScreen')
-        console.log('MODAL',  this.props.store.lettersStore.currentModal)
+//        console.log('MODAL',  this.props.store.lettersStore.currentModal)
     }
 
     loadTest = () => {
         // console.log('Login Info!',toJS( this.props.store.sessionStore.loginData))
         // console.log('Sign Into!', this.props.store.sessionStore.signIn())
         this.props.store.lettersStore.setCurrentModal('LoadScreen')
-        console.log('MODAL',  this.props.store.lettersStore.currentModal)
+//        console.log('MODAL',  this.props.store.lettersStore.currentModal)
     }
 
     render() {
         const { classes, store } = this.props;
         const { sessionStore, lettersStore, editorStore } = store
 
-        console.log('AuthButton => auth user loaded? ', !!sessionStore.authUser && sessionStore.authUser);
-        console.log('AuthButton => session store loaded? ', !!sessionStore && sessionStore);
+//        console.log('AuthButton => auth user loaded? ', !!sessionStore.authUser && sessionStore.authUser);
+//        console.log('AuthButton => session store loaded? ', !!sessionStore && sessionStore);
 
         return (
             <div id="Header" className={classes.root}>

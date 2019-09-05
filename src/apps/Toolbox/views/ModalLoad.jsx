@@ -15,7 +15,7 @@ import { convertFile } from "../utilities/converter";
 // import * as Loaders from '../modules/docxLoaders/Loaders.ts'
 // import { Loaders } from '../modules/docxLoaders/Loaders.ts'
 import DiskFileLoader from "../utilities/docxLoaders_js/DiskFileLoader";
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 
 
@@ -82,7 +82,7 @@ class ModalLoad extends React.Component {
 
 
     @action handleClose = () => {
-        console.log('close')
+//        console.log('close')
         this.open = false
         const { history, match } = this.props
         if (!!history.push) {
@@ -93,7 +93,7 @@ class ModalLoad extends React.Component {
     };
 
     handleSelection = type => {
-        console.log(type);
+//        console.log(type);
 
         //todo: Have the type-selected Loader retrive the file, regardless of its implementation
         // let loader = Loaders.getLoader(type)
@@ -105,21 +105,21 @@ class ModalLoad extends React.Component {
             .load()
             .then(result => {
                 // console.log('result:\n', result);
-                console.log("file loaded: ", loader.path);
+//                console.log("file loaded: ", loader.path);
                 convertFile(loader.path);
                 // console.log("[MP] converter.html: ", converter.html);
                 this.handleClose();
             })
             .catch(console.log);
 
-        console.log("test"); //runs async
+//        console.log("test"); //runs async
     };
 
     render() {
         const { classes, store } = this.props;
         // const {  } = lettersStore
 
-        console.log(this.open)
+//        console.log(this.open)
 
         const cards = [
             {
@@ -163,7 +163,7 @@ class ModalLoad extends React.Component {
                 // container={this.props.container}
                 // disablePortal
                 // maxWidth={false}
-            >   
+            >
                 {/* <Grid container className={classes.demo} spacing={0} justify="space-evenly" alignItems="center"   > */}
                     {cards.map(card => {
                         return (
@@ -182,7 +182,7 @@ class ModalLoad extends React.Component {
     }
 }
 
-const BackdropComponent = () => 
+const BackdropComponent = () =>
     <div style={{height: 300, width: 300, background: 'red', zIndex: -1}}/>
 
 ModalLoad.propTypes = {

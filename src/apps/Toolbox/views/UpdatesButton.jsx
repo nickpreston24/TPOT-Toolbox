@@ -27,8 +27,8 @@ const app = remote.app
 const isDev = remote.require("electron-is-dev");
 
 // Development Information
-console.log(`%cDevelopment Mode : ${isDev ? 'PRODUCTION' : 'RELEASE'}`, "color: #56C3E8;")
-console.log(`%cApp Version : ${app.getVersion()}`, "color: #56C3E8;")
+//console.log(`%cDevelopment Mode : ${isDev ? 'PRODUCTION' : 'RELEASE'}`, "color: #56C3E8;")
+//console.log(`%cApp Version : ${app.getVersion()}`, "color: #56C3E8;")
 
 // Material UI Styles
 const styles = theme => ({
@@ -240,7 +240,7 @@ class UpdatesButton extends React.Component {
                 {/* <LinearProgress color="primary" variant="determinate" value={this.state.updateDownloadProgress.percent} style={{ display: "inline-block" }} /> */}
                 <Badge badgeContent={badge.icon} onClick={this.openUpdateModal} classes={{ root: classes.badgeRoot, badge: classNames(classes.badgeSpan, classes[badge.class]) }} >
                     <Button className={classNames(classes.button)}>
-                        {!this.state.updateDownloading ? 
+                        {!this.state.updateDownloading ?
                             ""
                             : <LinearProgress variant="determinate" value={this.state.updateDownloadProgress.percent} classes={{ root: classes.progressRoot, bar: classes.progressBar, bar1Indeterminate: classes.progressBar1Indeterminate, bar2Indeterminate: classes.progressBar2Indeterminate }} />
                         }

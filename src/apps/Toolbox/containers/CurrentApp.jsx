@@ -1,15 +1,12 @@
-import React, { Fragment, Component } from 'react'
+import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
-import { BrowserRouter, Link, Route, Redirect, Switch, withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
 import { Loading } from '../views/Loading';
 import Loadable from "react-loadable";
 import Header from './Header';
 import Notifier from './Notifier';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { Screen } from './Screen';
 
 const Letters = Loadable({ loader: () => import('../../Letters'), loading: Loading, });
 const SiteScan = Loadable({ loader: () => import('../../SiteScan'), loading: Loading })

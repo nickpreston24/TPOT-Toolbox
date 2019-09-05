@@ -3,8 +3,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { compose } from "recompose";
 import { withSnackbar, SnackbarProvider } from 'notistack';
 import { inject, observer } from "mobx-react";
-import { Button } from '@material-ui/core'
-import { toJS } from 'mobx';
 
 const styles = {
     root: {
@@ -44,13 +42,13 @@ const Dispatcher = withSnackbar((props) => {
     const { enqueueSnackbar } = props
     // const data = JSON.parse(props.notification.data)
     try {
-        console.log(JSON.parse(toJS(props.notification)))
-        
+//        console.log(JSON.parse(toJS(props.notification)))
+
     } catch (error) {
-        console.log(error)
+//        console.log(error)
     }
     // const data = toJS(props.notification.data)
-    console.log('MB data', props.notification)
+//    console.log('MB data', props.notification)
     // if (!!data) {
     //     const { message, config } = data
     //     enqueueSnackbar(message, {

@@ -9,10 +9,10 @@ class Draft extends Component {
 
 	componentDidMount = () => {
         this.focus()
-	}	
+	}
 
 	focus() {
-		console.log('focus called')
+//		console.log('focus called')
 		this.editor.blur()
 	}
 

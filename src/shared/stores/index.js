@@ -1,6 +1,5 @@
 import localForage from 'localforage';
-import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
-import { createBrowserHistory } from 'history';
+import { RouterStore} from 'mobx-react-router';
 import { create } from 'mobx-persist'
 import { action } from 'mobx';
 import SettingsStore from './settings';
@@ -35,7 +34,7 @@ export default class MobxStore {
         this.authStore = new AuthStore(this)
         this.scribeStore = new ScribeStore(this)
         // this.reloadStore(this.appNames)
-        console.log('MobX: ', this)
+//        console.log('MobX: ', this)
     }
 
     // @action reloadStore = (string) => {

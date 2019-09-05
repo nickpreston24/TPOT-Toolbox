@@ -1,8 +1,8 @@
 import { EditorState, getDefaultKeyBinding, KeyBindingUtil } from "draft-js";
 import { createEditorStateWithText } from "draft-js-plugins-editor";
-import { action, computed, decorate, observable, toJS } from 'mobx';
+import { action, computed, observable} from 'mobx';
 import { baseBlockStyleFn, baseStyleMap, blockRenderer, blockRenderMap, draftContentFromHtml, draftContentToHtml, stateFromElementConfig } from "../../apps/Editor/utils/transforms";
-import { create, persist } from 'mobx-persist'
+import { persist } from 'mobx-persist'
 import { draft } from '../../apps/Editor'
 import { convertFile } from "../utilities/converter";
 
@@ -40,10 +40,10 @@ export default class EditorStore {
         'edited',
         'code',
     ]
-    
+
     @action suscribe = session =>{
         // this.session = session
-        console.log("AB", this.session)
+//        console.log("AB", this.session)
     }
 
     @action onChange = editorState =>
@@ -59,14 +59,14 @@ export default class EditorStore {
             try {
                 this.editor.focus()
             } catch (error) {
-                
+
             }
         }
     }
 
     @action convertFileToDraftState = async (file) => {
         let html = await convertFile(file)
-        console.warn(`${!!html ? 'Doc Sucessfully Converted' : 'Error in converting DocX'}`)
+//        console.warn(`${!!html ? 'Doc Sucessfully Converted' : 'Error in converting DocX'}`)
         this.loadEditorFromDocx(html)
     }
 
@@ -81,7 +81,7 @@ export default class EditorStore {
         let that = this
         setTimeout(function () {
             that.focus()
-            console.log('lets do this')
+//            console.log('lets do this')
         }, 500);
     }
 
@@ -102,9 +102,9 @@ export default class EditorStore {
         this.editMode = this.modes[tab]
 
    @action  setStyleMap = customStyleMap => {
-        console.log(toJS(this.baseStyleMap))
+//        console.log(toJS(this.baseStyleMap))
         this.baseStyleMap = customStyleMap
-        console.log(toJS(this.baseStyleMap))
+//        console.log(toJS(this.baseStyleMap))
     }
 
     @action handleKeyCommand = (command, store) => {
@@ -115,7 +115,7 @@ export default class EditorStore {
         }
         if (command === 'open') {
             // this.clearSession(notify)
-            console.log('load file')
+//            console.log('load file')
             return 'handled';
         }
         if (command === 'publish') {

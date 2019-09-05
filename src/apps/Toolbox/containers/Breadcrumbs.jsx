@@ -1,27 +1,11 @@
 import React, { Fragment, Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { inject, observer } from 'mobx-react'
-import { observable, action, toJS } from 'mobx'
+import { observable, action} from 'mobx'
 import { compose } from 'recompose'
-import Chip from '@material-ui/core/Chip';
-import FaceIcon from '@material-ui/icons/Face';
 // import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
-import { Typography, Popover, Menu, MenuItem } from '@material-ui/core';
-import { faEnvelopeOpen, faHdd, faPaperPlane, faSave, faTrashAlt, } from '@fortawesome/free-regular-svg-icons';
-import { faGlasses, faSlidersH, faCaretDown, faHamburger, faGripHorizontal, faBars, } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames';
-import { Slider } from 'react-burgers';
-import { BrowserRouter, Link, Route, Switch, withRouter, } from 'react-router-dom';
-import List from '@material-ui/core/List';
-import NoSsr from '@material-ui/core/NoSsr';
-import ListItem from '@material-ui/core/ListItem';
-import Collapse from '@material-ui/core/Collapse';
-import ListItemText from '@material-ui/core/ListItemText';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import MemoryRouter from 'react-router/MemoryRouter';
-import { Link as RouterLink } from 'react-router-dom';
+import { Menu, MenuItem } from '@material-ui/core';
+import { Link, withRouter, } from 'react-router-dom';
 
 const capitalize = string => {
 	return `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
@@ -259,7 +243,7 @@ class RoutedBreadCrumbsClass extends Component {
 						)
 					})}
 					{/* {this.paths.index + 1 && routes[this.paths.index + 1 ].map((route, index) => {
-						console.log(route, index)
+//						console.log(route, index)
 						return (
 							<Link
 								to={route.to}

@@ -9,7 +9,6 @@ import createLinkPlugin from 'draft-js-link-plugin';
 import createLinkifyPlugin from 'draft-js-linkify-plugin'
 import 'draft-js-link-plugin/lib/plugin.css';
 import createMuiToolbarPlugin from './draft-js-mui-toolbar';
-import HorizontalRule from './draft-js-mui-toolbar/utils/HorizontalRule'
 
 
 // SETUPS

@@ -2,7 +2,6 @@ import React from 'react';
 import Button from "@material-ui/core/Button";
 import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'recompose';
-import classNames from 'classnames';
 
 const styles = theme =>(
 {

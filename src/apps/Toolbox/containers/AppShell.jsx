@@ -1,12 +1,7 @@
 import { withStyles } from '@material-ui/core/styles';
 import React, { Component } from 'react';
-import Letters from '../../../apps/Letters';
-import Notifier from '../views/Notifier';
-import Header from './Header';
 import Sidebar from './Sidebar';
 import { CurrentApp } from './CurrentApp';
-import MobxStore from '../../../shared/stores';
-import Forage from '../../../shared/localforage';
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react'
 
@@ -41,7 +36,7 @@ const styles = theme => ({
     //     justifyContent: 'flex-end',
     //     '& > *': {
     //         border: '1px solid red !important'
-    //     } 
+    //     }
     //     // flexGrow: 1
     //     // alignItems: 'stretch',
     //     // maxHeight: '100vh',
@@ -61,7 +56,7 @@ class AppShell extends Component {
     // }
     handleDrawerClose = () => {
         this.props.drawerOpen = false
-        console.log("clicked!")
+//        console.log("clicked!")
     }
 
     render() {

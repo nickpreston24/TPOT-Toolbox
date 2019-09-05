@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { compose } from 'recompose'
 import { inject, observer } from 'mobx-react';
-import { matchPath } from 'react-router'
 import Editor from '../Editor/Editor';
-import { BrowserRouter, Link, Route, Redirect, Switch, withRouter } from 'react-router-dom'
-import { Tab, Tabs, Button, SvgIcon } from '@material-ui/core'
-import { toJS } from 'mobx';
+import { Route} from 'react-router-dom'
+import { Tab, Tabs, SvgIcon } from '@material-ui/core'
 import { LoadScreen } from './views/LoadScreen'
 
 export const Scribe = compose(
@@ -68,14 +66,14 @@ export const RoutedEditor = compose(
     observer
 )(
     class RoutedEditor extends Component {
-        
+
         render() {
             // const session = this.props.store.scribeStore.sessions[this.props.store.scribeStore.current]
             // const session = this.props.store.scribeStore.currentSession
             const { match, store } = this.props
             const { scribeStore, routing } = store
             const { currentSession, current, sessions, session } = scribeStore
-            console.log('sesss', scribeStore.session)
+//            console.log('sesss', scribeStore.session)
             return (
                 <>
                     <Editor {...{match, session}}/>

@@ -1,11 +1,10 @@
-import React, { Fragment, Component } from 'react'
+import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 import { compose } from 'recompose'
-import { Modal, Dialog } from '@material-ui/core';
-import { BrowserRouter, Link, Route, Redirect, Switch, withRouter } from 'react-router-dom'
-import { grey } from '@material-ui/core/colors';
+import { Dialog } from '@material-ui/core';
+import { Route, withRouter } from 'react-router-dom'
 import Acrylic from 'react-acrylic'
 
 

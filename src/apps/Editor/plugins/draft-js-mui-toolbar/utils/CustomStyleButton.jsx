@@ -28,17 +28,17 @@ class CustomStyleButton extends Component {
 
     toggleStyle = async (event, value) => {
         event.preventDefault();
-        console.log("PRESSED")
+//        console.log("PRESSED")
 
         const PREFIX = this.props.customStylePrefix
         const CUSTOM_PROP = this.props.customType
         const CUSTOM_NAME = `${PREFIX}${CUSTOM_PROP.toUpperCase()}_${value}`
         const CUSTOM_ATTRB = `${value}`
-        
-        console.log('CAT' , this.props)
+
+//        console.log('CAT' , this.props)
 
         const customStyleMap = toJS(this.props.editorStore.editorStore.baseStyleMap)
-        console.log(this.props.store)
+//        console.log(this.props.store)
         // Update the style map with the new custom style before you try to apply the class with customStyleFunctions[property-name].toggle()
         const STYLE_MAP = Object.assign(customStyleMap, { [`${CUSTOM_NAME}`]: { [`${CUSTOM_PROP}`]: CUSTOM_ATTRB } })
         // await this.props.getEditorProps().setStyleMap(STYLE_MAP)
@@ -57,8 +57,8 @@ class CustomStyleButton extends Component {
     }
 
     handleParentButton = (event) => {
-        console.log('test')
-        console.log(this.props)
+//        console.log('test')
+//        console.log(this.props)
         this.props.store.setStyleProp('menuCurrent', this.state.anchorEl)
         this.props.store.setStyleProp('menuOpen', true)
     };
@@ -76,7 +76,7 @@ class CustomStyleButton extends Component {
 
     render() {
         const { classes, name } = this.props;
-        console.log('BOX', this.props.store)
+//        console.log('BOX', this.props.store)
         const Palette = this.props.palette
 
         return (

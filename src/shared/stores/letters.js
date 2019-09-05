@@ -1,10 +1,9 @@
 import { EditorState } from "draft-js";
-import { action, decorate, observable, runInAction, toJS } from 'mobx';
-import { convertFromRaw, convertToRaw } from 'draft-js';
-import { create, persist } from 'mobx-persist'
+import { action, observable, toJS } from 'mobx';
+import { convertToRaw } from 'draft-js';
+import { persist } from 'mobx-persist'
 import { db } from '../firebase';
 import { wp } from '../wordpress';
-import { isPrimitive } from "util";
 
 // : Anything that  uses @persist will be automatically subscribed to offline localforage storage
 
@@ -97,15 +96,15 @@ export default class LettersStore {
     }
 
     @action.bound setWordpressCredentials = (credentials) => {
-        console.log('recieved', credentials)
-        console.log(typeof credentials)
-        console.log(typeof toJS(credentials))
-        console.log(isPrimitive(toJS(credentials)))
-        console.log(isPrimitive(credentials))
+//        console.log('recieved', credentials)
+//        console.log(typeof credentials)
+//        console.log(typeof toJS(credentials))
+//        console.log(isPrimitive(toJS(credentials)))
+//        console.log(isPrimitive(credentials))
         let wordpressCredentials = toJS(credentials)
         this.wordpressCredentials.username = !!wordpressCredentials ? wordpressCredentials.username : ''
         this.wordpressCredentials.password = !!wordpressCredentials ? wordpressCredentials.password : ''
-        console.log(toJS(this.wordpressCredentials))
+//        console.log(toJS(this.wordpressCredentials))
         // this.wordpressCredentials = !!wordpressCredentials
         // ? wordpressCredentials
         // : null
@@ -119,7 +118,7 @@ export default class LettersStore {
     }
 
     @action.bound async publishToWordpress(html) {
-        console.log('submit')
+//        console.log('submit')
         // const wpCreds = await db.wordpressCredentials
         db.getWordpressCredentials
             .then((wpCreds) => {
@@ -158,7 +157,7 @@ export default class LettersStore {
                         excerpt
                     }, this.notify)
                 } catch (error) {
-                    console.log(error)
+//                    console.log(error)
                 }
 
             })

@@ -5,7 +5,7 @@ import {
 const getCatg = async() => {
     wp.categories().then((response) => {
         response.forEach(r => {
-            console.log(r)
+//            console.log(r)
         })
     })
 }
@@ -33,7 +33,7 @@ const createPage = (wordpressCredentials, pageConfig, notify) => {
             notify('Sucessfully Published Letter to TPOT!', { variant: 'success'})
         }).catch((error) => {
             if (error.code === 'incorrect_password') {
-                console.log('good')
+//                console.log('good')
                 notify('Bad Publish Login Data: Log out and back into TPOT Cloud', { variant: 'error', autoHideDuration: 5000 })
             } else {
                 notify(`Unknown Publish Error: ${error.code}`, { variant: 'error', autoHideDuration: 5000 })

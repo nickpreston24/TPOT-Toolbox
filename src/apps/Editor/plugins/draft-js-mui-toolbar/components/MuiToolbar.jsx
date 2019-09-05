@@ -32,7 +32,7 @@ class MuiToolbar extends Component {
     onSelectionChanged = () => {
         setTimeout(() => {
             const store = this.props.toolbarStore;
-            console.log(store)
+//            console.log(store)
             if (!store.inlineRef) return;
             if (!store.blockRef) return;
             const editorRef = store.getItem('getEditorRef')();

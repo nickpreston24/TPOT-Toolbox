@@ -1,5 +1,5 @@
-import { observable, computed, action, decorate, configure} from "mobx"
-import { auth, app, firebase } from '../firebase';
+import { observable, computed, action} from "mobx"
+import { firebase } from '../firebase';
 import { persist } from "mobx-persist";
 
 export default class AuthStore {
@@ -9,10 +9,10 @@ export default class AuthStore {
         this.notify = this.rootStore.lettersStore.notify
 
         firebase.app.auth().onAuthStateChanged((authUser) => {
-            console.log('authStateChanged', authUser)
+//            console.log('authStateChanged', authUser)
         })
     }
-    
+
     @persist @observable clean = true
     @observable authUser = null
     @observable wordpressCredentials = {

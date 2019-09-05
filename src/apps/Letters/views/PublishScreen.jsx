@@ -52,7 +52,7 @@ const styles = theme => ({
 // Main Class
 const PublishScreen = observer(({ classes, store, editorCode, container, ...rest }) => {
     // console.log(container)
-    console.log('CurrentModal', store.lettersStore.currentModal)
+//    console.log('CurrentModal', store.lettersStore.currentModal)
     return (
         <main id="PublishScreen">
             <Dialog open={store.lettersStore.currentModal === 'PublishScreen'}

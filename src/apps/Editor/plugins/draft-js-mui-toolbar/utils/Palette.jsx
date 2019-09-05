@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'recompose';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const styles = theme => ({
@@ -64,7 +64,7 @@ class Palette extends Component {
     render() {
         const { handleClickAway } = this
         const { classes, children, store } = this.props
-        console.log('MENUS', this.props, store)
+//        console.log('MENUS', this.props, store)
         const { menuOpen } = store
         const style = this.getStyle()
         const carrotStyle = !!style && { top: style.carrotTop, left: style.carrotLeft }
