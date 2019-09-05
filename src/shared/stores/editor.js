@@ -17,7 +17,7 @@ export default class EditorStore {
         this.sessionStore = sessionStore
         // this.session = sessionStore.currentSession
         // console.log(sessionStore)
-        this.notify = this.rootStore.lettersStore.notify
+        this.notify = this.rootStore.servicesStore.notify
 
         window.addEventListener("message", msg => {
             if (msg.data.event === "draftjs-editor-reload") this.loadEditorFromDocx(msg.data.html)
@@ -85,13 +85,17 @@ export default class EditorStore {
         }, 500);
     }
 
+    @action newSession = () => {
+        this.notify('Started a New Letter')
+    }
+
     @action saveSession = async () => {
         draft.saveSession(this.originalState, this.editorState, this.codeState, this.baseStyleMap, this.notify)
     }
 
     @action clearSession = (notify) => {
         this.editorState = EditorState.createEmpty()
-        this.notify('Cleared Editor', {variant: "error"})
+        this.notify('Reset Letter to Original', {variant: "error"})
     }
 
     @action setEditMode = (e, tab) =>
