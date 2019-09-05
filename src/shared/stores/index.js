@@ -30,12 +30,13 @@ export default class MobxStore {
         this.servicesStore = new ServicesStore(this)
         this.settingsStore = new SettingsStore(this)
         this.lettersStore = new LettersStore(this)
-        this.editorStore = new EditorStore(this)
         this.sessionStore = new SessionStore(this)
+        // this.editorStore = new EditorStore(this);
+        this.editorStore = new EditorStore(this,this.sessionStore);
         this.authStore = new AuthStore(this)
         this.scribeStore = new ScribeStore(this)
         // this.reloadStore(this.appNames)
-        console.log('MobX: ', this)
+        console.log('MobX Store: ', this)
     }
 
     // @action reloadStore = (string) => {

@@ -8,9 +8,6 @@ import { SnackbarProvider, withSnackbar } from 'notistack';
 import { inject, observer } from 'mobx-react'
 import { Provider } from 'mobx-react';
 import MobxStore from '../../shared/stores'
-import { createBrowserHistory } from 'history';
-import { syncHistoryWithStore } from 'mobx-react-router';
-import { Router } from 'react-router';
 import { hot } from 'react-hot-loader'
 import { Dashboard } from './views/Dashboard';
 import { Box } from '@material-ui/core';
@@ -22,6 +19,8 @@ import { BrowserRouter, Link, Route, Redirect, Switch, withRouter } from 'react-
 
 // Initilize Root Store
 const store = new MobxStore()
+console.log('index.jsx MobxStore: ', store);
+
 // const browserHistory = createBrowserHistory()
 // const history = syncHistoryWithStore(browserHistory, store.routing)
 
