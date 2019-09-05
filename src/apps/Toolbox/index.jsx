@@ -8,9 +8,6 @@ import { SnackbarProvider, withSnackbar } from 'notistack';
 import { inject, observer } from 'mobx-react'
 import { Provider } from 'mobx-react';
 import MobxStore from '../../shared/stores'
-import { createBrowserHistory } from 'history';
-import { syncHistoryWithStore } from 'mobx-react-router';
-import { Router } from 'react-router';
 import { hot } from 'react-hot-loader'
 import { Dashboard } from './views/Dashboard';
 import { Box } from '@material-ui/core';
@@ -18,7 +15,7 @@ import { Shelf } from './views/Shelf'
 import { ShelfButton } from './views/ShelfButton';
 import { Sidebar } from './views/Sidebar';
 import { Scribe } from '../Scribe'
-import { BrowserRouter, Link, Route, Redirect, Switch, withRouter } from 'react-router-dom'
+import { BrowserRouter, Link, Route} from 'react-router-dom'
 
 // Initilize Root Store
 const store = new MobxStore()

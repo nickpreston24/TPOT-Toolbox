@@ -3,14 +3,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import LoadIcon from '@material-ui/icons/Folder';
 import Save from '@material-ui/icons/Save';
 import SendIcon from '@material-ui/icons/Send';
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import ModalLoad from '../presentation/ModalLoad';
 
 import { inject, observer } from 'mobx-react'
 import { compose } from 'recompose'

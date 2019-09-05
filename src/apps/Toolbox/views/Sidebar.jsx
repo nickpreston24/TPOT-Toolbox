@@ -1,16 +1,13 @@
 import { List, ListItem, ListItemIcon, ListItemText, SvgIcon, ListSubheader } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles';
-import FolderIcon from '@material-ui/icons/Folder';
-import InboxIcon from '@material-ui/icons/Inbox';
 import { inject, observer } from 'mobx-react';
 import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { faEnvelopeOpen, faHdd, faPaperPlane, faSave, faTrashAlt, faFile } from '@fortawesome/free-regular-svg-icons';
-import { faGlasses, faSlidersH, faCaretDown, faHamburger, faGripHorizontal, faBars, faEdit, faCartArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { faGlasses, faGripHorizontal, faBars, faEdit, faCartArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import mdiDashboard from 'mdi-material-ui/ViewDashboard'
 
 const styles = theme => ({
     root: {

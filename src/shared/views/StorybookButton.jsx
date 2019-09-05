@@ -1,8 +1,7 @@
-import React, { Fragment, Component } from 'react'
+import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
-import { compose } from 'recompose'
 
 const styles = theme => ({
     root: {

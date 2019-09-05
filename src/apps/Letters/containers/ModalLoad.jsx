@@ -8,9 +8,7 @@ import React from "react";
 import GoogleDrive from "../../../shared/media/drive.png";
 import HardDrive from "../../../shared/media/hdd.png";
 import { inject, observer } from 'mobx-react'
-import { observable, action, toJS } from 'mobx'
-
-import { convertFile } from "../../../shared/utilities/converter";
+import { observable, action} from 'mobx'
 
 const styles = theme => ({
     root: {

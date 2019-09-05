@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PlusIcon from 'mdi-material-ui/Plus';
 import CloseIcon from 'mdi-material-ui/WindowClose';
 import { action, decorate, observable } from 'mobx';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from "react";
 import { compose } from 'recompose';

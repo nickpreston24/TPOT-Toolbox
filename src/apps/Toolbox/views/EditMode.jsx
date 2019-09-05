@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import { inject, observer, Provider } from "mobx-react";
-import { observable, action, computed, decorate, autorun, toJS } from 'mobx'
+import { inject, observer} from "mobx-react";
 import { compose } from "recompose";
 
 

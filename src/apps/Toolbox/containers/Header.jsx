@@ -1,14 +1,11 @@
-import { faBell, faCaretSquareDown, faFlag, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { RoutedBreadCrumbs } from './Breadcrumbs';
-import { toJS } from 'mobx';
 import AuthButton from '../views/AuthButton';
-import StorybookButton from '../../../shared/views/StorybookButton'
 
 
 // const electron = require('electron');

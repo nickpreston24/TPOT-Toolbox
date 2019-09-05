@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dashboard } from '../apps/Toolbox/views/Dashboard'
-import { withKnobs, boolean, select } from '@storybook/addon-knobs';
+import { withKnobs, select } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import { Shelf } from '../apps/Toolbox/views/Shelf'
 import { ShelfButton } from '../apps/Toolbox/views/ShelfButton';

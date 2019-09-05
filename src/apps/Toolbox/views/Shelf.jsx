@@ -6,8 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 import {ShelfButton} from './ShelfButton';
-import { SvgIcon, Avatar } from '@material-ui/core';
-import { width } from '@material-ui/system';
+import { SvgIcon} from '@material-ui/core';
 
 
 const styles = theme => ({

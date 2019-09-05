@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { compose } from 'recompose'
 import { inject, observer } from 'mobx-react';
-import { matchPath } from 'react-router'
 import Editor from '../Editor/Editor';
-import { BrowserRouter, Link, Route, Redirect, Switch, withRouter } from 'react-router-dom'
-import { Tab, Tabs, Button, SvgIcon } from '@material-ui/core'
-import { toJS } from 'mobx';
+import { Route} from 'react-router-dom'
+import { Tab, Tabs, SvgIcon } from '@material-ui/core'
 import { LoadScreen } from './views/LoadScreen'
 
 export const Scribe = compose(

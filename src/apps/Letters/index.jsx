@@ -1,13 +1,11 @@
 // React
-import React, { Component, Fragment } from 'react';
+import React, { Component} from 'react';
 import PublishScreenContainer from './containers/PublishScreenContainer';
 import Editor from '../Editor/Editor';
 import ModalLoad from './containers/ModalLoad';
 import ModalFirebase from '../Toolbox/views/ModalFirebase';
-import { BrowserRouter, Link, Route, Redirect, Switch, withRouter } from 'react-router-dom'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
-import { RoutedModal } from './containers/RoutedModal';
 
 @observer
 class Letters extends Component {

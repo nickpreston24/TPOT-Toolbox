@@ -1,7 +1,7 @@
 import React from 'react';
-import { configure, storiesOf, addDecorator, addParameters } from '@storybook/react';
+import { configure, addDecorator} from '@storybook/react';
 import StoryRouter from 'storybook-react-router';
-import { ThemeProvider, install } from "@material-ui/styles";
+import { ThemeProvider} from "@material-ui/styles";
 import { Provider } from 'mobx-react';
 import MobxStore from '../src/shared/stores'
 import { withKnobs } from '@storybook/addon-knobs';

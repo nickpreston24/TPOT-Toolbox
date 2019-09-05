@@ -1,4 +1,4 @@
-import { observable, action, decorate, runInAction } from 'mobx'
+import { observable, action, runInAction } from 'mobx'
 import { db, auth, firebase } from '../firebase'
 import { persist } from 'mobx-persist';
 

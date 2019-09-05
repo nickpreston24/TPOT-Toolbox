@@ -1,12 +1,7 @@
 import { withStyles } from '@material-ui/core/styles';
 import React, { Component } from 'react';
-import Letters from '../../../apps/Letters';
-import Notifier from '../views/Notifier';
-import Header from './Header';
 import Sidebar from './Sidebar';
 import { CurrentApp } from './CurrentApp';
-import MobxStore from '../../../shared/stores';
-import Forage from '../../../shared/localforage';
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react'
 

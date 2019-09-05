@@ -1,5 +1,5 @@
 import { faEnvelopeOpen, faHdd, faPaperPlane, faSave, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
-import { faGlasses, faSlidersH, faGlobeAmericas } from '@fortawesome/free-solid-svg-icons';
+import { faGlasses, faSlidersH} from '@fortawesome/free-solid-svg-icons';
 // import { ContentSaveOutline, FolderOpen } from 'mdi-material-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from "@material-ui/core";

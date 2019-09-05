@@ -1,8 +1,8 @@
 import { EditorState, getDefaultKeyBinding, KeyBindingUtil } from "draft-js";
 import { createEditorStateWithText } from "draft-js-plugins-editor";
-import { action, computed, decorate, observable, toJS } from 'mobx';
+import { action, computed, observable} from 'mobx';
 import { baseBlockStyleFn, baseStyleMap, blockRenderer, blockRenderMap, draftContentFromHtml, draftContentToHtml, stateFromElementConfig } from "../../apps/Editor/utils/transforms";
-import { create, persist } from 'mobx-persist'
+import { persist } from 'mobx-persist'
 import { draft } from '../../apps/Editor'
 import { convertFile } from "../utilities/converter";
 

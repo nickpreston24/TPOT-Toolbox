@@ -1,6 +1,5 @@
 import localForage from 'localforage';
-import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
-import { createBrowserHistory } from 'history';
+import { RouterStore} from 'mobx-react-router';
 import { create } from 'mobx-persist'
 import { action } from 'mobx';
 import SettingsStore from './settings';

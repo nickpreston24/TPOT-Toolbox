@@ -1,14 +1,12 @@
 import React, { Fragment, Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import { RichUtils, EditorState, SelectionState, Entity, Modifier, convertToRaw } from 'draft-js';
+import { EditorState, SelectionState, Modifier} from 'draft-js';
 import Icon from 'mdi-material-ui/LinkVariant'
-import { networkOnly } from 'sw-toolbox';
 import { compose } from 'recompose';
 import DraftUtils from 'draftjs-utils'
 import { inject, observer } from 'mobx-react';
 import classNames from 'classnames'
 import PropTypes from 'prop-types';
-import { toJS } from 'mobx';
 import { findEntityRangesWithRegex } from '../utils/strategies';
 
 const styles = theme => ({

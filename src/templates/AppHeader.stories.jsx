@@ -1,5 +1,4 @@
 import React from 'react';
-import { Shelf } from '../apps/Toolbox/views/Shelf'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import { AppHeader } from '../apps/Toolbox/views/AppHeader';

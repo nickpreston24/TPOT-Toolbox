@@ -1,5 +1,5 @@
-import { observable, computed, action, decorate, configure} from "mobx"
-import { auth, app, firebase } from '../firebase';
+import { observable, computed, action} from "mobx"
+import { firebase } from '../firebase';
 import { persist } from "mobx-persist";
 
 export default class AuthStore {

@@ -4,12 +4,9 @@ import { compose } from 'recompose'
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles'
 import { inject, observer } from 'mobx-react'
-import { observable, action } from 'mobx'
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { Button, Tooltip, Zoom } from '@material-ui/core';
-import { Link, Redirect } from 'react-router-dom';
-import { Shelf } from './Shelf';
-
+import { Link} from 'react-router-dom';
 
 
 const styles = theme => ({

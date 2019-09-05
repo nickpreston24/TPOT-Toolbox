@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'recompose';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const styles = theme => ({

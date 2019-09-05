@@ -1,12 +1,6 @@
-import { action, observable, computed, toJS, reaction } from "mobx";
-import { persist } from "mobx-persist";
-import { serializable } from 'serializr'
-import { EditorState, getDefaultKeyBinding, KeyBindingUtil } from "draft-js";
+import { action, observable, computed} from "mobx";
 import { createEditorStateWithText } from "draft-js-plugins-editor";
-import { convertToRaw } from 'draft-js';
-import { convertFile } from "../utilities/converter";
 import EditorStore from './editor'
-import { matchPath } from 'react-router'
 import { draftContentToHtml } from "../../apps/Editor/utils/transforms";
 
 export default class ScribeStore {

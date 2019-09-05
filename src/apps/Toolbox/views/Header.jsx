@@ -1,4 +1,4 @@
-import { faBell, faCaretSquareDown, faFlag, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faCaretSquareDown, faFlag, faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';

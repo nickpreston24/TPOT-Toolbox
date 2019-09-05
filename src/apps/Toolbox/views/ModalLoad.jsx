@@ -15,7 +15,7 @@ import { convertFile } from "../utilities/converter";
 // import * as Loaders from '../modules/docxLoaders/Loaders.ts'
 // import { Loaders } from '../modules/docxLoaders/Loaders.ts'
 import DiskFileLoader from "../utilities/docxLoaders_js/DiskFileLoader";
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 
 
