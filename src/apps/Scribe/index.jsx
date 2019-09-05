@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { compose } from 'recompose'
 import { inject, observer } from 'mobx-react';
 import Editor from '../Editor/Editor';
-import { Route} from 'react-router-dom'
 import { Tab, Tabs, SvgIcon, Switch } from '@material-ui/core'
 import { PublishPage } from './views/PublishPage';
 import { Route, Redirect, Switch } from 'react-router-dom'
