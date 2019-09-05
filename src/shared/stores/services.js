@@ -33,9 +33,9 @@ export default class ServicesStore {
         // : Turn loader on with max (other events dictate when it will turn off)
         
         // : Register & Monitor Service Worker
-        if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+        if (process.env.NODE_ENV === 'disabled' && 'serviceWorker' in navigator) {
             this.setKey('loader', true)
-            this.wb = new Workbox(`${process.env.PUBLIC_URL}/service-worker.js`)
+            this.wb = new Workbox(`${process.env.PUBLIC_URL}/service-worker-disabled.js`)
 
             // : Check to see if we are the initial service worker and pass the result to the current SW to store
             navigator.serviceWorker.getRegistrations().then(registrations => {

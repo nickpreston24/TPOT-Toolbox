@@ -74,7 +74,7 @@ export default () =>
         <ThemeProvider theme={theme}>
             <SnackbarProvider {...snackbarOptions}>
                 <BrowserRouter>
-                    <Toolbox />
+                    <Toolbox store={store} />
                 </BrowserRouter>
             </SnackbarProvider>
         </ThemeProvider>
@@ -89,13 +89,11 @@ const Toolbox = compose(
 )(
     class Toolbox extends Component {
 
-        componentWillMount() {
-            const { servicesStore } = this.props.store
+        componentDidMount() {
             const { enqueueSnackbar, closeSnackbar } = this.props
-            // console.log(this.props)
 
             // : Pass the calling function for notifications to the store
-            servicesStore.setNotifyFunctions({ enqueueSnackbar, closeSnackbar })
+            this.props.store.servicesStore.setNotifyFunctions({ enqueueSnackbar, closeSnackbar })
         }
 
         render() {
@@ -130,9 +128,9 @@ const Toolbox = compose(
 
 Toolbox.propTypes = {
     classes: PropTypes.object,
-    closeSnackbar: PropTypes.func,
-    enqueueSnackbar: PropTypes.func,
-    store: PropTypes.object
+    closeSnackbar: PropTypes.func.isRequired,
+    enqueueSnackbar: PropTypes.func.isRequired,
+    store: PropTypes.object.isRequired
 }
 
 const LinkOverlay = observer(() =>
