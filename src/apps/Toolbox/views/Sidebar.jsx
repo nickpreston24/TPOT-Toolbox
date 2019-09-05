@@ -48,32 +48,44 @@ export const Sidebar = compose(
                 {
                     name: 'Save',
                     icon: faSave,
-                    action: () => store.scribeStore.saveSession(),
+                    action: () => {
+                        store.scribeStore.pushRoute('/edit', history);
+                        store.scribeStore.saveSession();
+                    },
                 },
                 {
                     name: 'New',
                     icon: faFile,
-                    action: () => store.scribeStore.createSession(),
+                    action: () => {
+                        store.scribeStore.pushRoute('/edit', history);
+                        store.scribeStore.createSession();
+                    },
                 },
                 {
                     name: 'Load',
                     icon: faHdd,
-                    action: () => store.lettersStore.setCurrentModal('LoadScreen'),
+                    action: () => {
+                        store.scribeStore.pushRoute('/edit', history);
+                        store.lettersStore.setCurrentModal('LoadScreen');
+                    },
                 },
                 {
                     name: 'Reset',
                     icon: faTrashAlt,
-                    action: () => store.scribeStore.clearSession(),
+                    action: () => {
+                        store.scribeStore.pushRoute('/edit', history);
+                        store.scribeStore.clearSession();
+                    },
                 },
                 {
                     name: 'Preview',
                     icon: faGlasses,
-                    action: () => alert('This feature will be added soon!'),
+                    action: () => store.scribeStore.pushRoute('/preview', history),
                 },
                 {
                     name: 'Publish',
                     icon: faPaperPlane,
-                    action: () => alert('This feature will be added soon!'),
+                    action: () => store.scribeStore.pushRoute('/publish', history),
                 }
             ]
             return (

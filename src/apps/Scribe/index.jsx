@@ -8,21 +8,27 @@ import { LoadScreen } from './views/LoadScreen'
 
 export const Scribe = compose(
     inject('store'),
-    // observer
+    observer
 )(
     class Scribe extends Component {
 
         render() {
             const { match, history, location } = this.props
-            // let redirect = !matchPath(window.location.pathname, {path: '/scribe'}).params.document
             return (
-                <>
-                    {/* <Route exact path={`/scribe`} component={Homepage} /> */}
-                    <Route path={`/scribe/load`} render={() => <h1>Router</h1>} />
-                    <Route exact path={`/scribe`} component={RoutedEditor} />
-                    <LoadScreen base="/:mode" path="/load" {...{ match, history}} />
-                    {/* {redirect && <Redirect to='/scribe'  />} */}
-                </>
+                <Route path={`${match.path}/:mode`} children={({ match, location, ...rest }) => {
+                    console.log('PAZ', match)
+                    return (
+                        <Switch location={location}>
+                            <Route exact path={`/scribe`} render={() => <h2>Welcome to Scribe!</h2>} />
+                            <Route path={`/scribe/overview`} render={() => <h2>Overview</h2>} />
+                            <Route path={`/scribe/checkout`} render={() => <h2>Checkout</h2>} />
+                            <Route path={`/scribe/edit`} component={RoutedEditor} />
+                            <Route path={`/scribe/preview`} render={() => <h2>Preview</h2>} />
+                            <Route path={`/scribe/publish`} component={PublishPage} />
+                            {match && <Route render={() => <Redirect to={`/scribe/overview`} />} />}
+                        </Switch>
+                    )
+                }} />
             )
         }
     }
@@ -73,22 +79,22 @@ export const RoutedEditor = compose(
             const { match, store } = this.props
             const { scribeStore, routing } = store
             const { currentSession, current, sessions, session } = scribeStore
-//            console.log('sesss', scribeStore.session)
+            // console.log('sesss', scribeStore.session)
             return (
                 <>
-                    <Editor {...{match, session}}/>
+                    <Editor {...{ match, session }} />
                 </>
             )
         }
     }
 )
 
-const SessionTabs = observer(({store}) => (
+const SessionTabs = observer(({ store }) => (
     <Tabs value={store.current}>
         {store.sessions.map((session, index) => (
             <Tab label={session.name} onClick={() => store.setCurrentSession(session.name)} icon={
                 <ScribeIcon onClick={() => store.closeSession(index)} />
-            }/>
+            } />
         ))}
     </Tabs>
 ))

@@ -15,7 +15,7 @@ import { Shelf } from './views/Shelf'
 import { ShelfButton } from './views/ShelfButton';
 import { Sidebar } from './views/Sidebar';
 import { Scribe } from '../Scribe'
-import { BrowserRouter, Link, Route} from 'react-router-dom'
+import { BrowserRouter, Link, Route, Redirect, Switch } from 'react-router-dom'
 
 // Initilize Root Store
 const store = new MobxStore()
@@ -87,10 +87,12 @@ const Toolbox = compose(
     class Toolbox extends Component {
 
         componentDidMount() {
+            const { servicesStore } = this.props.store
             const { enqueueSnackbar, closeSnackbar } = this.props
+            // console.log(this.props)
 
             // : Pass the calling function for notifications to the store
-            this.props.store.servicesStore.setNotifyFunctions({ enqueueSnackbar, closeSnackbar })
+            servicesStore.setNotifyFunctions({ enqueueSnackbar, closeSnackbar })
         }
 
         render() {
@@ -98,24 +100,32 @@ const Toolbox = compose(
                 <Box display="flex" flexDirection="row" justifyContent="flex-start" alignItems="flex-start" style={{
                     position: 'absolute', boxSizing: 'border-box', height: '100%', width: '100%', overflow: 'hidden'
                 }}>
-                    <Route path={`/`} render={({ match, history}) => (
-                        <Dashboard
-                            shelf={
-                                <Shelf >
-                                    <ShelfButton tooltip='Scribe' icon='scribe' path='/scribe' color="#f9b54c" active={true} />
-                                </Shelf>
-                            }
-                            sidebar={
-                                <Sidebar {...{ history }} />
-                            }
-                            header={
-                                null
-                            }
-                            currentApp={
-                                    <Route path="/scribe" component={Scribe} />
-                            }
-                        />
-                    )} />
+                    <Switch>
+                        <Route path={`/`} render={({ match, history, location }) => (
+                            <Dashboard
+                                shelf={
+                                    <Shelf >
+                                        <ShelfButton tooltip='Scribe' icon='scribe' path='/scribe' color="#f9b54c" active={true} />
+                                    </Shelf>
+                                }
+                                sidebar={
+                                    <Sidebar {...{ history }} />
+                                }
+                                header={
+                                    null
+                                }
+                                currentApp={
+                                    <Box  display="flex" justifyContent="center" alignItems="flex-start" pt={4}>
+                                        <Switch {...{ location }}>
+                                            <Route path="/scribe" component={Scribe} />
+                                            <Route render={() => <Redirect to={`/scribe/overview`} />} />
+                                        </Switch>
+                                    </Box>
+                                }
+                            />
+                        )} />
+                        <Route render={() => <h1>404</h1>} />
+                    </Switch>
                     <LinkOverlay />
                 </Box>
             );
@@ -136,6 +146,7 @@ const LinkOverlay = observer(() =>
     }}>
         <li><Link to="/">/</Link></li>
         <li><Link to="/scribe">/scribe</Link></li>
+        <li><Link to="/scribe/checkout">/scribe/checkout</Link></li>
         <li><Link to="/scribe/Untitled.docx">/scribe/Untitled</Link></li>
     </ul>
 )
