@@ -3,8 +3,9 @@ import { compose } from 'recompose'
 import { inject, observer } from 'mobx-react';
 import Editor from '../Editor/Editor';
 import { Route} from 'react-router-dom'
-import { Tab, Tabs, SvgIcon } from '@material-ui/core'
-import { LoadScreen } from './views/LoadScreen'
+import { Tab, Tabs, SvgIcon, Switch } from '@material-ui/core'
+import { PublishPage } from './views/PublishPage';
+import { Route, Redirect, Switch } from 'react-router-dom'
 
 export const Scribe = compose(
     inject('store'),
