@@ -15,29 +15,29 @@ const styles = theme => ({
         // background: theme.palette.primary.main
     },
     paper: {
-        marginTop: theme.spacing.unit * 6,
-        marginBottom: theme.spacing.unit * 6,
-        padding: theme.spacing.unit * 3,
+        marginTop: theme.spacing(6),
+        marginBottom: theme.spacing(6),
+        padding: theme.spacing(3),
     },
     buttons: {
         display: 'flex',
         justifyContent: 'flex-end',
         marginLeft: 'auto',
-        marginRight: theme.spacing.unit,
-        marginBottom: theme.spacing.unit,
+        marginRight: theme.spacing(1),
+        marginBottom: theme.spacing(1),
     },
     button: {
-        marginLeft: theme.spacing.unit * 2,
+        marginLeft: theme.spacing(2),
     },
     urlDomain: {
-        marginTop: theme.spacing.unit * 2,
+        marginTop: theme.spacing(2),
         fontWeight: 400,
     },
     urlSlug: {
         color: theme.palette.primary.main,
     },
     icon: {
-        marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing(3),
         fill: '#dedede',
         display: 'block',
         margin: 'auto',
