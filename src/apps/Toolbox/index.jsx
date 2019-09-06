@@ -16,6 +16,7 @@ import { ShelfButton } from './views/ShelfButton';
 import { Sidebar } from './views/Sidebar';
 import { Scribe } from '../Scribe'
 import { BrowserRouter, Link, Route, Redirect, Switch } from 'react-router-dom'
+import { Header } from './views/Header';
 
 // Initilize Root Store
 const store = new MobxStore()
@@ -81,7 +82,6 @@ const Toolbox = compose(
     withSnackbar,
     inject('store'),
     withStyles(styles),
-    observer,
     hot(module)
 )(
     class Toolbox extends Component {
@@ -112,7 +112,7 @@ const Toolbox = compose(
                                     <Sidebar {...{ history }} />
                                 }
                                 header={
-                                    null
+                                    <Header />
                                 }
                                 currentApp={
                                     <Box  display="flex" justifyContent="center" alignItems="flex-start" pt={4}>

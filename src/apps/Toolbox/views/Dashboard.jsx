@@ -70,14 +70,14 @@ export const Dashboard = compose(
                     <Box flexGrow={1} bgcolor="#f6f6f7" display="flex" flexDirection="column">
                         <Box className={classes.header} px={1} display="flex" alignItems="center" justifyContent="flex-start" >
                             {header}
-                            <Box className={classes.title} height={48} display="flex" alignItems="center" fontSize={20} mx={1}>
+                            {/* <Box className={classes.title} height={48} display="flex" alignItems="center" fontSize={20} mx={1}>
                                 <Box mx={2} display="flex" alignItems="center"  >
                                     <ScribeIcon />
                                 </Box>
                                 Scribe
                             </Box>
                             <Box flexGrow={1} />
-                            <AuthButton {...{ editorStore, lettersStore, sessionStore, label: 'Sign In' }}/>
+                            <AuthButton {...{ editorStore, lettersStore, sessionStore, label: 'Sign In' }}/> */}
                             {/* <Button color="inherit" onClick={() => this.props.store.scribeStore.createSession()} >Create</Button>
                             <Button color="inherit" onClick={() => this.props.store.scribeStore.closeSession()} >Destroy</Button> */}
                         </Box>
