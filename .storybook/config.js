@@ -22,6 +22,7 @@ configure(() => {
 
 // : Create  singletons of session required data
 const store = new MobxStore()
+console.log('config.js MobxStore: ', store);
 
 const theme = createMuiTheme({
     palette: {

@@ -4,7 +4,7 @@ import EditorStore from './editor'
 import { draftContentToHtml } from "../../apps/Editor/utils/transforms";
 
 export default class ScribeStore {
-
+    
     @observable sessions = []
     @observable current = 0
     @observable session = null
