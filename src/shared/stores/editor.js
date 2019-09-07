@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import { EditorState, getDefaultKeyBinding, KeyBindingUtil } from "draft-js";
-import { createEditorStateWithText } from "draft-js-plugins-editor";
-import { action, computed, observable} from 'mobx';
-import { baseBlockStyleFn, baseStyleMap, blockRenderer, blockRenderMap, draftContentFromHtml, draftContentToHtml, stateFromElementConfig } from "../../apps/Editor/utils/transforms";
-import { persist } from 'mobx-persist'
-import { draft } from '../../apps/Editor'
-import { convertFile } from "../utilities/converter";
-=======
 import {EditorState, getDefaultKeyBinding, KeyBindingUtil} from "draft-js";
 import {createEditorStateWithText} from "draft-js-plugins-editor";
 import {action, computed, observable, toJS} from 'mobx';
@@ -22,7 +13,6 @@ import {
 import {persist} from 'mobx-persist'
 import {draft} from '../../apps/Editor'
 import {convertFile} from "../utilities/converter";
->>>>>>> bugfix/logout-shows-remaining-text
 
 // : Anything that  uses @persist will be automatically subscribed to offline localforage storage
 
@@ -34,13 +24,8 @@ export default class EditorStore {
         this.rootStore = rootStore;
         this.sessionStore = sessionStore;
         // this.session = sessionStore.currentSession
-<<<<<<< HEAD
-        // console.log(sessionStore)
-        this.notify = this.rootStore.servicesStore.notify
-=======
         console.log('EditorStore cotr() => Session store loaded? ', !!sessionStore && sessionStore);
         this.notify = this.rootStore.lettersStore.notify;
->>>>>>> bugfix/logout-shows-remaining-text
 
         window.addEventListener("message", listener => {
             const {event, html} = listener.data;
@@ -64,18 +49,6 @@ export default class EditorStore {
         'original',
         'edited',
         'code',
-<<<<<<< HEAD
-    ]
-
-    @action suscribe = session =>{
-        // this.session = session
-//        console.log("AB", this.session)
-    }
-
-    @action onChange = editorState =>
-        // this.sessionStore.currentSession.editorState = editorState
-        this.sessionStore.session.editorState = editorState
-=======
     ];
     
     @action subscribe = session =>{
@@ -85,7 +58,6 @@ export default class EditorStore {
     
     @action onChange = editorState =>        
         this.sessionStore.session.editorState = editorState;
->>>>>>> bugfix/logout-shows-remaining-text
 
     @action setRef = node =>
         this.editor = node;
@@ -102,13 +74,8 @@ export default class EditorStore {
     }
 
     @action convertFileToDraftState = async (file) => {
-<<<<<<< HEAD
-        let html = await convertFile(file)
-//        console.warn(`${!!html ? 'Doc Sucessfully Converted' : 'Error in converting DocX'}`)
-=======
         let html = await convertFile(file);
-        console.warn(`${!!html ? 'Doc Successfully Converted' : 'Error in converting DocX'}`);
->>>>>>> bugfix/logout-shows-remaining-text
+        // console.warn(`${!!html ? 'Doc Successfully Converted' : 'Error in converting DocX'}`);
         this.loadEditorFromDocx(html)
     };
 
@@ -124,13 +91,8 @@ export default class EditorStore {
         this.codeState = draftContentToHtml(this.sessionStore.currentSession.editorState, newContentState);
         let that = this;
         setTimeout(function () {
-<<<<<<< HEAD
             that.focus()
 //            console.log('lets do this')
-=======
-            that.focus();
-            console.log('lets do this')
->>>>>>> bugfix/logout-shows-remaining-text
         }, 500);
     };
 
@@ -143,32 +105,18 @@ export default class EditorStore {
     };
 
     @action clearSession = (notify) => {
-<<<<<<< HEAD
-        this.editorState = EditorState.createEmpty()
-        this.notify('Reset Letter to Original', {variant: "error"})
-    }
-=======
         this.editorState = EditorState.createEmpty();
         this.notify('Cleared Editor', {variant: "error"})
     };
->>>>>>> bugfix/logout-shows-remaining-text
 
     @action setEditMode = (e, tab) =>
         this.editMode = this.modes[tab];
 
-<<<<<<< HEAD
    @action  setStyleMap = customStyleMap => {
 //        console.log(toJS(this.baseStyleMap))
         this.baseStyleMap = customStyleMap
 //        console.log(toJS(this.baseStyleMap))
     }
-=======
-    @action  setStyleMap = customStyleMap => {
-        console.log(toJS(this.baseStyleMap));
-        this.baseStyleMap = customStyleMap;
-        console.log(toJS(this.baseStyleMap))
-    };
->>>>>>> bugfix/logout-shows-remaining-text
 
     @action handleKeyCommand = (command, store) => {
         const notify = this.notify;
@@ -178,11 +126,7 @@ export default class EditorStore {
         }
         if (command === 'open') {
             // this.clearSession(notify)
-<<<<<<< HEAD
 //            console.log('load file')
-=======
-            console.log('load file');
->>>>>>> bugfix/logout-shows-remaining-text
             return 'handled';
         }
         if (command === 'publish') {
