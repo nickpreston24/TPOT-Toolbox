@@ -13,7 +13,7 @@ export const Scribe = compose(
     class Scribe extends Component {
 
         render() {
-            const { match, history, location } = this.props
+            const { match } = this.props
             return (
                 <Route path={`${match.path}/:mode`} children={({ match, location, ...rest }) => {
                     console.log('PAZ', match)

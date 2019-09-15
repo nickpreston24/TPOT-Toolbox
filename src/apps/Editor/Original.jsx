@@ -5,7 +5,7 @@ import { compose } from "recompose";
 import ReactHtmlParser from "react-html-parser";
 
 class Original extends Component {
-
+	
 	render() {
 		return (
 			<Fragment>

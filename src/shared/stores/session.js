@@ -3,37 +3,28 @@ import { db, auth, firebase } from '../firebase'
 import { persist } from 'mobx-persist';
 
 export default class SessionStore {
-
+    
     @observable enqueueSnackbar = null;
     @observable closeSnackbar = null;
 
     constructor(rootStore) {
         this.rootStore = rootStore;
-        console.log(rootStore);
         this.notify = rootStore.servicesStore.notify;
-        // this.auth = auth;
-
-        console.log('SessionStore() => auth loaded? ', !!auth && auth);
-        console.log('SessionStore() => auth user loaded? ', !!auth.authUser && auth.authUser);
+        
+        // console.log('SessionStore() => auth loaded? ', !!auth && auth);
+        // console.log('SessionStore() => auth user loaded? ', !!auth.authUser && auth.authUser);
         
         // : Set Listeners
         firebase.auth.onAuthStateChanged((authUser) => {
         //            console.log('onAuthStateChanged() => authUser:', authUser)
-        })
-
-        // : Load Initial Configuration from File
-        // : TODO
-        // fs.readFile(path.join(app.getPath('userData'), 'Local Storage', 'auth.json'), 'utf-8', (error, data) => {
-        //     if (!!data) {
-        //         this.setAuthUser(JSON.parse(data).authUser)
-        //         console.log(JSON.parse(data))
-        //     }
-        // });
+        })      
+        
+        
     }
 
     @persist @observable clean = true;
     @persist @observable authUser = null;
-    @observable sessionName = "Welcome. Start typing a letter or load one from file.";
+    @observable sessionName = '';
     @observable loginMode = 'login';
     @observable loginData = {
         firstName: '',
@@ -119,6 +110,4 @@ export default class SessionStore {
         this.closeSnackbar = closeSnackbar
         //        console.log('Notification enabled.', this.enqueueSnackbar, this.closeSnackbar)
     }
-
-
 }

@@ -1,7 +1,7 @@
 import localForage from 'localforage';
-import { RouterStore} from 'mobx-react-router';
-import { create } from 'mobx-persist'
-import { action } from 'mobx';
+import {RouterStore} from 'mobx-react-router';
+import {create} from 'mobx-persist'
+import {action} from 'mobx';
 import SettingsStore from './settings';
 import LettersStore from './letters';
 import EditorStore from './editor';
@@ -23,6 +23,8 @@ export default class MobxStore {
         this.hydrate = create({ storage: localForage, jsonify: false })
         this.routing = routingStore
         this.init()
+        
+        if(!!this.enqueueSnackbar || console.warn("missing the enqueueSnackbar func!"));
     }
 
     @action init = () => {
@@ -36,9 +38,14 @@ export default class MobxStore {
         this.scribeStore = new ScribeStore(this)
         // this.reloadStore(this.appNames)
 
-        console.log('MobX Store: ', this)
+        // console.log('MobX Store: ', this)
     }
 
+    @action notify = (message, config) =>        
+        this.enqueueSnackbar(message, {
+        ...config,
+    })
+    
     // @action reloadStore = (string) => {
     //     const loadConstructor = (storeName) => {
     //         if (!this.appNames.includes(storeName)) return

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import React, { Component, Fragment } from "react";
 import { compose } from "recompose";
 import { MuiToolbar, plugins } from "./plugins/plugins";
+import {ErrorPage} from "../../shared/components";
 
 class Draft extends Component {
 
@@ -22,8 +23,10 @@ class Draft extends Component {
 	}
 
 	render() {
-        const { store, session } = this.props
+        let { store, session } = this.props
+		// store = null ;//testing a failure here
 		return (
+			// !!store && !!session || !!this.editor ?
 			<Fragment>
 				<Editor
 					id={"DraftJS"}
@@ -48,7 +51,8 @@ class Draft extends Component {
 				/>
 				<MuiToolbar />
 			</Fragment>
-		);
+			// : () => <ErrorPage message={"Could not load Draft!"}/>
+		)
 	}
 }
 

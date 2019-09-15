@@ -12,7 +12,7 @@ const createNode = require('create-node')
 const walk = require('domwalk')
 
 // This is only used for parentUntil (just write a quick utility, It is expensive to import JQuery this way)
-const $ = window.jQuery = require('jquery')
+// const $ = window.jQuery = require('jquery')
 const getParentsUntil = require('./jQueryHelpers');
 
 //  TESTING RESULTS
@@ -381,19 +381,13 @@ const flattenStyles = async (baseDom, augDom) => {
             // let $ = document.getElementById('');
             // Get Target Element and Index
 
-//            console.log('icing node parent', icingNode.parentElement)
-//            console.log('old icing node parent', $(icingNode.parentElement))
+            //console.log('icing node parent', icingNode.parentElement)
+            //console.log('old icing node parent', $(icingNode.parentElement))
 
             // $('#cat')[0].children
             // element.children
 
             let blockChildren = getParentsUntil(icingNode.parentElement, "div")[0].children;
-            let blockChildren2 = $(icingNode.parentElement).parentsUntil("div").prevObject[0].children
-            //TODO: figure out why, even though blockChildren 1 and 2 are identical, the targetElements is undefined at line 403
-//            console.log('until result', blockChildren);
-//            console.log('old until result', blockChildren2);
-            // blockChildren = blockChildren2
-
             let parentChildren = []
             for (let index = 0; index < blockChildren.length; index++) {
                 parentChildren.push({
@@ -401,14 +395,12 @@ const flattenStyles = async (baseDom, augDom) => {
                     index: index
                 })
             }
-
-//            console.log(parentChildren);
+            //console.log(parentChildren);
 
             let targetElements = parentChildren.filter(child => {
                 return icingNode.textContent === child.element.textContent
             })
-
-//            console.log(targetElements);
+            //console.log(targetElements);
 
             let targetElementIndex = targetElements[0].index
             let targetElement = icingNode.parentElement.children[targetElementIndex]

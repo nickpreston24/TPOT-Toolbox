@@ -1,28 +1,22 @@
 import React from 'react';
-import { configure, addDecorator} from '@storybook/react';
-import StoryRouter from 'storybook-react-router';
-import { ThemeProvider} from "@material-ui/styles";
 import { Provider } from 'mobx-react';
-import MobxStore from '../src/shared/stores'
+import { configure, addDecorator } from '@storybook/react';
+import StoryRouter from 'storybook-react-router';
 import { withKnobs } from '@storybook/addon-knobs';
-// import '@storybook/addon-console';
-// import StoryRouter from 'storybook-react-router';
+import { ThemeProvider} from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import Box from '@material-ui/core/Box';
-// import { muiTheme } from 'storybook-addon-material-ui';
-// import Forage from '../src/shared/localforage'
+import MobxStore from '../src/shared/stores'
 
-
-// : Load all stories.jsx in /src, reguardless of where they are.
+// : Load all stories.jsx in /src, regardless of where they are.
 configure(() => {
     const req = require.context('../src', true, /\.stories\.jsx$/);
     req.keys().forEach(filename => req(filename));
 }, module);
 
-
 // : Create  singletons of session required data
 const store = new MobxStore()
-console.log('config.js MobxStore: ', store);
+// console.log('config.js MobxStore: ', store);
 
 const theme = createMuiTheme({
     palette: {

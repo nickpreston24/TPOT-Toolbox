@@ -39,9 +39,9 @@ const Notifier = ({ classes, store }) => {
     )
 }
 
-const Dispatcher = withSnackbar((props) => {
-    const { enqueueSnackbar } = props
-    const data = JSON.parse(props.notification.data)
+const Dispatcher = withSnackbar((props) => {    
+    const { enqueueSnackbar, notification } = props
+    const data = JSON.parse(notification.data)
     const { message, config } = data
     enqueueSnackbar(message, {
         ...config,

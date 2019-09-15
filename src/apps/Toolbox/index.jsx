@@ -17,7 +17,7 @@ import { Sidebar } from './views/Sidebar';
 import { Scribe } from '../Scribe'
 import { BrowserRouter, Link, Route, Redirect, Switch } from 'react-router-dom'
 
-// Initilize Root Store
+// Initialize Root Store
 const store = new MobxStore()
 console.log('index.jsx MobxStore: ', store);
 

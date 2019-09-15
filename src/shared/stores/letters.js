@@ -17,10 +17,7 @@ const isNullOrWhitespace = (input) => {
 // Title and slugs must contain NO Whitespaces and must NOT be null or empty
 const isValidField = (input) => !isNullOrWhitespace(input) && !input.includes(" ")
 
-class PublishData {
-    // @persist @observable slug = ''
-    // @persist @observable title = ''
-    // @persist @observable excerpt = ''
+class PublishData {    
     @observable slug = ''
     @observable title = ''
     @observable excerpt = ''
@@ -29,8 +26,7 @@ class PublishData {
 export default class LettersStore {
     constructor(rootStore) {
         this.rootStore = rootStore
-        // this.notify = () => {}
-        // this.notify = rootStore ? rootStore.servicesStore.notify : () => { }
+        this.notify = rootStore.notify;
     }
 
     @persist @observable clean = true
@@ -50,8 +46,8 @@ export default class LettersStore {
     @persist @observable editorContent = '<p>Why hello there!</p>'
     @observable editedState = EditorState.createEmpty() // TODO : Persist
     // @persist('object', PublishData) @observable publishData = new PublishData({ title: '', slug: '', title: '' })
-    @observable publishData = new PublishData({ title: '', slug: '', title: '' })
-
+    @observable publishData = new PublishData({ title: '', slug: ''});
+    
     @action setKey = (key, value) => {
         this[key] = value
     }
@@ -72,20 +68,7 @@ export default class LettersStore {
 
     @action setPublishData = (key, value) => {
         this.publishData[key] = value.trim()
-    }
-
-    // @action notify = (message, config) => {
-    //     try {
-    //         const data = { message, config: { ...config } }
-    //         console.log(data)
-    //         console.log(toJS(data))
-    //         console.log(JSON.stringify(data))
-    //         this.notification = JSON.stringify(data)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    //     // console.log(`%c${message}`, `color: dodgerblue; font-size: 14px; border: 1px solid dodgerblue; background: #092b4c;`)
-    // }
+    }    
 
     @action setCurrentModal = (string) => {
         this.currentModal = string
@@ -157,12 +140,9 @@ export default class LettersStore {
                         excerpt
                     }, this.notify)
                 } catch (error) {
-//                    console.log(error)
-                }
-
+                   console.log(error);
+                }                
             })
-            .catch(error => {
-
-            })
+            .catch(console.log)
     }
 }

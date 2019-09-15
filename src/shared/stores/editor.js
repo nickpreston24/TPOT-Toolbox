@@ -13,6 +13,7 @@ import {
 import {persist} from 'mobx-persist'
 import {draft} from '../../apps/Editor'
 import {convertFile} from "../utilities/converter";
+import {nameof, hasProp} from "../utilities/helpers";
 
 // : Anything that  uses @persist will be automatically subscribed to offline localforage storage
 
@@ -24,15 +25,20 @@ export default class EditorStore {
         this.rootStore = rootStore;
         this.sessionStore = sessionStore;
         // this.session = sessionStore.currentSession
-        console.log('EditorStore cotr() => Session store loaded? ', !!sessionStore && sessionStore);
-        this.notify = this.rootStore.lettersStore.notify;
+        // console.warn(`Session store is not loaded in ${nameof(this)}`, !!sessionStore && sessionStore);
+        // if(!!this.notify && this.notify.type === 'function')
+        this.notify = this.rootStore.notify;
 
         window.addEventListener("message", listener => {
             const {event, html} = listener.data;
-            if (event === "draftjs-editor-reload") 
+            if (event === "draftjs-editor-reload")
                 this.loadEditorFromDocx(html);
         });
 
+        // alert(!this.has(this,'rootStore'));
+        hasProp(this, 'rootStore');
+        hasProp(this, nameof({rootStore}));
+        // alert(!this.hasProp(this,'rootStore'));
     }
 
     @persist @observable clean = true;
@@ -50,17 +56,23 @@ export default class EditorStore {
         'edited',
         'code',
     ];
-    
-    @action subscribe = session =>{
-        // this.session = session
-        console.log("AB", this.session)
-    };
-    
-    @action onChange = editorState =>        
-        this.sessionStore.session.editorState = editorState;
 
-    @action setRef = node =>
-        this.editor = node;
+    // Subscribe or change sessionStore:
+    // @action subscribe = nextSession => {
+    //     this.session = nextSession;
+    // };
+
+    @action onChange = editorState => {
+        this.sessionStore.session.editorState = editorState;
+    }
+
+    @action setRef = node => {
+        if (!!this.editor)
+            this.editor = node;
+        else
+        // console.warn(`${nameof(this.editor)} cannot be null!`);
+            console.warn(`editorStore cannot be null!`);
+    };
 
     @action.bound focus() {
         // console.log(this.editor)
@@ -81,14 +93,15 @@ export default class EditorStore {
 
     @action loadEditorFromDocx = html => {
         // let baseStyleMapClear = JSON.parse(JSON.stringify(Object.assign(toJS(baseStyleMap))))
-        const { newContentState, newBaseStyleMap } = draftContentFromHtml(html, stateFromElementConfig, baseStyleMap);
+        const {newContentState, newBaseStyleMap} = draftContentFromHtml(html, stateFromElementConfig, baseStyleMap);
         this.baseStyleMap = newBaseStyleMap;
         this.originalState = html;
         this.baseStyleMap = newBaseStyleMap;
-        console.log('loadEditorFromDocx() => CurrentSession?', this.sessionStore.currentSession);
-        console.log(`loadEditorFromDocx() => sessionStore?`, this.sessionStore.currentSession);
-        this.sessionStore.currentSession.editorState = EditorState.createWithContent(newContentState);
-        this.codeState = draftContentToHtml(this.sessionStore.currentSession.editorState, newContentState);
+        const currentSession = this.sessionStore;
+        console.log('loadEditorFromDocx() => CurrentSession?', currentSession);
+        console.log(`loadEditorFromDocx() => sessionStore?`, this.sessionStore);
+        currentSession.editorState = EditorState.createWithContent(newContentState);
+        this.codeState = draftContentToHtml(currentSession.editorState, newContentState);
         let that = this;
         setTimeout(function () {
             that.focus()
@@ -97,7 +110,7 @@ export default class EditorStore {
     };
 
     @action newSession = () => {
-        this.notify('Started a New Letter')
+        // this.notify('Started a New Letter')
     }
 
     @action saveSession = async () => {
@@ -106,27 +119,26 @@ export default class EditorStore {
 
     @action clearSession = (notify) => {
         this.editorState = EditorState.createEmpty();
-        this.notify('Cleared Editor', {variant: "error"})
+        // this.notify('Cleared Editor', {variant: "error"})
     };
 
     @action setEditMode = (e, tab) =>
         this.editMode = this.modes[tab];
 
-   @action  setStyleMap = customStyleMap => {
-//        console.log(toJS(this.baseStyleMap))
+    @action  setStyleMap = customStyleMap => {
+        //console.log(toJS(this.baseStyleMap))
         this.baseStyleMap = customStyleMap
-//        console.log(toJS(this.baseStyleMap))
+        //console.log(toJS(this.baseStyleMap))
     }
 
     @action handleKeyCommand = (command, store) => {
-        const notify = this.notify;
         if (command === 'save') {
             this.saveSession(this.notify);
             return 'handled';
         }
         if (command === 'open') {
             // this.clearSession(notify)
-//            console.log('load file')
+            //console.log('load file')
             return 'handled';
         }
         if (command === 'publish') {
@@ -137,7 +149,7 @@ export default class EditorStore {
     };
 
     @action myKeyBindingFn = (e) => {
-        const { hasCommandModifier } = KeyBindingUtil;
+        const {hasCommandModifier} = KeyBindingUtil;
         if (e.keyCode === 83 /* `S` key */ && hasCommandModifier(e)) {
             return 'save'
         }

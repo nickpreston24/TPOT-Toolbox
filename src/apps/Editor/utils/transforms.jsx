@@ -19,17 +19,17 @@ import {  rgb2hex } from './helpers';
 // const fs = window.require('fs')
 
 /*
- 
- oooooo     oooo                        o8o  oooo  oooo            
-  `888.     .8'                         `"'  `888  `888            
-   `888.   .8'    .oooo.   ooo. .oo.   oooo   888   888   .oooo.   
-    `888. .8'    `P  )88b  `888P"Y88b  `888   888   888  `P  )88b  
-     `888.8'      .oP"888   888   888   888   888   888   .oP"888  
-      `888'      d8(  888   888   888   888   888   888  d8(  888  
-       `8'       `Y888""8o o888o o888o o888o o888o o888o `Y888""8o 
-                                                                   
-                                                                   
-                                                                   
+
+ oooooo     oooo                        o8o  oooo  oooo
+  `888.     .8'                         `"'  `888  `888
+   `888.   .8'    .oooo.   ooo. .oo.   oooo   888   888   .oooo.
+    `888. .8'    `P  )88b  `888P"Y88b  `888   888   888  `P  )88b
+     `888.8'      .oP"888   888   888   888   888   888   .oP"888
+      `888'      d8(  888   888   888   888   888   888  d8(  888
+       `8'       `Y888""8o o888o o888o o888o o888o o888o `Y888""8o
+
+
+
 
 */
 
@@ -161,18 +161,18 @@ const blockRenderer = (contentBlock, pluginFunctions) => {
 
 
 /*
- 
- ooooo                                                     .   
- `888'                                                   .o8   
-  888  ooo. .oo.  .oo.   oo.ooooo.   .ooooo.  oooo d8b .o888oo 
-  888  `888P"Y88bP"Y88b   888' `88b d88' `88b `888""8P   888   
-  888   888   888   888   888   888 888   888  888       888   
-  888   888   888   888   888   888 888   888  888       888 . 
- o888o o888o o888o o888o  888bod8P' `Y8bod8P' d888b      "888" 
-                          888                                  
-                         o888o                                 
-                                                               
- 
+
+ ooooo                                                     .
+ `888'                                                   .o8
+  888  ooo. .oo.  .oo.   oo.ooooo.   .ooooo.  oooo d8b .o888oo
+  888  `888P"Y88bP"Y88b   888' `88b d88' `88b `888""8P   888
+  888   888   888   888   888   888 888   888  888       888
+  888   888   888   888   888   888 888   888  888       888 .
+ o888o o888o o888o o888o  888bod8P' `Y8bod8P' d888b      "888"
+                          888
+                         o888o
+
+
 */
 
 // * CONVERT HTML TO DRAFTJS CONTENT STATE
@@ -213,7 +213,7 @@ const flattenInlineStyleRanges = (contentState, baseStyleMap) => {
                     offset: styleRange.offset,
                     length: styleRange.length,
                     style: compoundStyleRangeName
-                }) // Push Inline Range 
+                }) // Push Inline Range
             } else {
                 // Custom Named Styles  -  EX: CUSTOM_COLOR[#C00000]_FONT_WEIGHT[BOLD]_FONTSIZE[48PX]
                 for (const key in compoundStyleRangeClassProperties) {
@@ -301,7 +301,7 @@ const stateFromElementConfig = {
                 })
             }
         }
-        // Color 
+        // Color
         if (element.parentElement.style.color) { // Parent Inline
             elementStyles.push({
                 name: 'color',
@@ -455,18 +455,18 @@ const stateFromElementConfig = {
 //  end of IMPORT FUNCTION
 
 /*
- 
- oooooooooooo                                               .   
- `888'     `8                                             .o8   
-  888         oooo    ooo oo.ooooo.   .ooooo.  oooo d8b .o888oo 
-  888oooo8     `88b..8P'   888' `88b d88' `88b `888""8P   888   
-  888    "       Y888'     888   888 888   888  888       888   
-  888       o  .o8"'88b    888   888 888   888  888       888 . 
- o888ooooood8 o88'   888o  888bod8P' `Y8bod8P' d888b      "888" 
-                           888                                  
-                          o888o                                 
-                                                                
- 
+
+ oooooooooooo                                               .
+ `888'     `8                                             .o8
+  888         oooo    ooo oo.ooooo.   .ooooo.  oooo d8b .o888oo
+  888oooo8     `88b..8P'   888' `88b d88' `88b `888""8P   888
+  888    "       Y888'     888   888 888   888  888       888
+  888       o  .o8"'88b    888   888 888   888  888       888 .
+ o888ooooood8 o88'   888o  888bod8P' `Y8bod8P' d888b      "888"
+                           888
+                          o888o
+
+
 */
 
 // * CONVERT DRAFT JS CONTENT STATE TO HTML
@@ -584,7 +584,7 @@ const createBlockRenderers = (editorState, contentState, exporter) => {
 
 
                 // TODO: Add support for custom styles applied to H1-H6 tags
-                // DO NOT DELETE!!! DONT YOU DARE! 
+                // DO NOT DELETE!!! DONT YOU DARE!
                 // if (false) {
                 //     const inlineStylesPlaceHolder = (placeholderFunction) => {
                 //         // Get Style Names
@@ -754,7 +754,7 @@ const createBlockRenderers = (editorState, contentState, exporter) => {
                 //                 //     if (styleName == 'fontSize') {
                 //                 //         blockSlice = `<span style="font-size: ${styleValue};">${blockSlice}</span>`
                 //                 //     }
-                //                 //     // console.log(styleName, styleValue)  
+                //                 //     // console.log(styleName, styleValue)
                 //                 // })
                 //                 // console.log(blockSlice)
                 //                 // htmlContent += blockSlice
@@ -925,21 +925,21 @@ const createBlockRenderers = (editorState, contentState, exporter) => {
 }
 
 /*
- 
- ooooo     ooo     .    o8o  oooo   o8o      .               
- `888'     `8'   .o8    `"'  `888   `"'    .o8               
-  888       8  .o888oo oooo   888  oooo  .o888oo oooo    ooo 
-  888       8    888   `888   888  `888    888    `88.  .8'  
-  888       8    888    888   888   888    888     `88..8'   
-  `88.    .8'    888 .  888   888   888    888 .    `888'    
-    `YbodP'      "888" o888o o888o o888o   "888"     .8'     
-                                                 .o..P'      
-                                                 `Y8P'       
-                                                             
- 
+
+ ooooo     ooo     .    o8o  oooo   o8o      .
+ `888'     `8'   .o8    `"'  `888   `"'    .o8
+  888       8  .o888oo oooo   888  oooo  .o888oo oooo    ooo
+  888       8    888   `888   888  `888    888    `88.  .8'
+  888       8    888    888   888   888    888     `88..8'
+  `88.    .8'    888 .  888   888   888    888 .    `888'
+    `YbodP'      "888" o888o o888o o888o   "888"     .8'
+                                                 .o..P'
+                                                 `Y8P'
+
+
 */
 
-export const saveSession = (original, edited, code, baseStyleMap, notify) => {
+export const saveSession = (original, edited, code, baseStyleMap, notify = null) => {
     const contents = {
         original: !!original ? original : {},
         edited: !!edited ? edited : {},
@@ -947,31 +947,22 @@ export const saveSession = (original, edited, code, baseStyleMap, notify) => {
         baseStyleMap: !!baseStyleMap ? baseStyleMap : {}
     }
     let fileContents = JSON.stringify(contents)
-    notify('Letter Saved to Disk', { variant: 'success', })
-    // : TODO
-    // const fileName = path.join(app.getPath('userData'),'Local Storage', 'session.json')
-    // console.log(fileName)
-    // fs.writeFile(fileName, fileContents, (error) => {
-    //     if (error) {
-    //         notify('Could not Save Draft', { variant: 'error'})
-    //     } else {
-    //         notify('Document Saved to Disk Successfully', { variant: 'success', })
-    //     }
-    // })
+    if(!!notify && notify.type === 'function')
+        notify('Letter Saved to Disk', { variant: 'success', })    
 }
 
 //  end of EXPORT FUNCTION
 
-export { 
-    styles, 
-    exporter, 
-    customStyleFn, 
-    baseStyleMap, 
-    baseBlockStyleFn, 
-    blockRenderMap, 
-    blockRenderer, 
-    stateFromElementConfig, 
-    draftContentFromHtml, 
-    draftContentToHtml, 
-    flattenInlineStyleRanges, 
+export {
+    styles,
+    exporter,
+    customStyleFn,
+    baseStyleMap,
+    baseBlockStyleFn,
+    blockRenderMap,
+    blockRenderer,
+    stateFromElementConfig,
+    draftContentFromHtml,
+    draftContentToHtml,
+    flattenInlineStyleRanges,
 };

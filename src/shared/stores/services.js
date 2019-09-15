@@ -1,22 +1,11 @@
 import React from 'react';
-import { action, observable } from 'mobx';
-import { Button } from '@material-ui/core';
-import { Workbox } from 'workbox-window';
-import { persist } from 'mobx-persist';
+import {action, observable} from 'mobx';
+import {Button} from '@material-ui/core';
+import {Workbox} from 'workbox-window';
+import {persist} from 'mobx-persist';
+import {rest} from "../utilities/helpers";
 
-const rest = (ms) => {
-    return new Promise(r => setTimeout(r, ms));
-}
-
-// : Get a max timeout clock to guarenteed consistent loading screen times
-let loaderStartTime = Date.now();
-let loadTimeRemaining = 0
-let loaderCounter = setInterval(function () {
-    loadTimeRemaining = 1500 - (Date.now() - loaderStartTime).toFixed(3)
-}, 100);
-setTimeout(() => clearInterval(loaderCounter), 1000)
-
-// : Main Class. Manages service-related UI state, notifications and the registration of service workers.
+// : Manages service-related UI state, notifications and the registration of service workers.
 export default class ServicesStore {
 
     @persist @observable clean = true
@@ -29,6 +18,7 @@ export default class ServicesStore {
 
         // : Reference the parent store
         this.root = rootStore
+        this.notify = rootStore.notify;
 
         // : Turn loader on with max (other events dictate when it will turn off)
         
@@ -152,11 +142,15 @@ export default class ServicesStore {
         const { enqueueSnackbar, closeSnackbar } = functions
         this.enqueueSnackbar = enqueueSnackbar
         this.closeSnackbar = closeSnackbar
-    }
-
-    @action notify = (message, config) =>
-        this.enqueueSnackbar(message, {
-            ...config,
-        })
+    }  
 
 }
+
+// TODO: Unsed code that may require removal - MP
+// : Get a max timeout clock to guaranteed consistent loading screen times
+let loaderStartTime = Date.now();
+let loadTimeRemaining = 0
+let loaderCounter = setInterval(function () {
+    loadTimeRemaining = 1500 - (Date.now() - loaderStartTime).toFixed(3)
+}, 100);
+setTimeout(() => clearInterval(loaderCounter), 1000)

@@ -6,8 +6,8 @@ export default class AuthStore {
 
     constructor(rootStore) {
         this.rootStore = rootStore
-        this.notify = this.rootStore.lettersStore.notify
-
+        this.notify = this.rootStore.notify;
+        
         firebase.app.auth().onAuthStateChanged((authUser) => {
 //            console.log('authStateChanged', authUser)
         })

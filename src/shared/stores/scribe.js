@@ -9,14 +9,14 @@ export default class ScribeStore {
     @observable current = 0
     @observable session = null
 
-    constructor(root) {
+    constructor(root) {        
         this.root = root
         this.notify = this.root.lettersStore.notify
         this.init()
     }
 
     @action init = () => {
-        // Create an inital empty document
+        // Create an initial empty document
         this.editorStore = new EditorStore(this.root, this)
         this.session = new Session(null, this)
     }
@@ -77,7 +77,7 @@ class Session {
     @observable lastModified = ''
     @observable sessionStore = null
     @observable editorStore = null
-    @observable editorState = createEditorStateWithText('Click to start typing a note...')
+    @observable editorState = createEditorStateWithText('')
 
     constructor(file, sessionStore) {
 //        console.log('session created', file, sessionStore.sessions.length, toJS(sessionStore.currentSession))
