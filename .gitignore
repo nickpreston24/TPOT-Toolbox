@@ -72,3 +72,4 @@ src/shared/keys/wp-credentials.js
 **/*/.idea/
 .idea/.gitignore
 .idea/.idea.TPOT-Toolbox.dir/riderModule.iml
+.vscode/launch.json
