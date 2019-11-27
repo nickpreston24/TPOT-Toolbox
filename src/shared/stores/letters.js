@@ -18,9 +18,6 @@ const isNullOrWhitespace = (input) => {
 const isValidField = (input) => !isNullOrWhitespace(input) && !input.includes(" ")
 
 class PublishData {
-    // @persist @observable slug = ''
-    // @persist @observable title = ''
-    // @persist @observable excerpt = ''
     @observable slug = ''
     @observable title = ''
     @observable excerpt = ''
@@ -57,6 +54,7 @@ export default class LettersStore {
     }
 
     @action setEditorContent = async (string) => {
+        console.log('SetEditorContent()===>', string)
         this.editorContent = string
     }
 
@@ -96,73 +94,49 @@ export default class LettersStore {
     }
 
     @action.bound setWordpressCredentials = (credentials) => {
-//        console.log('recieved', credentials)
-//        console.log(typeof credentials)
-//        console.log(typeof toJS(credentials))
-//        console.log(isPrimitive(toJS(credentials)))
-//        console.log(isPrimitive(credentials))
         let wordpressCredentials = toJS(credentials)
         this.wordpressCredentials.username = !!wordpressCredentials ? wordpressCredentials.username : ''
         this.wordpressCredentials.password = !!wordpressCredentials ? wordpressCredentials.password : ''
-//        console.log(toJS(this.wordpressCredentials))
-        // this.wordpressCredentials = !!wordpressCredentials
-        // ? wordpressCredentials
-        // : null
-        // if (isPrimitive(toJS(credentials))) {
-        //     this.wordpressCredentials = toJS(credentials)
-        // }
-        // // this.wordpressCredentials = !!credentials
-        // // ? credentials
-        // // : null
-        // console.log(this.wordpressCredentials)
     }
 
     @action.bound async publishToWordpress(html) {
-//        console.log('submit')
-        // const wpCreds = await db.wordpressCredentials
         db.getWordpressCredentials
             .then((wpCreds) => {
-                // console.log('firstcreds', wpCreds)
-                try {
-                    this.setWordpressCredentials(wpCreds)
-                    // console.log(toJS(this.wordpressCredentials))
 
-                    let username = toJS(this.wordpressCredentials).username
-                    let password = toJS(this.wordpressCredentials).password
+                this.setWordpressCredentials(wpCreds)
 
-                    if (!username || !password) {
-                        this.notify('Could not Publish! Please log in again to TPOT Cloud',
-                            { variant: 'error', autoHideDuration: 5000 });
-                        return;
-                    }
+                let username = toJS(this.wordpressCredentials).username
+                let password = toJS(this.wordpressCredentials).password
 
-                    const { slug, title, excerpt } = this.publishData
-
-                    if (!isValidField(slug)) {
-                        this.notify('Could not Publish! Please enter a valid slug',
-                            { variant: 'error', autoHideDuration: 3000 });
-                        return;
-                    }
-
-                    if (!isValidField(title)) {
-                        this.notify('Could not Publish! Please enter a valid title',
-                            { variant: 'error', autoHideDuration: 3000 })
-                        return;
-                    }
-
-                    wp.createPage(this.wordpressCredentials, {
-                        content: html,
-                        slug,
-                        title,
-                        excerpt
-                    }, this.notify)
-                } catch (error) {
-//                    console.log(error)
+                if (!username || !password) {
+                    this.notify('Could not Publish! Please log in again to TPOT Cloud',
+                        { variant: 'error', autoHideDuration: 5000 });
+                    return;
                 }
 
-            })
-            .catch(error => {
+                const { slug, title, excerpt } = this.publishData
+
+                if (!isValidField(slug)) {
+                    this.notify('Could not Publish! Please enter a valid slug',
+                        { variant: 'error', autoHideDuration: 3000 });
+                    return;
+                }
+
+                if (!isValidField(title)) {
+                    this.notify('Could not Publish! Please enter a valid title',
+                        { variant: 'error', autoHideDuration: 3000 })
+                    return;
+                }
+
+                wp.createPage(this.wordpressCredentials, {
+                    content: html,
+                    slug,
+                    title,
+                    excerpt
+                }, this.notify)
 
             })
-    }
+            .catch(console.log)
+    }   
+
 }
