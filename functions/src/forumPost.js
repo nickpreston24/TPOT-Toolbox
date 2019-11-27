@@ -1,10 +1,3 @@
-// class ForumPost {
-//     constructor(...props) {
-//         if (props)
-//             Object.assign(this, ...props)
-//     }
-// }
-
 /**
  * Returns a single forum post, properly formatted
  */
@@ -59,4 +52,3 @@ async function formatPost(posts) {
 }
 
 exports.formatPost = formatPost
-// exports.ForumPost = ForumPost
