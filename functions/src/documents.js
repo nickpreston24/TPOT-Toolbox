@@ -13,4 +13,4 @@ function upload(file) {
         .child(`checkout/${fileName}`)
         .put(file)
         .then(snapshot => console.log(!!snapshot ? "upload success" : "upload failed"))
-}j
+}
