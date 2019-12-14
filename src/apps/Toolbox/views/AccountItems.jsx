@@ -8,9 +8,6 @@ import DriveIcon from '../media/drive.png';
 import FirebaseIcon from '../media/firebase_icon.png';
 import ModalSettings from '../presentation/ModalSettings';
 
-
-
-
 const styles = theme => ({
     root: {
     },
@@ -113,7 +110,6 @@ class DrawerMenuList extends React.Component {
                         </ListItem>
                     );
                 })}
-                {/* <ModalLoad open={this.state.loadModalOpen} onUpdate={this.updateLoadModal} /> */}
                 <ModalSettings open={this.state.settingsModalOpen} onUpdate={this.updateSettingsModal} value={1} />
             </div>
         );
