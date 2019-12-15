@@ -82,7 +82,6 @@ class DrawerMenuList extends React.Component {
                         primaryTypographyProps={{ noWrap: true }}
                     /> */}
                 </ListItem>
-                {/* <ModalLoad open={this.state.loadModalOpen} onUpdate={this.updateLoadModal} /> */}
                 <ModalSettings open={this.state.settingsModalOpen} onUpdate={this.updateSettingsModal} value={1} />
             </div>
         );

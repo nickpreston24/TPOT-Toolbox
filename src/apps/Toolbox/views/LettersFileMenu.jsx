@@ -163,7 +163,6 @@ class MiniDrawer extends React.Component {
                     </MenuItem> */}
                 </Menu>
 
-                {/* <ModalLoad open={this.state.loadModalOpen} onUpdate={this.updateLoadModal} /> */}
 
                 {/* <Tooltip title="Preview Page" TransitionComponent={Zoom}>
                     <Button variant="fab" color="primary" aria-label="Preview" className={classes.preview}>

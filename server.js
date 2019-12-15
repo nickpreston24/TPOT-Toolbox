@@ -1,64 +1,58 @@
-/*	Author: Michael Preston
- *	Created Date: "04-09-2019"
- */
-//Source: https://github.com/mooradal/youtubeDownloader
 const express = require('express');
-const cors = require('cors');
-const ytdl = require('ytdl-core');
-// const fs = require('fs');
+const fs = require('fs');
+const path = require('path');
+require('dotenv').config();
 const app = express();
-app.use(cors());
 
-const PORT = process.env.PORT || 4000;
+const defaults = {
+    PORT: 3000,
+}
 
-app.listen(PORT, () => {
-    console.log('Youtube Downloads Server Listening on Port ' + PORT);
-})
+class Server {
 
-// Sample usage in client: axios.get('/download?URL=${url}`')
-app.get('/download', (req, res) => {
-    var URL = req.query.URL;
-    console.log('Received call for downloading video.  Url:', URL);
+    constructor(...config) {
+        //Initialize (map) from config, usually a .env
+        if (config) {
+            console.log('assigning from config', config);
+            Object.assign(this, ...config)
+        }
+        //Initialize defaults manually:
+        else {
+            this.PORT = process.env.PORT || 3000;
+        }
 
-    let savePath = __dirname + '/' + (req.fileName || "video.mp4"); //TODO: set extension dynamically.
-    console.log('saving as file: ' + savePath);
-    console.log('request: ', req.option);
+        this.initExpress();
+    }
 
-    res.header('Content-Disposition', 'attachment; filename="video.mp4"');
+    /**
+     * Initialization boilerplate
+     */
+    initExpress = () => {
+        this.app = express();
+        this.app.use(express.urlencoded({
+            extended: true
+        }));
+        this.app.use(express.json());
 
-    let stream =
-        ytdl(URL, {
-            format: 'mp4'
-        })
-        .pipe(res)
-    // .pipe(req.option && req.option === "drive" ? res : fs.createWriteStream(savePath)) //Pipes back to response or saves locally.
-    res.send(stream);
-    return stream;
-});
+        if (this.environment === "production")
+            app.use(express.static("build"));
 
-//     ytdl(URL, {
-//         format: 'mp4'
-//     }).pipe(res);
-// });
+        // this.routes = require('./routes');
+    }
 
-// Src: https://github.com/jkvora/Youtube-downloder/blob/master/server.ts
-app.get('/video', function (req, res) {
-    console.log("In youtube Routes:GET");
+    toString() {
+        return `🌎  ==> API server now on port ${this.PORT}!`;
+        // + !server.uri  ? server.uri : `\n database uri: ${server.uri}`;
+    }
 
-    var strUrl = req.query.url;
+    start() {
+        this.app.get("*", (req, res) => {
+            res.sendFile(path.join(__dirname, "./build/index.html"));
+        });
 
-    var ytstream = ytdl(strUrl);
-    //var tempFile = fs.createWriteStream('/video');
+        this.app.listen(this.PORT, () => console.log(this.toString()));
+    }
+}
 
-    res.setHeader("Content-Type", "application/octet-stream");
-    res.writeHead(200);
-
-    ytstream.on('data', function (data) {
-      res.write(data);
-    })
-
-    ytstream.on('end', function (data) {
-      res.send();
-    })
-  })
-
+server = new Server(defaults);
+server.start();

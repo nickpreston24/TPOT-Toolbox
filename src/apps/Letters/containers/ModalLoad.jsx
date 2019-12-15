@@ -8,7 +8,8 @@ import React from "react";
 import GoogleDrive from "../../../shared/media/drive.png";
 import HardDrive from "../../../shared/media/hdd.png";
 import { inject, observer } from 'mobx-react'
-import { observable, action} from 'mobx'
+import { observable, action } from 'mobx'
+import firebase from 'firebase';
 
 const styles = theme => ({
     root: {
@@ -64,18 +65,19 @@ class ModalLoad extends React.Component {
             open: false,
             description: "Select a file from your computer to edit."
         };
+        this.storageRef = firebase.storage().ref();
     }
 
     componentDidMount = () => {
         this.props.store.lettersStore.setPublishData('title', '')
         this.props.store.lettersStore.setPublishData('slug', '')
         this.props.store.lettersStore.setPublishData('excerpt', '')
-//        console.log('cleared publish data', toJS(this.props.store.lettersStore.publishData))
+
+        console.log('storage ref loaded?', !!this.storageRef)
     }
 
     @observable open = true
     @action handleClose = () => {
-//        console.log('close')
         this.open = false
         const { history, match } = this.props
         if (!!history && history.push) {
@@ -87,9 +89,20 @@ class ModalLoad extends React.Component {
     };
 
     handleFile = (e) => {
-        const file = e.target.files[0];
-//        console.log('File blob: ', file)
-        // convertFile(file); // Old
+        const files = e.target.files;
+        const folderName = 'process';
+
+        //Upload to firebase Storage:
+        let file = files[0];
+        let translationRef = this.storageRef.child(`${folderName}/${file.name}`);
+        translationRef.put(file)
+            .then(snapshot => alert(!!snapshot
+                ? `Yay! File ${file.name} uploaded successfully!`
+                : `Epic fail! ${file.name} could not be uploaded!`))
+
+    }
+
+    convertFile(file) {
         const { store } = this.props
         const { editorStore } = store
         editorStore.convertFileToDraftState(file)
@@ -130,15 +143,8 @@ class ModalLoad extends React.Component {
                 classes={{ root: classes.root, paper: classes.paper }}
                 open={this.props.store.lettersStore.currentModal === 'LoadScreen'}
                 onClose={this.handleClose}
-                // onBackdropClick={this.handleClose}
                 disablePortal
-            // BackdropComponent={Backdrop}
-            // fullScreen
-            // container={this.props.container}
-            // disablePortal
-            // maxWidth={false}
             >
-                {/* <Grid container className={classes.demo} spacing={0} justify="space-evenly" alignItems="center"   > */}
                 {loaders.map(option => {
 
                     const { name, enabled, handler } = option;
@@ -153,11 +159,10 @@ class ModalLoad extends React.Component {
                                 src={option.icon}
                                 className={classes.icon}
                                 alt="cardimg" />
-                            <Input {...{name, enabled, handler}} />
+                            <Input {...{ name, enabled, handler }} />
                         </Grid>
                     );
                 })}
-                {/* </Grid> */}
                 <DialogContentText
                     align="center"
                     className={classes.textbox}>
@@ -167,10 +172,6 @@ class ModalLoad extends React.Component {
         );
     }
 }
-
-
-const Backdrop = () =>
-    <div style={{ height: 300, width: 300, background: 'red', zIndex: -1 }} />
 
 ModalLoad.propTypes = {
     classes: PropTypes.object.isRequired

@@ -7,9 +7,6 @@ import React from 'react';
 import LettersIcon from '../media/letters_icon.png';
 import ModalSettings from '../presentation/ModalSettings';
 
-
-
-
 const styles = theme => ({
     root: {
         // borderRight: '4px solid #1E90FF'
@@ -115,7 +112,6 @@ class DrawerMenuList extends React.Component {
                         </ListItem>
                     );
                 })}
-                {/* <ModalLoad open={this.state.loadModalOpen} onUpdate={this.updateLoadModal} /> */}
                 <ModalSettings open={this.state.settingsModalOpen} onUpdate={this.updateSettingsModal} value={1} />
             </div>
         );
