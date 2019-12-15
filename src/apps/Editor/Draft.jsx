@@ -8,43 +8,44 @@ import { MuiToolbar, plugins } from "./plugins/plugins";
 class Draft extends Component {
 
 	componentDidMount = () => {
-        this.focus()
+		this.focus()
 	}
 
 	focus() {
-//		console.log('focus called')
+		//		console.log('focus called')
 		this.editor.blur()
 	}
 
 	handleRef = element => {
-		this.props.store.setRef(element)
+		this.props.session.editorStore.setRef(element)
 		this.editor = element
 	}
 
 	render() {
-        const { store, session } = this.props
+		const { store, session } = this.props
+		const { editorState, editorStore } = session
 		return (
 			<Fragment>
 				<Editor
 					id={"DraftJS"}
 					ref={this.handleRef}
 					placeholder="Click to start typing a note..."
-					editorState={session.editorState}
+					editorState={editorState}
 					// onFocus={()=>{console.log('focus')}}
 					// onBlur={this.handleBlur.bind(this)}
-					onChange={editorState => store.onChange(editorState)}
-					handleKeyCommand={command => store.handleKeyCommand(command)}
-					keyBindingFn={store.myKeyBindingFn}
-					setStyleMap={map => store.setStyleMap(map)}
-					customStyleMap={store.baseStyleMap} // STYLE MAP TO TYPE
-					blockRenderMap={store.blockRenderMap} // BLOCK MAP MAP TO TYPE
+					onChange={editorState => editorStore.onChange(editorState)}
+					handleKeyCommand={command => editorStore.handleKeyCommand(command)}
+					keyBindingFn={editorStore.myKeyBindingFn}
+					setStyleMap={map => editorStore.setStyleMap(map)}
+					customStyleMap={editorStore.baseStyleMap} // STYLE MAP TO TYPE
+					blockRenderMap={editorStore.blockRenderMap} // BLOCK MAP MAP TO TYPE
 					// customStyleFn={customStyleFn} // STYLE & ENTITY CLASS FUNCTION
-					blockStyleFn={store.baseBlockStyleFn} // BLOCK & ATOMIC CLASS FUNCTION
-					blockRendererFn={store.blockRenderer} // BLOCK ?/& ATOMIC PROPS=>COMP RENDERER
+					blockStyleFn={editorStore.baseBlockStyleFn} // BLOCK & ATOMIC CLASS FUNCTION
+					blockRendererFn={editorStore.blockRenderer} // BLOCK ?/& ATOMIC PROPS=>COMP RENDERER
 					plugins={plugins}
 					spellCheck={false}
-					editorRef={store.editor}
-					editorFocus={store.focus}
+					editorRef={editorStore.editor}
+					editorFocus={editorStore.focus}
 				/>
 				<MuiToolbar />
 			</Fragment>

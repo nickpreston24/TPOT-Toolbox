@@ -81,7 +81,7 @@ class Editor extends React.Component {
             <div id="Editor" className={classes.root}>
                 <div id="Paper" className={classes.paperFrame}>
                     <div id="Frame" className={classes.editorFrame} onClick={() => { focus() }}>
-                        {editMode === "edited" && <Draft {...{ store, session }} />}
+                        {editMode === "edited" && <Draft {...{ session }} />}
                         {editMode === "original" && <Original {...{ store, session }} />}
                         {editMode === "code" && <Code {...{ store, session }} />}
                     </div>

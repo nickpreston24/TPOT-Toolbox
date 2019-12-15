@@ -1,4 +1,4 @@
-import { action, observable, computed} from "mobx";
+import { action, observable, computed } from "mobx";
 import { createEditorStateWithText } from "draft-js-plugins-editor";
 import EditorStore from './editor'
 import { draftContentToHtml } from "../../apps/Editor/utils/transforms";
@@ -16,8 +16,6 @@ export default class ScribeStore {
     }
 
     @action init = () => {
-        // Create an inital empty document
-        this.editorStore = new EditorStore(this.root, this)
         this.session = new Session(null, this)
     }
 
@@ -43,20 +41,12 @@ export default class ScribeStore {
     }
 
     @action publishSession = () => {
-        // Publish the code contents of this.currentSession.editorState [or this.editorStore.code]
-        // this.session.editorState.code
     }
 
-    @action loadSession= () => {
-        // load a Draft editorState from IndexedDB
+    @action loadSession = () => {
     }
 
     @action previewSession = () => {
-        //  TBA
-    }
-
-    @action pushRoute = (path, history) => {
-        history.push(`/scribe${path}`)
     }
 
 }
@@ -80,7 +70,7 @@ class Session {
     @observable editorState = createEditorStateWithText('Click to start typing a note...')
 
     constructor(file, sessionStore) {
-//        console.log('session created', file, sessionStore.sessions.length, toJS(sessionStore.currentSession))
+        //        console.log('session created', file, sessionStore.sessions.length, toJS(sessionStore.currentSession))
         this.sessionStore = sessionStore
         this.editorStore = sessionStore.editorStore
         this.name = bumpName(file, this.sessionStore.sessions)
@@ -159,18 +149,17 @@ Scribe
 \-- UI states, loading, etc.
 \-- CRUD session
 \-- currentSession
-\-- session(s)
+\-- session (This is what is checked out or created by the server)
     \-- name
     \-- filepath
     \-- publishData
     \--  person editing
-    \-- editorState  =====>>
+    \-- editorState  =====>> (THIS is DraftJS Content)
 
 Editor
-constructor ties to ref => Scribe.currentSession.editorState  <<======
 \-- editorState
 \-- currentCode
-\-- saveState
+\-- convertDocxFile
 ... etc.
 
 */

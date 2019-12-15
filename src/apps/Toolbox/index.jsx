@@ -81,7 +81,7 @@ const Toolbox = compose(
     withSnackbar,
     inject('store'),
     withStyles(styles),
-    observer,
+    // observer,
     hot(module)
 )(
     class Toolbox extends Component {
@@ -115,7 +115,7 @@ const Toolbox = compose(
                                     null
                                 }
                                 currentApp={
-                                    <Box  display="flex" justifyContent="center" alignItems="flex-start" pt={4}>
+                                    <Box display="flex" justifyContent="center" alignItems="flex-start" pt={4}>
                                         <Switch {...{ location }}>
                                             <Route path="/scribe" component={Scribe} />
                                             <Route render={() => <Redirect to={`/scribe/overview`} />} />
@@ -126,7 +126,7 @@ const Toolbox = compose(
                         )} />
                         <Route render={() => <h1>404</h1>} />
                     </Switch>
-                    <LinkOverlay />
+                    {/* <LinkOverlay /> */}
                 </Box>
             );
         }

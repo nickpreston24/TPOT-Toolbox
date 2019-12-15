@@ -77,13 +77,11 @@ export const RoutedEditor = compose(
             // const session = this.props.store.scribeStore.sessions[this.props.store.scribeStore.current]
             // const session = this.props.store.scribeStore.currentSession
             const { match, store } = this.props
-            const { scribeStore, routing } = store
-            const { currentSession, current, sessions, session } = scribeStore
+            const { scribeStore } = store
+            const { session } = scribeStore
             // console.log('sesss', scribeStore.session)
             return (
-                <>
-                    <Editor {...{ match, session }} />
-                </>
+                <Editor {...{ session }} />
             )
         }
     }
