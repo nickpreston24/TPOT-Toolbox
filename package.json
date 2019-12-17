@@ -51,7 +51,9 @@
     "filereader": "^0.10.3",
     "firebase": "^6.5.0",
     "firebase-tools": "^7.8.1",
+    "firestorter": "^2.0.1",
     "fs": "^0.0.1-security",
+    "global": "^4.4.0",
     "jquery": "^3.4.1",
     "localforage": "^1.7.3",
     "mammoth": "^1.4.8",
@@ -78,6 +80,7 @@
     "union-class-names": "^1.0.0",
     "workbox-window": "^4.3.1",
     "wpapi": "^1.2.1",
+    "yarn": "^1.21.1",
     "ytdl-core": "^0.29.5"
   },
   "scripts": {
@@ -90,6 +93,10 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "start:api": "nodemon server.js"
+  },
+  "optionalDependencies": {
+    "fsevents": "*",
+    "node": "*"
   },
   "eslintConfig": {
     "extends": "react-app"

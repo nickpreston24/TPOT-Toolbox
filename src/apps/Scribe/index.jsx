@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react';
 import Editor from '../Editor/Editor';
 import { PublishPage } from './views/PublishPage';
 import { Route, Switch } from 'react-router-dom'
+import { Collection } from 'firestorter';
 
 export const Scribe = compose(
     inject('store'),
@@ -22,8 +23,8 @@ export const Scribe = compose(
                         <Switch location={location}>
                             <Route exact path={`/scribe`} render={() => <h2>Welcome to Scribe!</h2>} />
                             <Route path={`/scribe/overview`} render={() => <h2>Overview</h2>} />
-                            <Route path={`/scribe/checkout`} render={() => <h2>Checkout</h2>} />
-                            <Route path={`/scribe/edit`} render={() => <Editor editorStore={editorStore}/>} />
+                            <Route path={`/scribe/checkout`} component={Checkout} />
+                            <Route path={`/scribe/edit`} render={() => <Editor editorStore={editorStore} />} />
                             <Route path={`/scribe/preview`} render={() => <h2>Preview</h2>} />
                             <Route path={`/scribe/publish`} component={PublishPage} />
                             {/* {match && <Route render={() => <Redirect to={`/scribe/overview`} />} />} */}
@@ -32,6 +33,40 @@ export const Scribe = compose(
                 }} />
             )
         }
+    }
+)
+
+const users = new Collection('users')
+
+export const Checkout = compose(
+    inject('store'),
+    observer
+)(
+    class Checkout extends Component {
+
+        render() {
+            return (
+                <div>
+                    {users.docs.map((doc) => (
+                        <UserItem key={doc.id} doc={doc} />
+                    ))}
+                </div>
+            )
+        }
+    }
+)
+
+export const UserItem = compose(
+    inject('store'),
+    observer
+)(
+    ({ doc }) => {
+        const { firstName, lastName, userID } = doc.data
+        return (
+            <div>
+                {`First:_${firstName}_____Last:_${lastName}_____UID:_${userID}`}
+            </div>
+        )
     }
 )
 
