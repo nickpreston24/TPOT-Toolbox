@@ -50,7 +50,7 @@ export default class LettersStore {
     @persist @observable editorContent = '<p>Why hello there!</p>'
     @observable editedState = EditorState.createEmpty() // TODO : Persist
     // @persist('object', PublishData) @observable publishData = new PublishData({ title: '', slug: '', title: '' })
-    @observable publishData = new PublishData({ title: '', slug: '', title: '' })
+    @observable publishData = new PublishData({ title: '', slug: '' })
 
     @action setKey = (key, value) => {
         this[key] = value

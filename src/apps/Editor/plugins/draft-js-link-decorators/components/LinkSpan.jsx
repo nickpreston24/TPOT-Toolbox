@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import { EditorState, SelectionState, Modifier} from 'draft-js';
+import { EditorState, SelectionState, Modifier } from 'draft-js';
 import Icon from 'mdi-material-ui/LinkVariant'
 import { compose } from 'recompose';
 import DraftUtils from 'draftjs-utils'
@@ -48,11 +48,6 @@ const styles = theme => ({
         transform: 'translateY(4px)',
         marginRight: 4,
         marginLeft: 2,
-        // '&::before': {
-        //     content: "'\\1F517'",
-        //     filter: 'drop-shadow(1px 1px 0.5px #000)',
-        //     textDecoration: 'unset',
-        // },
     }
 });
 
@@ -60,7 +55,6 @@ class LinkSpan extends Component {
 
     componentDidMount() {
         if (this.props.callbacks) {
-            // this.props.callbacks.onChange = this.onEditorStateChange;
             this.createEntityFromDecorator()
         }
     }
@@ -89,7 +83,7 @@ class LinkSpan extends Component {
 
     createEntityFromDecorator = () => {
 
-        const { seteditorstate, entitykey, offsetkey, regex, strategy, decoratedtext } = this.props
+        const { seteditorstate, offsetkey, regex, strategy, decoratedtext } = this.props
         const { currentEditorState } = this.props.store
         // console.group('CREATE')
         // console.log(`%c[${decoratedtext}]`, `color: #68b684; background: #02501e;`)
@@ -117,42 +111,46 @@ class LinkSpan extends Component {
                 // : If there is a Regex Match 
                 if (decoratedtext === match[0]) {
 
-                        // : Get Range of Full Match
-                        let replaceSelection = new SelectionState({ anchorKey: blockKey, anchorOffset: match.index, focusKey: blockKey, focusOffset: match[0].length + match.index, })
+                    // : Get Range of Full Match
+                    let replaceSelection = new SelectionState({ anchorKey: blockKey, anchorOffset: match.index, focusKey: blockKey, focusOffset: match[0].length + match.index, })
 
-                        // : Replace Selection with Title or Floating URL
-                        contentState = Modifier.replaceText(contentState, replaceSelection, strategy === 'generic' ? decoratedtext : strategy === 'shortcode' ? match[2] : match[1])
+                    // : Replace Selection with Title or Floating URL
+                    contentState = Modifier.replaceText(contentState, replaceSelection, strategy === 'generic' ? decoratedtext : strategy === 'shortcode' ? match[2] : match[1])
 
-                        // : Force Replaced Text into editorState History
-                        editorState = EditorState.push(editorState, contentState, 'insert-characters');
+                    // : Force Replaced Text into editorState History
+                    editorState = EditorState.push(editorState, contentState, 'insert-characters');
 
-                        // : Get Range of Full Match or Title Text
-                        let start = match.index
-                        let end = strategy === 'generic' ? decoratedtext.length + start : strategy === 'shortcode' ? match[2].length + start : match[1].length + start
+                    // : Get Range of Full Match or Title Text
+                    let start = match.index
+                    let end = strategy === 'generic' ? decoratedtext.length + start : strategy === 'shortcode' ? match[2].length + start : match[1].length + start
 
-                        // : Make New Selection for Entity
-                        let regexSelection = new SelectionState({ anchorKey: blockKey, anchorOffset: start, focusKey: blockKey, focusOffset: end })
+                    // : Make New Selection for Entity
+                    let regexSelection = new SelectionState({ anchorKey: blockKey, anchorOffset: start, focusKey: blockKey, focusOffset: end })
 
-                        // : Create Entity in Content State
-                        contentState = contentState.createEntity('LINK', 'MUTABLE', { url: strategy === 'generic' ? decoratedtext : strategy === 'shortcode' ? match[1] : match[2] });
-                        let lastEntityKey = contentState.getLastCreatedEntityKey();
+                    // : Create Entity in Content State
+                    contentState = contentState.createEntity('LINK', 'MUTABLE', { url: strategy === 'generic' ? decoratedtext : strategy === 'shortcode' ? match[1] : match[2] });
+                    let lastEntityKey = contentState.getLastCreatedEntityKey();
 
-                        // : Modify contentState with Entity Data
-                        contentState = Modifier.applyEntity(contentState, regexSelection, lastEntityKey);
+                    // : Modify contentState with Entity Data
+                    contentState = Modifier.applyEntity(contentState, regexSelection, lastEntityKey);
 
-                        // : Apply Entity to editorState
-                        editorState = EditorState.push(editorState, contentState, 'apply-entity');
+                    // : Apply Entity to editorState
+                    editorState = EditorState.push(editorState, contentState, 'apply-entity');
 
-                        // : Create Collapsed Selection at Entity End
-                        let collapsedSelection = new SelectionState({ anchorKey: blockKey, anchorOffset: end, focusKey: blockKey, focusOffset: end, })
+                    // : Create Collapsed Selection at Entity End
+                    let collapsedSelection = new SelectionState({ anchorKey: blockKey, anchorOffset: end, focusKey: blockKey, focusOffset: end, })
 
-                        // : Apply Selectlion to editorState
-                        editorState = EditorState.forceSelection(editorState, collapsedSelection)
+                    // : Apply Selectlion to editorState
+                    editorState = EditorState.forceSelection(editorState, collapsedSelection)
 
-                } 
+                } else {
+                    return match
+                }
 
             })
 
+        } else {
+            return false
         }
 
         // : set editorState that onChange can see
@@ -178,21 +176,14 @@ class LinkSpan extends Component {
 
     onEditorStateChange = (editorState) => {
 
-        const { setItem, currentEditorState } = this.props.store
-        // console.group('UPDATE')
-        // console.error('editorStateChange')
+        const { setItem } = this.props.store
 
         // : Use editorState from OnChange
         let contentState = editorState.getCurrentContent()
         let selection = editorState.getSelection()
         let focusKey = selection.getFocusKey()
         let focusOffset = selection.getFocusOffset()
-        let anchorKey = selection.getAnchorKey()
         let anchorOffset = selection.getAnchorOffset()
-
-        // : Create a Random Key to force MobX Renders on every onEditorStateChange
-        let randomKey = new Date()
-        let currentSelectionKey = 'www.thepathoftruth.com'
 
         // : Bump and Shift Selection to See if we are in an Entity
         const block = contentState.getBlockForKey(focusKey)
@@ -211,7 +202,6 @@ class LinkSpan extends Component {
             // console.log('Inside Entity', true)
             // : Get and Check and Set Current Key and Entity
             let currentKey = !!entityKeyAtSelectionStart ? entityKeyAtSelectionStart : entityKeyAtSelectionEnd
-            let currentEntity = contentState.getEntity(currentKey)
             setItem('currentEntityKey', currentKey)
             // console.log(currentKey)
 
@@ -229,7 +219,6 @@ class LinkSpan extends Component {
             // : Capture string of entity range with characters before and after and add to entity
             let captureStart = start - 1
             let captureEnd = end > blockText.length ? blockText.length : end
-            let captureText = blockText.slice(captureStart, captureEnd)
 
             // : Force selection into entity range
             let insertPoint = focusOffset > captureStart ? focusOffset : focusOffset < captureStart ? focusOffset : focusOffset > captureEnd ? focusOffset : focusOffset < captureEnd ? focusOffset : anchorOffset
@@ -270,11 +259,7 @@ class LinkSpan extends Component {
                 })
 
                 // : Determine Adjacent Text
-                let absorbText = startValid ? blockText.slice(captureStart, end) : blockText.slice(start, captureEnd + 1)
-
-                // console.log(absorbText)
-                // console.log(entityData)
-                // console.log(DraftUtils.getEntityRange(editorState, currentKey))
+                // let absorbText = startValid ? blockText.slice(captureStart, end) : blockText.slice(start, captureEnd + 1)
 
                 // : Create New Entity Replacement
                 contentState = contentState.createEntity('LINK', 'MUTABLE', { ...entityData });
@@ -324,8 +309,8 @@ class LinkSpan extends Component {
 
     render() {
 
-        const { geteditorstate, children, classes, entitykey, offsetkey, regex } = this.props
-        const { currentEntityKey, currentEditorState } = this.props.store
+        const { geteditorstate, children, classes, entitykey, offsetkey } = this.props
+        const { currentEntityKey } = this.props.store
         // console.group('RENDER')
         // console.warn(this.props.children[0].props.text)
 
@@ -336,7 +321,7 @@ class LinkSpan extends Component {
         let editing = false
         let warning = false
         if (entitykey) {
-            
+
             // console.log(entitykey)
             // console.log('Rendered Content: ', convertToRaw(geteditorstate().getCurrentContent()))
             // console.log('Rendered Content: ', convertToRaw(currentEditorState.getCurrentContent()))
@@ -364,11 +349,11 @@ class LinkSpan extends Component {
                 // : Capture string of entity range with characters before and after and add to entity
                 let captureStart = start === 0 ? 0 : start - 1
                 let captureEnd = end > blockText.length ? blockText.length : end + 1
-                let captureText = blockText.slice(captureStart, captureEnd)
+                // let captureText = blockText.slice(captureStart, captureEnd)
 
                 // : Shift and Bump Selection around Ranges    
                 let selection = editorState.getSelection()
-                let anchorOffset = selection.getAnchorOffset()
+                // let anchorOffset = selection.getAnchorOffset()
                 let focusKey = selection.getFocusKey()
                 let focusOffset = selection.getFocusOffset()
 

@@ -7,7 +7,6 @@ import { Divider } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Slide from "@material-ui/core/Slide";
 import Grow from "@material-ui/core/Grow";
-// import Avatar from "@material-ui/icons/AccountCircleRounded";
 import Avatar from '@material-ui/core/Avatar'
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -22,15 +21,6 @@ const styles = theme => ({
     root: {
         color: `${theme.palette.primary.dark} !important`,
         borderRadius: 58,
-        // display: 'flex',
-        // flex: 1,
-        // float: 'right',
-        // position: "absolute",
-        // right: 0,
-        // top: "50%",
-        // transform: "translateY(-50%)",
-        // width: "auto",
-        // marginRight: 12
     },
     margin: {}
 })
@@ -38,7 +28,6 @@ const styles = theme => ({
 class Auth extends Component {
 
     componentDidMount() {
-//        console.log('Auth props: ', this.props.classes)
         this.props.editorStore.focus()
     }
 
@@ -47,7 +36,6 @@ class Auth extends Component {
     };
 
     setRef = element => {
-        // console.log(element)
         this.setState({ anchorEl: element })
     }
 
@@ -56,12 +44,7 @@ class Auth extends Component {
         const { classes } = this.props;
         const { anchorEl } = this.state
         const { currentModal, setCurrentModal } = this.props.lettersStore
-        const { signOut, authUser, auth, signIn } = this.props.sessionStore
-
-//        console.log('auth? ', !!auth && auth)
-//        console.log('sessionStore? ', !!this.props.sessionStore && this.props.sessionStore);
-//        console.log('AuthButton => auth user loaded? ', !!authUser && authUser);
-//        console.log('signOut => signout exists? ', !!signOut);
+        const { signOut, authUser } = this.props.sessionStore
 
         return (
             <div
@@ -72,7 +55,6 @@ class Auth extends Component {
                     <div>
                         <Slide direction="left" in={true} timeout={{ enter: 700 }}>
                             <Button
-                                // className={classes.button}
                                 aria-owns={anchorEl ? "logout-menu" : null}
                                 aria-haspopup="true"
                                 onClick={() => setCurrentModal('Firebase Dropdown')}

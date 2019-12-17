@@ -1,6 +1,6 @@
 import { EditorState, getDefaultKeyBinding, KeyBindingUtil } from "draft-js";
 import { createEditorStateWithText } from "draft-js-plugins-editor";
-import { action, computed, observable} from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { baseBlockStyleFn, baseStyleMap, blockRenderer, blockRenderMap, draftContentFromHtml, draftContentToHtml, stateFromElementConfig } from "../../apps/Editor/utils/transforms";
 import { persist } from 'mobx-persist'
 import { draft } from '../../apps/Editor'
@@ -10,13 +10,11 @@ import { convertFile } from "../utilities/converter";
 
 export default class EditorStore {
 
-    @observable editorState = createEditorStateWithText('Click catch a cat...')
+    @observable editorState = createEditorStateWithText('This is some typing in Draft. Woohoo! :D')
 
     constructor(rootStore, sessionStore) {
         this.rootStore = rootStore
         this.sessionStore = sessionStore
-        // this.session = sessionStore.currentSession
-        // console.log(sessionStore)
         this.notify = this.rootStore.servicesStore.notify
 
         window.addEventListener("message", msg => {
@@ -41,20 +39,16 @@ export default class EditorStore {
         'code',
     ]
 
-    @action suscribe = session =>{
-        // this.session = session
-//        console.log("AB", this.session)
+    @action suscribe = session => {
     }
 
     @action onChange = editorState =>
-        // this.sessionStore.currentSession.editorState = editorState
-        this.sessionStore.session.editorState = editorState
+        this.editorState = editorState
 
     @action setRef = node =>
         this.editor = node
 
     @action.bound focus() {
-        // console.log(this.editor)
         if (this.editor !== null && this.editor.focus !== null) {
             try {
                 this.editor.focus()
@@ -66,22 +60,19 @@ export default class EditorStore {
 
     @action convertFileToDraftState = async (file) => {
         let html = await convertFile(file)
-//        console.warn(`${!!html ? 'Doc Sucessfully Converted' : 'Error in converting DocX'}`)
         this.loadEditorFromDocx(html)
     }
 
     @action loadEditorFromDocx = html => {
-        // let baseStyleMapClear = JSON.parse(JSON.stringify(Object.assign(toJS(baseStyleMap))))
         const { newContentState, newBaseStyleMap } = draftContentFromHtml(html, stateFromElementConfig, baseStyleMap);
         this.baseStyleMap = newBaseStyleMap
         this.originalState = html
         this.baseStyleMap = newBaseStyleMap
-        this.sessionStore.currentSession.editorState = EditorState.createWithContent(newContentState);
-        this.codeState = draftContentToHtml(this.sessionStore.currentSession.editorState, newContentState);
+        this.editorState = EditorState.createWithContent(newContentState);
+        this.codeState = draftContentToHtml(this.editorState, newContentState);
         let that = this
         setTimeout(function () {
             that.focus()
-//            console.log('lets do this')
         }, 500);
     }
 
@@ -95,27 +86,22 @@ export default class EditorStore {
 
     @action clearSession = (notify) => {
         this.editorState = EditorState.createEmpty()
-        this.notify('Reset Letter to Original', {variant: "error"})
+        this.notify('Reset Letter to Original', { variant: "error" })
     }
 
     @action setEditMode = (e, tab) =>
         this.editMode = this.modes[tab]
 
-   @action  setStyleMap = customStyleMap => {
-//        console.log(toJS(this.baseStyleMap))
+    @action setStyleMap = customStyleMap => {
         this.baseStyleMap = customStyleMap
-//        console.log(toJS(this.baseStyleMap))
     }
 
-    @action handleKeyCommand = (command, store) => {
-        const notify = this.notify
+    @action handleKeyCommand = (command) => {
         if (command === 'save') {
             this.saveSession(this.notify)
             return 'handled';
         }
         if (command === 'open') {
-            // this.clearSession(notify)
-//            console.log('load file')
             return 'handled';
         }
         if (command === 'publish') {

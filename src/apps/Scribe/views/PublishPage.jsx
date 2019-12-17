@@ -1,8 +1,8 @@
-import { Button, Dialog, Grid, TextField, Typography, Card, Box, Paper } from '@material-ui/core';
+import { Box, Button, Card, Grid, TextField, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Icon from 'mdi-material-ui/CloudUploadOutline';
 import { inject, observer } from 'mobx-react';
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment } from 'react';
 import { compose } from 'recompose';
 
 
@@ -63,13 +63,11 @@ export const PublishPage = compose(
 
         render() {
             let { store, classes, ...rest } = this.props
-            const { lettersStore, editorStore } = store
-            // let editorCode = editorStore.editorCode
+            const { lettersStore } = store
 
             return (
                 <Fragment>
                     <PublishScreen comments={lettersStore.publishData} store={lettersStore} classes={classes}
-                        // editorCode={store.scribeStore.session.editorStore.editorCode} 
                         {...rest} />
                 </Fragment>
             )
@@ -80,7 +78,6 @@ export const PublishPage = compose(
 const PublishScreen = observer(({ classes, store, editorCode, container, ...rest }) => {
     console.log(container)
     return (
-        // <Box borderColor="green" border={1}>
         <Box display="flex" maxWidth={700}>
             <Card>
                 <Box p={4}>
@@ -88,7 +85,6 @@ const PublishScreen = observer(({ classes, store, editorCode, container, ...rest
                 </Box>
             </Card>
         </Box>
-        // </Box>
     )
 })
 
