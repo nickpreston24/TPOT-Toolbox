@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import PropTypes from "prop-types";
-import { compose } from 'recompose'
+import { SvgIcon } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
-import { withStyles } from '@material-ui/core/styles'
-import { inject, observer } from 'mobx-react'
-import { observable, action } from 'mobx'
-import {ShelfButton} from './ShelfButton';
-import { SvgIcon} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { action, observable } from 'mobx';
+import { inject, observer } from 'mobx-react';
+import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { compose } from 'recompose';
+import { ShelfButton } from './ShelfButton';
 
 
 const styles = theme => ({
@@ -32,9 +32,7 @@ export const Shelf = compose(
         }
 
         render() {
-            const { store, classes, variant, children } = this.props
-            const { expanded } = this
-            // console.log('props', this.props)
+            const { classes, children } = this.props
             return (
                 <Box
                     bgcolor="#202225" py={1} className={classes.root}
@@ -42,7 +40,7 @@ export const Shelf = compose(
                         boxSizing: 'border-box', height: '100%'
                     }}
                 >
-                    <ShelfButton tooltip="Expand" onClick={this.expand} color="#e35644" onClick={() => alert('This feature will be added soon!')} >
+                    <ShelfButton tooltip="Expand" color="#e35644" onClick={() => alert('This feature will be added soon!')} >
                         <ToolboxIcon />
                     </ShelfButton>
                     <Divider />
@@ -62,23 +60,6 @@ export const Shelf = compose(
 Shelf.propTypes = {
     store: PropTypes.object
 }
-
-
-{/* <Box display="flex" flexDirection="row" justifyContent="stretch" alignItems="stretch" style={{
-    position: 'absolute', boxSizing: 'border-box', height: '100%', width: '100%'
-}}>
-    <Box flexGrow={1} display="flex" flexGrow={1} >
-        <Box minWidth={72} bgcolor="#202225">
-            {appShelf}
-        </Box>
-        <Box bgcolor="#2f3136" width={240} color="primary.main">{this.sidebar && <> {this.sidebar} </> }</Box>
-        <Box flexGrow={1} bgcolor="#f6f6f7" color="secondary.main">
-            <Box color="accents.pink">
-                <Button color="inherit">Test Button</Button>
-            </Box>
-        </Box>
-    </Box>
-</Box> */}
 
 const ToolboxIcon = () => (
     <SvgIcon viewBox='0 0 512 512' style={{ filter: 'drop-shadow(1px 1px 0.5px rgba(0,0,0,0.4))', fontSize: 30}} >

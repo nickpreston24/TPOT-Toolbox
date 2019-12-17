@@ -17,13 +17,13 @@ class Draft extends Component {
 	}
 
 	handleRef = element => {
-		this.props.session.editorStore.setRef(element)
+		this.props.editorStore.setRef(element)
 		this.editor = element
 	}
 
 	render() {
-		const { store, session } = this.props
-		const { editorState, editorStore } = session
+		const { editorStore } = this.props
+		const { editorState } = editorStore
 		return (
 			<Fragment>
 				<Editor

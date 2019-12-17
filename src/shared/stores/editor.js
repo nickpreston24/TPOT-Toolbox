@@ -10,13 +10,11 @@ import { convertFile } from "../utilities/converter";
 
 export default class EditorStore {
 
-    @observable editorState = createEditorStateWithText('Click catch a cat...')
+    @observable editorState = createEditorStateWithText('This is some typing in Draft. Woohoo! :D')
 
     constructor(rootStore, sessionStore) {
         this.rootStore = rootStore
         this.sessionStore = sessionStore
-        // this.session = sessionStore.currentSession
-        // console.log(sessionStore)
         this.notify = this.rootStore.servicesStore.notify
 
         window.addEventListener("message", msg => {
@@ -42,19 +40,15 @@ export default class EditorStore {
     ]
 
     @action suscribe = session => {
-        // this.session = session
-        //        console.log("AB", this.session)
     }
 
     @action onChange = editorState =>
-        // this.sessionStore.currentSession.editorState = editorState
-        this.sessionStore.session.editorState = editorState
+        this.editorState = editorState
 
     @action setRef = node =>
         this.editor = node
 
     @action.bound focus() {
-        // console.log(this.editor)
         if (this.editor !== null && this.editor.focus !== null) {
             try {
                 this.editor.focus()
@@ -66,12 +60,10 @@ export default class EditorStore {
 
     @action convertFileToDraftState = async (file) => {
         let html = await convertFile(file)
-        //        console.warn(`${!!html ? 'Doc Sucessfully Converted' : 'Error in converting DocX'}`)
         this.loadEditorFromDocx(html)
     }
 
     @action loadEditorFromDocx = html => {
-        // let baseStyleMapClear = JSON.parse(JSON.stringify(Object.assign(toJS(baseStyleMap))))
         const { newContentState, newBaseStyleMap } = draftContentFromHtml(html, stateFromElementConfig, baseStyleMap);
         this.baseStyleMap = newBaseStyleMap
         this.originalState = html
@@ -81,7 +73,6 @@ export default class EditorStore {
         let that = this
         setTimeout(function () {
             that.focus()
-            //            console.log('lets do this')
         }, 500);
     }
 
@@ -102,20 +93,15 @@ export default class EditorStore {
         this.editMode = this.modes[tab]
 
     @action setStyleMap = customStyleMap => {
-        //        console.log(toJS(this.baseStyleMap))
         this.baseStyleMap = customStyleMap
-        //        console.log(toJS(this.baseStyleMap))
     }
 
-    @action handleKeyCommand = (command, store) => {
-        const notify = this.notify
+    @action handleKeyCommand = (command) => {
         if (command === 'save') {
             this.saveSession(this.notify)
             return 'handled';
         }
         if (command === 'open') {
-            // this.clearSession(notify)
-            //            console.log('load file')
             return 'handled';
         }
         if (command === 'publish') {

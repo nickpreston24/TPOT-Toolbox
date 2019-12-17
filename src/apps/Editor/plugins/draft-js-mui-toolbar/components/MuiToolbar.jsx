@@ -12,10 +12,6 @@ import { toJS } from 'mobx';
 const styles = theme => ({
     root: {
         position: "absolute",
-        // border: '2px solid magenta',
-        // height: 2,
-        // width: 2,
-        // overflow: 'visible',
     },
 });
 
@@ -67,8 +63,7 @@ class MuiToolbar extends Component {
     };
 
     render() {
-        const { classes, toolbarStore, editorStore, store } = this.props;
-        // const store = toolbarStore
+        const { classes, toolbarStore, store } = this.props;
 
         const childProps = {
             store: toolbarStore,
