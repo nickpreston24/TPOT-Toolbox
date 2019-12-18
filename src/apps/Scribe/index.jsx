@@ -3,8 +3,9 @@ import { compose } from 'recompose'
 import { inject, observer } from 'mobx-react';
 import Editor from '../Editor/Editor';
 import { PublishPage } from './views/PublishPage';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { Collection } from 'firestorter';
+import { CheckoutPage } from './views/CheckoutPage'
 
 export const Scribe = compose(
     inject('store'),
@@ -13,88 +14,25 @@ export const Scribe = compose(
     class Scribe extends Component {
 
         render() {
-            const { match, store } = this.props
+            const { match, location, store } = this.props
             const { scribeStore } = store
             const { session } = scribeStore
             const { editorStore } = session
             return (
-                <Route path={`${match.path}/:mode`} children={({ match, location, ...rest }) => {
-                    return (
-                        <Switch location={location}>
-                            <Route exact path={`/scribe`} render={() => <h2>Welcome to Scribe!</h2>} />
-                            <Route path={`/scribe/overview`} render={() => <h2>Overview</h2>} />
-                            <Route path={`/scribe/checkout`} component={Checkout} />
-                            <Route path={`/scribe/edit`} render={() => <Editor editorStore={editorStore} />} />
-                            <Route path={`/scribe/preview`} render={() => <h2>Preview</h2>} />
-                            <Route path={`/scribe/publish`} component={PublishPage} />
-                            {/* {match && <Route render={() => <Redirect to={`/scribe/overview`} />} />} */}
-                        </Switch>
-                    )
-                }} />
+                <Switch location={location}>
+                    <Route exact path={`${match.path}`} render={() => <h2>Welcome to Scribe!</h2>} />
+                    <Route path={`${match.path}/overview`} render={() => <h2>Overview</h2>} />
+                    <Route path={`${match.path}/checkout`} component={CheckoutPage} />
+                    <Route path={`${match.path}/edit`} render={() => <Editor editorStore={editorStore} />} />
+                    <Route path={`${match.path}/preview`} render={() => <h2>Preview</h2>} />
+                    <Route path={`${match.path}/publish`} component={PublishPage} />
+                    {match && <Route render={() => <Redirect to={`${match.path}/overview`} />} />}
+                </Switch>
             )
         }
     }
 )
 
-const users = new Collection('users')
-
-export const Checkout = compose(
-    inject('store'),
-    observer
-)(
-    class Checkout extends Component {
-
-        render() {
-            return (
-                <div>
-                    {users.docs.map((doc) => (
-                        <UserItem key={doc.id} doc={doc} />
-                    ))}
-                </div>
-            )
-        }
-    }
-)
-
-export const UserItem = compose(
-    inject('store'),
-    observer
-)(
-    ({ doc }) => {
-        const { firstName, lastName, userID } = doc.data
-        return (
-            <div>
-                {`First:_${firstName}_____Last:_${lastName}_____UID:_${userID}`}
-            </div>
-        )
-    }
-)
-
-export const Homepage = compose(
-    inject('store'),
-    observer
-)(
-    class Homepage extends Component {
-        handleFile = event => {
-            const file = event.target.files[0];
-            this.props.store.scribeStore.createSession(file)
-        }
-
-        createNew = () => {
-            this.props.store.routing.push('/scribe/Untitled.docx')
-        }
-
-        render() {
-            return (
-                <>
-                    <h1>Welcome to Scribe!</h1>
-                    <button onClick={this.createNew}>Create new Note</button>
-                    <input type="file" onChange={this.handleFile} accept=".docx" />
-                </>
-            )
-        }
-    }
-)
 
 // const ScribeIcon = () => (
 //     <SvgIcon viewBox='0 0 512 512' fontSize="small">
