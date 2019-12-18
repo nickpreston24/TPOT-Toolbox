@@ -2,12 +2,16 @@ import { action, observable, computed } from "mobx";
 import { createEditorStateWithText } from "draft-js-plugins-editor";
 import EditorStore from './editor'
 import { draftContentToHtml } from "../../apps/Editor/utils/transforms";
+import { Collection } from 'firestorter';
 
 export default class ScribeStore {
 
     @observable sessions = []
     @observable current = 0
     @observable session = null
+
+    // : Firestorter observables
+    users = new Collection('users')
 
     constructor(root) {
         this.root = root
