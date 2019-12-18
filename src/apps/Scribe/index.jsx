@@ -16,7 +16,7 @@ export const Scribe = compose(
             const { match, history, location } = this.props
             return (
                 <Route path={`${match.path}/:mode`} children={({ match, location, ...rest }) => {
-                    console.log('PAZ', match)
+                    // console.log('PAZ', match)
                     return (
                         <Switch location={location}>
                             <Route exact path={`/scribe`} render={() => <h2>Welcome to Scribe!</h2>} />

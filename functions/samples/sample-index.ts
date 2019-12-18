@@ -19,6 +19,6 @@ main.use(bodyParser.json());
 // import app from './app';const note = App;
 // export { note }
 
-import notes from './src/notes';
+import notes from './notes';
 
 export const webApi = functions.https.onRequest(main);

@@ -44,7 +44,8 @@ export async function convertFile(file) {
     return new Promise((resolve, reject) => {
 
         var reader = new FileReader();
-//        console.log('Attempting to read blob/file: ', file);
+        console.log(`Attempting to read blob/file ${file.name}` );
+        
         reader.readAsArrayBuffer(file);
 
         reader.onload = async function () {
@@ -67,7 +68,7 @@ export async function convertFile(file) {
             // Send Data back to Store as resolved promise data
             resolve(convertedHTML)
         }
-    })
+    });
 }
 
 ///////////////////////////////////////////////////

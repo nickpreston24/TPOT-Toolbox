@@ -1,11 +1,11 @@
-// React
-import React, { Component} from 'react';
-import PublishScreenContainer from './containers/PublishScreenContainer';
+import React, { Component } from 'react';
+import PublishScreenContainer from './PublishScreenContainer';
 import Editor from '../Editor/Editor';
-import ModalLoad from './containers/ModalLoad';
+import ModalLoad from './Uploader';
 import ModalFirebase from '../Toolbox/views/ModalFirebase';
 import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
+import StorageContextProvider from '../../contexts/StorageContextProvider';
 
 @observer
 class Letters extends Component {
@@ -38,12 +38,16 @@ class Letters extends Component {
         // console.log(this.container)
         return (
             <div className="Letters" style={{ flexGrow: 1 }} ref={this.setContainer}>
-                <Editor />
-                {/* Temporary place for modals until Toolbox manages them in CurrentApp */}
-                <PublishScreenContainer {...{  container }} />
-                <ModalLoad />
-                <ModalFirebase />
-                {/* <Route path={`/letters/:command`} render={
+                <StorageContextProvider>
+
+                    <Editor />
+                    {/* Temporary place for modals until Toolbox manages them in CurrentApp */}
+                    {/* <PublishScreenContainer {...{ container }} /> */}
+
+                    <ModalLoad />
+
+                    <ModalFirebase />
+                    {/* <Route path={`/letters/:command`} render={
                     ({ location, match, history }) => {
                         return (
                             <Fragment>
@@ -54,6 +58,7 @@ class Letters extends Component {
                         )
                     }
                 } /> */}
+                </StorageContextProvider>
             </div>
         )
     }

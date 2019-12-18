@@ -16,6 +16,7 @@ import { ShelfButton } from './views/ShelfButton';
 import { Sidebar } from './views/Sidebar';
 import { Scribe } from '../Scribe'
 import { BrowserRouter, Link, Route, Redirect, Switch } from 'react-router-dom'
+import StorageContextProvider from '../../contexts/StorageContextProvider'
 
 // Initilize Root Store
 const store = new MobxStore()
@@ -71,7 +72,9 @@ export default () =>
         <ThemeProvider theme={theme}>
             <SnackbarProvider {...snackbarOptions}>
                 <BrowserRouter>
-                    <Toolbox store={store} />
+                    <StorageContextProvider>
+                        <Toolbox store={store} />
+                    </StorageContextProvider>
                 </BrowserRouter>
             </SnackbarProvider>
         </ThemeProvider>
@@ -115,7 +118,7 @@ const Toolbox = compose(
                                     null
                                 }
                                 currentApp={
-                                    <Box  display="flex" justifyContent="center" alignItems="flex-start" pt={4}>
+                                    <Box display="flex" justifyContent="center" alignItems="flex-start" pt={4}>
                                         <Switch {...{ location }}>
                                             <Route path="/scribe" component={Scribe} />
                                             <Route render={() => <Redirect to={`/scribe/overview`} />} />
