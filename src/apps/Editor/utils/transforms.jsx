@@ -7,7 +7,7 @@ import { stateToHTML } from 'draft-js-export-html';
 import { stateFromElement } from 'draft-js-import-element';
 import Immutable from 'immutable';
 import snakeCase from 'snake-case';
-import '../config/editor.css';
+import '../styles/editor.css';
 import HorizontalRule from '../plugins/draft-js-mui-toolbar/utils/HorizontalRule';
 import {  rgb2hex } from './helpers';
 
