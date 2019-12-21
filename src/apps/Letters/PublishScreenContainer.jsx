@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { inject, observer } from 'mobx-react'
 import { compose } from 'recompose'
-import PublishScreen from '../views/PublishScreen';
+import PublishScreen from './PublishScreen';
 
 class PublishScreenContainer extends Component {
     state = {
