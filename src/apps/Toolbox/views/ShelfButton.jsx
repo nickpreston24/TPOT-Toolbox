@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { inject, observer } from 'mobx-react'
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { Button, Tooltip, Zoom } from '@material-ui/core';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const styles = theme => ({
@@ -75,7 +75,7 @@ export const ShelfButton = compose(
     class ShelfButton extends Component {
 
         render() {
-            const { store, classes, variant, expanded, tooltip, children, onClick, color, icon, path } = this.props
+            const { classes, tooltip, children, color, icon, path } = this.props
             return (
                 <Box bgcolor="grey" className={classes.root} display="flex" alignItems="center">
                     <span className='indicator' />
@@ -83,7 +83,7 @@ export const ShelfButton = compose(
                         classes={{ popper: classes.popper }}
                     >
                         {path
-                            ? <Button component={LinkAdapter} to={path}  className={classes.button}>
+                            ? <Button component={LinkAdapter} to={path} className={classes.button}>
                                 {icon === 'scribe' ? <ScribeIcon /> : children}
                             </Button>
                             : <Button className={classes.button} style={color && { background: color }}>

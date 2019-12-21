@@ -62,15 +62,9 @@ class ToolbarStore {
                     + (this.selectionRect.left - this.editorRootRect.left)
                     + (this.selectionRect.width / 2)
             }
-        // const inlinePosition = {
-        //     top: (editorRoot.offsetTop)
-        //         // - store.inlineRef.offsetHeight
-        //         + (selectionRect.top - editorRootRect.top)
-        //         + extraTopOffset,
-        //     left: editorRoot.offsetLeft
-        //         + (selectionRect.left - editorRootRect.left)
-        //         + (selectionRect.width / 2)
-        // };
+        else {
+            return null
+        }
     }
 
     get blockOrigin() {
@@ -81,26 +75,23 @@ class ToolbarStore {
                 left: this.editorRoot.offsetLeft
                     - 40
             }
-        // const blockPosition = {
-        //     top: currentBlockNode.offsetTop
-        //         + (currentBlockNode.offsetHeight / 2),
-        //     // - (store.blockRef.offsetHeight / 2),
-        //     left: editorRoot.offsetLeft
-        //         // - (store.blockRef.offsetWidth / 2)
-        //         - 40
-        // };
-
+        else {
+            return null
+        }
     }
 
     get inlineOffset() {
         if (!!this.inlineOrigin) {
             const originLeft = this.inlineOrigin.left
             const editorWidth = this.editorRoot.clientWidth
-            const left = (originLeft < 300) ? 100 - originLeft : (originLeft > editorWidth - 40 ) ? editorWidth - originLeft - 200 - 40 : -200
+            const left = (originLeft < 300) ? 100 - originLeft : (originLeft > editorWidth - 40) ? editorWidth - originLeft - 200 - 40 : -200
             return {
                 top: -40,
                 left: left
             }
+        }
+        else {
+            return null
         }
     }
 
@@ -110,6 +101,8 @@ class ToolbarStore {
                 top: -15,
                 left: -15
             }
+        } else {
+            return null
         }
     }
 
@@ -146,40 +139,40 @@ class ToolbarStore {
 export default decorate(
     ToolbarStore, {
 
-        state: observable,
-        listeners: observable,
+    state: observable,
+    listeners: observable,
 
-        menuOpen: observable,
-        menuCurrent: observable,
+    menuOpen: observable,
+    menuCurrent: observable,
 
-        inlineRef: observable,
-        inlineSize: observable,
-        // inlineOffset: observable,
-        inlineVisible: observable,
+    inlineRef: observable,
+    inlineSize: observable,
+    // inlineOffset: observable,
+    inlineVisible: observable,
 
-        blockRef: observable,
-        blockSize: observable,
-        // blockOffset: observable,
-        blockVisible: observable,
+    blockRef: observable,
+    blockSize: observable,
+    // blockOffset: observable,
+    blockVisible: observable,
 
-        renderInline: computed,
+    renderInline: computed,
 
-        editorRoot: observable,
-        editorRootRect: observable,
-        currentBlockNode: observable,
-        selectionRect: observable,
+    editorRoot: observable,
+    editorRootRect: observable,
+    currentBlockNode: observable,
+    selectionRect: observable,
 
-        inlineOrigin: computed,
-        inlineStyle: computed,
-        inlineOffset: computed,
+    inlineOrigin: computed,
+    inlineStyle: computed,
+    inlineOffset: computed,
 
-        blockOrigin: computed,
-        blockOffset: computed,
-        blockStyle: computed,
+    blockOrigin: computed,
+    blockOffset: computed,
+    blockStyle: computed,
 
-        setStyleProp: action,
-        subscribeToItem: action,
-        unsubscribeFromItem: action,
-        updateItem: action,
-        getItem: observable,
-    })
+    setStyleProp: action,
+    subscribeToItem: action,
+    unsubscribeFromItem: action,
+    updateItem: action,
+    getItem: observable,
+})

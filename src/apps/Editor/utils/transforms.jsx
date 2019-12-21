@@ -11,13 +11,6 @@ import '../styles/editor.css';
 import HorizontalRule from '../plugins/draft-js-mui-toolbar/utils/HorizontalRule';
 import {  rgb2hex } from './helpers';
 
-// const electron = window.require('electron')
-// const IPC = electron.ipcRenderer;
-// const remote = electron.remote
-// const app = remote.app
-// const path = window.require('path')
-// const fs = window.require('fs')
-
 /*
  
  oooooo     oooo                        o8o  oooo  oooo            

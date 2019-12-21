@@ -1,4 +1,4 @@
-import { action, observable, computed} from "mobx";
+import { action, observable, computed } from "mobx";
 import { createEditorStateWithText } from "draft-js-plugins-editor";
 import EditorStore from './editor'
 import { draftContentToHtml } from "../../apps/Editor/utils/transforms";
@@ -12,25 +12,11 @@ export default class ScribeStore {
     constructor(root) {
         this.root = root
         this.notify = this.root.lettersStore.notify
-        this.init()
-    }
-
-    @action init = () => {
-        // Create an inital empty document
-        this.editorStore = new EditorStore(this.root, this)
-        this.session = new Session(null, this)
+        this.session = new Session(this)
     }
 
     @action createSession = async (file) => {
-        // confirm('Clear the Editor?')
-        if (file) {
-            this.sessions.push(new Session(file, this))
-            this.current = this.sessions.length - 1
-            this.root.routing.push(`/scribe/${this.currentSession ? this.currentSession.name : 'Untitled.docx'}`)
-        } else {
-            this.session = new Session(null, this)
-        }
-        this.session.newFile()
+        this.session = new Session(this)
     }
 
     @action saveSession = () => {
@@ -39,24 +25,16 @@ export default class ScribeStore {
 
     @action clearSession = idx => {
         this.session.clearFile()
-        this.session = new Session(null, this)
+        this.session = new Session(this)
     }
 
     @action publishSession = () => {
-        // Publish the code contents of this.currentSession.editorState [or this.editorStore.code]
-        // this.session.editorState.code
     }
 
-    @action loadSession= () => {
-        // load a Draft editorState from IndexedDB
+    @action loadSession = () => {
     }
 
     @action previewSession = () => {
-        //  TBA
-    }
-
-    @action pushRoute = (path, history) => {
-        history.push(`/scribe${path}`)
     }
 
 }
@@ -79,12 +57,9 @@ class Session {
     @observable editorStore = null
     @observable editorState = createEditorStateWithText('Click to start typing a note...')
 
-    constructor(file, sessionStore) {
-//        console.log('session created', file, sessionStore.sessions.length, toJS(sessionStore.currentSession))
-        this.sessionStore = sessionStore
-        this.editorStore = sessionStore.editorStore
-        this.name = bumpName(file, this.sessionStore.sessions)
-        if (file) this.convertFile(file)
+    constructor(scribeStore) {
+        this.sessionStore = scribeStore
+        this.editorStore = new EditorStore(scribeStore.root, this)
     }
 
     @computed get code() {
@@ -96,9 +71,6 @@ class Session {
 
     @action convertFile = async (file) => {
         await this.editorStore.convertFileToDraftState(file)
-        // const routeName = this.sessionStore.currentSession.name
-        // this.sessionStore.root.routing.push(`/scribe/${routeName}`)
-        // this.current = this.sessionStore.setCurrentSession(this.name)
     }
 
     @action saveFile = () => {
@@ -114,63 +86,3 @@ class Session {
     }
 
 }
-
-const bumpName = (file, collection) => {
-    // This module has issues. Does not handle all cases. Needs to be recursive
-    let filename = file ? file.name : 'Untitled.docx'
-    const getVersionInfo = (filename) => {
-        const VER_REGX = /(?:\(([\d]{1,3})\)){0,1}(\.docx)/g
-        const matches = VER_REGX.exec(filename)
-        const sample = matches[0]
-        const version = matches[1] ? new Number(matches[1]) : 0
-        const verString = version !== 0 ? `(${version})` : ''
-        const length = filename.length - sample.length
-        const name = filename.slice(0, length).replace(/\s/g, '-')
-        return { matches, sample, version, verString, length, name }
-    }
-    const { name, version } = getVersionInfo(filename)
-    filename = `${name}.docx`
-    collection.forEach((value) => {
-        if (value.name === filename) {
-            filename = `${name}(${version + 1}).docx`
-            collection.forEach((value) => {
-                if (value.name === filename) {
-                    const { name, version } = getVersionInfo(value.name)
-                    filename = `${name}(${version + 1}).docx`
-                }
-            })
-            // let duplicate = collection.some(value => value.name === filename)
-            // if (duplicate) {
-            //     const { name, version } = getVersionInfo(filename)
-            //     filename = `${name}(${version + 2}).docx`
-            // }
-            // let secDuplicate = collection.some(value => value.name === filename)
-            // if (secDuplicate) {filename = `${name}(${version + 1}).docx`}
-        }
-    })
-    return filename
-}
-
-
-
-/*
-
-Scribe
-\-- UI states, loading, etc.
-\-- CRUD session
-\-- currentSession
-\-- session(s)
-    \-- name
-    \-- filepath
-    \-- publishData
-    \--  person editing
-    \-- editorState  =====>>
-
-Editor
-constructor ties to ref => Scribe.currentSession.editorState  <<======
-\-- editorState
-\-- currentCode
-\-- saveState
-... etc.
-
-*/

@@ -12,7 +12,7 @@ const createNode = require('create-node')
 const walk = require('domwalk')
 
 // This is only used for parentUntil (just write a quick utility, It is expensive to import JQuery this way)
-const $ = window.jQuery = require('jquery')
+// const $ = window.jQuery = require('jquery')
 const getParentsUntil = require('./jQueryHelpers');
 
 //  TESTING RESULTS
@@ -389,7 +389,6 @@ const flattenStyles = async (baseDom, augDom) => {
             // element.children
 
             let blockChildren = getParentsUntil(icingNode.parentElement, "div")[0].children;
-            let blockChildren2 = $(icingNode.parentElement).parentsUntil("div").prevObject[0].children
             //TODO: figure out why, even though blockChildren 1 and 2 are identical, the targetElements is undefined at line 403
 //            console.log('until result', blockChildren);
 //            console.log('old until result', blockChildren2);

@@ -55,15 +55,10 @@ export const Dashboard = compose(
         }
 
         render() {
-            const { store, classes, variant, shelf, sidebar, header, currentApp, history } = this.props
-//            console.log('history', this.props)
-            const SidebarWrapped = sidebar
+            const { store, classes, sidebar, header, currentApp } = this.props
             const {editorStore, lettersStore, sessionStore} = store
             return (
                 <Box flexGrow={1} display="flex" flexDirection="row" justifyContent="flex-start" height="100%" >
-                    {/* <Box width={72}  >
-                        {shelf}
-                    </Box> */}
                     <Box width={240}>
                         {sidebar}
                     </Box>
@@ -78,8 +73,6 @@ export const Dashboard = compose(
                             </Box>
                             <Box flexGrow={1} />
                             <AuthButton {...{ editorStore, lettersStore, sessionStore, label: 'Sign In' }}/>
-                            {/* <Button color="inherit" onClick={() => this.props.store.scribeStore.createSession()} >Create</Button>
-                            <Button color="inherit" onClick={() => this.props.store.scribeStore.closeSession()} >Destroy</Button> */}
                         </Box>
                         <Box className={classes.currentApp} flexGrow={1} id="CurrentApp">
                             {currentApp}
