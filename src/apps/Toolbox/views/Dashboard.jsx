@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-import ModalLoad from '../../Letters/containers/ModalLoad';
+import ModalLoad from '../../Letters/Uploader';
 import AuthButton from './AuthButton';
 import ModalFirebase from './ModalFirebase';
 

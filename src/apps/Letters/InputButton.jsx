@@ -24,7 +24,7 @@ const styles = theme =>(
     }
 });
 
-const Input = ({enabled, handler, name, ...rest}) => {
+const InputButton = ({enabled, handler, name, ...rest}) => {
 
     const {classes} = rest;
     const { wrapper, input, button } = classes;
@@ -49,4 +49,4 @@ const Input = ({enabled, handler, name, ...rest}) => {
     )
 }
 
-export default compose(withStyles(styles))(Input);
+export default compose(withStyles(styles))(InputButton);

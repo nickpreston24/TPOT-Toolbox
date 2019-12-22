@@ -1,12 +1,12 @@
-import Input from './InputButton';
+import InputButton from './InputButton';
 import Dialog from "@material-ui/core/Dialog";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import React from "react";
-import GoogleDrive from "../../../shared/media/drive.png";
-import HardDrive from "../../../shared/media/hdd.png";
+import GoogleDrive from "../../shared/media/drive.png";
+import HardDrive from "../../shared/media/hdd.png";
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 import firebase from 'firebase';
@@ -57,7 +57,7 @@ const styles = theme => ({
 
 // @inject('store')
 @observer
-class ModalLoad extends React.Component {
+class Uploader extends React.Component {
 
     constructor(props) {
         super(props);
@@ -84,8 +84,6 @@ class ModalLoad extends React.Component {
             history.push(match.url)
         }
         this.props.store.lettersStore.setCurrentModal(null)
-        // this.setState({ open: false });
-        // this.props.onUpdate(false);
     };
 
     handleFile = (e) => {
@@ -94,12 +92,19 @@ class ModalLoad extends React.Component {
 
         //Upload to firebase Storage:
         let file = files[0];
+        this.upload(folderName, file);
+    }
+
+    //TODO: Move this to a context so it can be called by any component
+    upload(folderName, file) {
         let translationRef = this.storageRef.child(`${folderName}/${file.name}`);
         translationRef.put(file)
             .then(snapshot => alert(!!snapshot
                 ? `Yay! File ${file.name} uploaded successfully!`
-                : `Epic fail! ${file.name} could not be uploaded!`))
-
+                : `Fail! ${file.name} could not be uploaded!`))
+            .catch((error) => {
+                alert(error.message)
+            })
     }
 
     convertFile(file) {
@@ -159,7 +164,7 @@ class ModalLoad extends React.Component {
                                 src={option.icon}
                                 className={classes.icon}
                                 alt="cardimg" />
-                            <Input {...{ name, enabled, handler }} />
+                            <InputButton {...{ name, enabled, handler }} />
                         </Grid>
                     );
                 })}
@@ -173,8 +178,8 @@ class ModalLoad extends React.Component {
     }
 }
 
-ModalLoad.propTypes = {
+Uploader.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default inject('store')(withStyles(styles)(ModalLoad));
+export default inject('store')(withStyles(styles)(Uploader));
