@@ -109,14 +109,14 @@ Toolbox.propTypes = {
     store: PropTypes.object.isRequired
 }
 
-const ToolboxWrapper = hot(module)(Toolbox);
+// const ToolboxWrapper = hot(module)(Toolbox);
 
-export default () => 
+export default () =>
     <Provider store={store} >
         <ThemeProvider theme={theme}>
             <SnackbarProvider {...snackbarOptions}>
                 <BrowserRouter>
-                    <ToolboxWrapper store={store} />
+                    <Toolbox store={store} />
                 </BrowserRouter>
             </SnackbarProvider>
         </ThemeProvider>
