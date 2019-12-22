@@ -117,9 +117,9 @@ export default () =>
         <ThemeProvider theme={theme}>
             <SnackbarProvider {...snackbarOptions}>
                 <BrowserRouter>
-                  <StorageContextProvider>
-                    <ToolboxWrapper store={store} />
-                  </StorageContextProvider>
+                    <StorageContextProvider>
+                        <Toolbox store={store} />
+                    </StorageContextProvider>
                 </BrowserRouter>
             </SnackbarProvider>
         </ThemeProvider>
