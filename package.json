@@ -21,7 +21,6 @@
     "@types/jest": "^24.0.18",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
-    "axios": "^0.19.0",
     "browserify-fs": "^1.0.0",
     "cors": "^2.8.5",
     "create-node": "^2.0.3",
@@ -80,8 +79,7 @@
     "union-class-names": "^1.0.0",
     "workbox-window": "^4.3.1",
     "wpapi": "^1.2.1",
-    "yarn": "^1.21.1",
-    "ytdl-core": "^0.29.5"
+    "yarn": "^1.21.1"
   },
   "scripts": {
     "start": "craco start",
