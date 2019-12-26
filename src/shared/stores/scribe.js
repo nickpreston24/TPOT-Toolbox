@@ -11,7 +11,7 @@ export default class ScribeStore {
     @observable session = null
 
     // : Firestorter observables
-    users = new Collection('users')
+    sessions = new Collection('sessions')
 
     constructor(root) {
         this.root = root

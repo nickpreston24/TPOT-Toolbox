@@ -16,10 +16,10 @@ export const CheckoutPage = compose(
         render() {
             const { store } = this.props
             const { scribeStore } = store
-            const { users } = scribeStore
+            const { sessions } = scribeStore
             return (
                 <Box width="80%">
-                    <CheckoutTable {...{ users }} />
+                    <CheckoutTable {...{ sessions }} />
                 </Box>
             )
         }

@@ -86,7 +86,7 @@ class Uploader extends React.Component {
 
     handleFile = (e) => {
         const files = e.target.files;
-        const folderName = 'process';
+        const folderName = 'originals';
 
         //Upload to firebase Storage:
         let file = files[0];
@@ -95,8 +95,8 @@ class Uploader extends React.Component {
 
     //TODO: Move this to a context so it can be called by any component
     upload(folderName, file) {
-        let translationRef = this.storageRef.child(`${folderName}/${file.name}`);
-        translationRef.put(file)
+        let fileRef = this.storageRef.child(`${folderName}/${file.name}`);
+        fileRef.put(file)
             .then(snapshot => alert(!!snapshot
                 ? `Yay! File ${file.name} uploaded successfully!`
                 : `Fail! ${file.name} could not be uploaded!`))
