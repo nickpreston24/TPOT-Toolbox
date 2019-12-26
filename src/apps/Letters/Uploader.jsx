@@ -72,8 +72,6 @@ class Uploader extends React.Component {
         this.props.store.lettersStore.setPublishData('title', '')
         this.props.store.lettersStore.setPublishData('slug', '')
         this.props.store.lettersStore.setPublishData('excerpt', '')
-
-        console.log('storage ref loaded?', !!this.storageRef)
     }
 
     @observable open = true

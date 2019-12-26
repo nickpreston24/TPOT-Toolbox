@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { compose } from 'recompose'
 import { inject, observer } from 'mobx-react';
-import { Route, Switch } from 'react-router-dom'
 import MaterialTable from 'material-table'
-import { Box } from '@material-ui/core';
-import EditMode from '../../Toolbox/views/EditMode';
-import { toJS, observable } from 'mobx';
+import { Box, Chip } from '@material-ui/core';
+import { observable } from 'mobx';
+import DescriptionIcon from '@material-ui/icons/Description';
+import { Paper } from '../models/Paper';
 
 export const CheckoutPage = compose(
     inject('store'),
@@ -27,6 +27,23 @@ export const CheckoutPage = compose(
 )
 
 
+/* Renders a single Paper */
+const PaperDetails = observer(({ paper }) => {
+
+    const { slug, excerpt, docx, date_modified, date_uploaded } = paper
+
+    return (
+        <>
+            {date_uploaded && <p><b>Uploaded:</b> {date_uploaded}</p>}
+            {date_modified && <p><b>Modified:</b> {date_modified}</p>}
+            {docx && <p><b>Cloud Location:</b> {docx}</p>}
+            {slug && <p><b>Slug:</b> {slug}</p>}
+            {excerpt && <p><b>Excerpt:</b> {excerpt}</p>}
+        </>
+    )
+})
+
+/* Renders all available Papers */
 export const CheckoutTable = compose(
     // inject('store'),
     observer
@@ -35,41 +52,29 @@ export const CheckoutTable = compose(
         @observable search = true
 
         render() {
-            const { users } = this.props
-            const data = users.docs.map((doc) => {
-                const { firstName, lastName, userID } = doc.data
-                return { name: firstName, status: lastName, edited: userID, uploaded: null }
-            })
+
+            const { sessions } = this.props
+            const papers = sessions.docs.map(document => ({ ...new Paper(document.data) }))
+
             return (
                 <MaterialTable
                     title="Checkout"
                     columns={[
-                        // { field: 'avatar', searchable: false, export: false, render: rowData => <img src={'https://avatars0.githubusercontent.com/u/7895451?s=460&v=4'} style={{ width: 50, borderRadius: '50%' }} /> },
-                        { title: 'Document', field: 'name', searchable: true },
-                        { title: 'Status', field: 'status', searchable: false },
-                        { title: 'Last Edited', field: 'edited', type: 'datetime', searchable: false },
-                        { title: 'Uploaded', field: 'uploaded', type: 'datetime', searchable: false }
+                        { field: 'Icon', searchable: false, export: false, render: () => <DocxIcon /> },
+                        { title: 'Document', field: 'title', type: 'string', searchable: true },
+                        { title: 'Status', field: 'status', type: 'string', searchable: false, render: paper => <StatusChip status={paper.status} /> },
+                        { title: 'Last Edited', field: 'date_modified', type: 'string', searchable: false },
+                        { title: 'Author', field: 'author', type: 'string', searchable: false },
+                        { title: 'Uploaded', field: 'date_uploaded', type: 'string', searchable: false, hidden: true },
+                        { title: 'Cloud Location', field: 'docx', type: 'string', searchable: false, hidden: true },
+                        { title: 'Slug', field: 'slug', searchable: false, hidden: false },
+                        { title: 'Excerpt', field: 'excerpt', searchable: false, hidden: true },
                     ]}
-                    data={data}
-                    // detailPanel={{
-                    //     disabled: 
-                    // }}
-                    // detailPanel={rowData => {
-                    //     return (
-                    //         <iframe
-                    //             width="100%"
-                    //             height="315"
-                    //             src="https://www.youtube.com/embed/C0DPdy98e4c"
-                    //             frameborder="0"
-                    //             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    //             allowfullscreen
-                    //         />
-                    //     )
-                    // }}
-
+                    data={papers}
+                    detailPanel={paper => <PaperDetails paper={paper} />}
                     options={{
                         search: this.search,
-                        selection: true,
+                        selection: false,
                         draggable: true,
                         grouping: true,
                         exportButton: true,
@@ -82,6 +87,7 @@ export const CheckoutTable = compose(
                         showTextRowsSelected: false,
                     }}
                     // onSelectionChange={(rows) => {
+                    //     console.log('onSelectionChange() ', rows)
                     //     this.search = rows ? !this.search : this.search;
                     //     return rows
                     // }}
@@ -115,3 +121,31 @@ export const CheckoutTable = compose(
         }
     }
 )
+
+const DocxIcon = () =>
+    <DescriptionIcon style={{ color: '#00008a' }} />
+
+const statusMap = {
+    'in-progress': 'In Progress',
+    'not-started': 'Not Started',
+    'checked-out': 'Checked Out',
+    'published': 'Published',
+}
+
+const labelColors = {
+    'in-progress': '#c3e3ff',
+    'not-started': '#ffe8c6',
+    'checked-out': '#ffc6c8',
+    'published': '#c6ffc6',
+}
+
+const StatusChip = ({ status }) => {
+
+    console.log('status chip: ', status);
+    const label = statusMap[status]
+    const color = labelColors[status]
+
+    return (
+        <Chip {...{ label }} style={{ background: color }} />
+    )
+}
