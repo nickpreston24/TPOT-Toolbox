@@ -9,7 +9,6 @@ import GoogleDrive from "../../shared/media/drive.png";
 import HardDrive from "../../shared/media/hdd.png";
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
-import firebase from 'firebase';
 import { CloudFiles } from '../../contexts/CloudFiles'
 
 const styles = theme => ({
@@ -59,25 +58,13 @@ const styles = theme => ({
 /* Holds state and operations for Uploader modal */
 class UploaderStore {
 
-    constructor({ lettersStore }, ...rest) {
-        console.log('store init');
-        this.cloud = rest
-        this.lettersStore = lettersStore
-        this.currentModal = lettersStore.currentModal        
-        // lettersStore.setCurrentModal('LoadScreen')
-        console.log('current Modal obs', this.currentModal);
-        this.upload = this.cloud.upload
-    }
+    constructor({ lettersStore }) {
 
-    @observable open = true
-    @action handleClose = () => {
-        this.open = false
-        const { history, match } = this.props
-        if (!!history && history.push) {
-            history.push(match.url)
-        }
-        this.lettersStore.setCurrentModal(null)
-    }
+        this.cloud = useContext(CloudFiles);
+        this.lettersStore = lettersStore
+        this.currentModal = lettersStore.currentModal
+        this.upload = this.cloud.upload
+    }   
 
     loaders = {
         disk: {
@@ -95,7 +82,7 @@ class UploaderStore {
             description: "Open a file from your linked Google Drive folder",
             icon: GoogleDrive,
             enabled: false,
-            handler: (event) => this.selectFile(event)
+            handler: (event) => { }
         }
         // {
         //     name: "Clipboard",
@@ -108,41 +95,35 @@ class UploaderStore {
         // }
     }
 
-    selectFile = (event) => {
-        const files = event.target.files;
-        const folderName = 'originals';
 
-        //Upload to firebase Storage:
-        let file = files[0];
-        this.upload(file);
+    selectFile = (event) => {
+        return event.target.files[0];
     }
 }
 
-const Uploader = observer(({ store }) => {
+const Uploader = observer((props) => {
 
-    console.log('uploader init');
+    const { classes, store } = props
+    const [uploaderState] = useState(new UploaderStore(store));
+    const { loaders } = uploaderState
+    const { currentModal, setCurrentModal } = uploaderState.lettersStore
 
-    const cloud = useContext(CloudFiles);
-    const [uploaderState, setState] = useState(new UploaderStore(store, cloud));
-    const { classes = {} } = store
-    const { handleClose, loaders, currentModal, selectFile } = uploaderState
-
-    // console.log('upload()', upload);
-    // console.log('props:', store);
-    console.log('styles', classes);
-    console.log('loaders', loaders);
-    console.log('current modal', { currentModal });
-    
     return (
         <Dialog
             id="LoadScreen"
             classes={{ root: classes.root, paper: classes.paper }}
-            open={currentModal.isOpen}
-            onClose={handleClose}
+            open={currentModal === 'LoadScreen'}
+            onClose={() => {
+                //TODO: refactor this, it's ugly.
+                const { history, match } = props
+                if (!!history && history.push)
+                    history.push(match.url)
+                setCurrentModal(null)
+            }}
             disablePortal
         >
             {Object.values(loaders).map(option => {
-                const { name, icon, enabled, handler } = option;
+                const { name, enabled, handler } = option;
                 const { grid } = classes;
 
                 return (
@@ -168,128 +149,6 @@ const Uploader = observer(({ store }) => {
         </Dialog>
     )
 })
-
-
-// @observer
-// class Uploader extends React.Component {
-
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             open: false,
-//             description: "Select a file from your computer to edit."
-//         };
-//         this.storageRef = firebase.storage().ref();
-//     }
-
-//     componentDidMount = () => {
-//         this.props.store.lettersStore.setPublishData('title', '')
-//         this.props.store.lettersStore.setPublishData('slug', '')
-//         this.props.store.lettersStore.setPublishData('excerpt', '')
-//     }
-
-//     @observable open = true
-//     @action handleClose = () => {
-//         this.open = false
-//         const { history, match } = this.props
-//         if (!!history && history.push) {
-//             history.push(match.url)
-//         }
-//         this.props.store.lettersStore.setCurrentModal(null)
-//     };
-
-//     handleFile = (e) => {
-//         const files = e.target.files;
-//         const folderName = 'originals';
-
-//         //Upload to firebase Storage:
-//         let file = files[0];
-//         this.upload(folderName, file);
-//     }
-
-//     //TODO: Move this to a context so it can be called by any component
-//     upload(folderName, file) {
-//         let fileRef = this.storageRef.child(`${folderName}/${file.name}`);
-//         fileRef.put(file)
-//             .then(snapshot => alert(!!snapshot
-//                 ? `Yay! File ${file.name} uploaded successfully!`
-//                 : `Fail! ${file.name} could not be uploaded!`))
-//             .catch((error) => {
-//                 alert(error.message)
-//             })
-//     }
-
-//     convertFile(file) {
-//         const { store } = this.props
-//         const { editorStore } = store
-//         editorStore.convertFileToDraftState(file)
-//     }
-
-//     render() {
-
-//         const { classes } = this.props;
-//         const loaders = [
-//             {
-//                 name: "From Disk",
-//                 description: "Open a file from your computer's hard drive",
-//                 icon: HardDrive,
-//                 enabled: true,
-//                 handler: (e) => this.handleFile(e)
-//             },
-//             {
-//                 name: "Coming Soon",
-//                 description: "Open a file from your linked Google Drive folder",
-//                 icon: GoogleDrive,
-//                 enabled: false,
-//                 handler: (e) => this.handleFile(e)
-//             },
-//             // {
-//             //     name: "Clipboard",
-//             //     description:
-//             //         "Opens a window where you can paste in the content of a word document",
-//             //     icon: ClipBoard,
-//             //     handler: () => {
-//             //         this.handleSelection("clipboard");
-//             //     }
-//             // }
-//         ];
-
-//         return (
-//             <Dialog
-//                 id="LoadScreen"
-//                 classes={{ root: classes.root, paper: classes.paper }}
-//                 open={this.props.store.lettersStore.currentModal === 'LoadScreen'}
-//                 onClose={this.handleClose}
-//                 disablePortal
-//             >
-//                 {loaders.map(option => {
-
-//                     const { name, enabled, handler } = option;
-//                     const { grid } = classes;
-
-//                     return (
-//                         <Grid
-//                             key={name.toLocaleLowerCase()}
-//                             item className={grid}
-//                         >
-//                             <img
-//                                 src={option.icon}
-//                                 className={classes.icon}
-//                                 alt="cardimg" />
-//                             <InputButton {...{ name, enabled, handler }} />
-//                         </Grid>
-//                     );
-//                 })}
-//                 <DialogContentText
-//                     align="center"
-//                     className={classes.textbox}>
-//                     {this.state.description}
-//                 </DialogContentText>
-//             </Dialog>
-//         );
-//     }
-// }
-
 
 Uploader.propTypes = {
     classes: PropTypes.object.isRequired

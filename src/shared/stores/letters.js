@@ -46,10 +46,9 @@ export default class LettersStore {
     }
     @persist @observable codeState = ''
     @persist @observable originalState = ''
-    @persist @observable currentModal = ''
+    @observable currentModal = ''    
     @persist @observable editorContent = '<p>Why hello there!</p>'
     @observable editedState = EditorState.createEmpty() // TODO : Persist
-    // @persist('object', PublishData) @observable publishData = new PublishData({ title: '', slug: '', title: '' })
     @observable publishData = new PublishData({ title: '', slug: '' })
 
     @action setKey = (key, value) => {
@@ -87,8 +86,8 @@ export default class LettersStore {
     //     // console.log(`%c${message}`, `color: dodgerblue; font-size: 14px; border: 1px solid dodgerblue; background: #092b4c;`)
     // }
 
-    @action setCurrentModal = (string) => {
-        this.currentModal = string
+    @action setCurrentModal = (modalName) => {
+        this.currentModal = modalName
     }
 
     @action togglePublishModal = () => {
@@ -96,15 +95,15 @@ export default class LettersStore {
     }
 
     @action.bound setWordpressCredentials = (credentials) => {
-//        console.log('recieved', credentials)
-//        console.log(typeof credentials)
-//        console.log(typeof toJS(credentials))
-//        console.log(isPrimitive(toJS(credentials)))
-//        console.log(isPrimitive(credentials))
+        //        console.log('recieved', credentials)
+        //        console.log(typeof credentials)
+        //        console.log(typeof toJS(credentials))
+        //        console.log(isPrimitive(toJS(credentials)))
+        //        console.log(isPrimitive(credentials))
         let wordpressCredentials = toJS(credentials)
         this.wordpressCredentials.username = !!wordpressCredentials ? wordpressCredentials.username : ''
         this.wordpressCredentials.password = !!wordpressCredentials ? wordpressCredentials.password : ''
-//        console.log(toJS(this.wordpressCredentials))
+        //        console.log(toJS(this.wordpressCredentials))
         // this.wordpressCredentials = !!wordpressCredentials
         // ? wordpressCredentials
         // : null
@@ -118,7 +117,7 @@ export default class LettersStore {
     }
 
     @action.bound async publishToWordpress(html) {
-//        console.log('submit')
+        //        console.log('submit')
         // const wpCreds = await db.wordpressCredentials
         db.getWordpressCredentials
             .then((wpCreds) => {
@@ -157,7 +156,7 @@ export default class LettersStore {
                         excerpt
                     }, this.notify)
                 } catch (error) {
-//                    console.log(error)
+                    //                    console.log(error)
                 }
 
             })
