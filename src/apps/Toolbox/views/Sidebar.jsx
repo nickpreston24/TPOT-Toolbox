@@ -26,6 +26,7 @@ export const Sidebar = compose(
     class Sidebar extends Component {
 
         render() {
+            console.log('sidebar renders');
             const { store, classes, history } = this.props
             const navMenu = [
                 {
@@ -66,6 +67,7 @@ export const Sidebar = compose(
                     icon: faHdd,
                     action: () => {
                         history.push('/scribe/edit');
+                        console.log('this should be firing!');
                         store.lettersStore.setCurrentModal('LoadScreen');
                     },
                 },

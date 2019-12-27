@@ -16,7 +16,7 @@ import { ShelfButton } from './views/ShelfButton';
 import { Sidebar } from './views/Sidebar';
 import { Scribe } from '../Scribe'
 import { BrowserRouter, Link, Route, Redirect, Switch } from 'react-router-dom'
-import StorageContextProvider from '../../contexts/StorageContextProvider'
+import CloudFilesProvider from '../../contexts/CloudFiles'
 
 // Initilize Root Store
 const store = new MobxStore()
@@ -117,9 +117,9 @@ export default () =>
         <ThemeProvider theme={theme}>
             <SnackbarProvider {...snackbarOptions}>
                 <BrowserRouter>
-                    <StorageContextProvider>
+                    <CloudFilesProvider>
                         <Toolbox store={store} />
-                    </StorageContextProvider>
+                    </CloudFilesProvider>
                 </BrowserRouter>
             </SnackbarProvider>
         </ThemeProvider>

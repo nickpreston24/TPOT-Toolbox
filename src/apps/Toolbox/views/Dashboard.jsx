@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-import ModalLoad from '../../Letters/Uploader';
+import Uploader from '../../Letters/Uploader';
 import AuthButton from './AuthButton';
 import ModalFirebase from './ModalFirebase';
 
@@ -76,7 +76,7 @@ export const Dashboard = compose(
                         </Box>
                         <Box className={classes.currentApp} flexGrow={1} id="CurrentApp">
                             {currentApp}
-                            <ModalLoad />
+                            <Uploader />
                             <ModalFirebase />
                             <div style={{ height: '600%' }} />
                         </Box>

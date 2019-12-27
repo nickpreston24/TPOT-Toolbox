@@ -6,26 +6,29 @@ import { Box, Chip } from '@material-ui/core';
 import { observable } from 'mobx';
 import DescriptionIcon from '@material-ui/icons/Description';
 import { Paper } from '../models/Paper';
+import { useContext } from 'react'
 
-export const CheckoutPage = compose(
-    inject('store'),
-    observer
-)(
-    class CheckoutPage extends Component {
+import { CloudFiles } from '../../../contexts/CloudFiles'
 
-        render() {
-            const { store } = this.props
-            const { scribeStore } = store
-            const { sessions } = scribeStore
-            return (
-                <Box width="80%">
-                    <CheckoutTable {...{ sessions }} />
-                </Box>
-            )
-        }
-    }
-)
+const CheckoutView = props => {
 
+    const documents = useContext(CloudFiles);
+    console.log(documents);
+
+    // let file = await documents.download('MasterSample.docx')
+
+    const { store } = props
+    const { scribeStore } = store
+    const { sessions } = scribeStore
+
+    return (
+        <Box width="80%">
+            <CheckoutTable {...{ sessions }} />
+        </Box>
+    )
+}
+
+export const CheckoutPage = compose(inject('store'), observer)(CheckoutView)
 
 /* Renders a single Paper */
 const PaperDetails = observer(({ paper }) => {
@@ -50,6 +53,10 @@ export const CheckoutTable = compose(
 )(
     class CheckoutTable extends Component {
         @observable search = true
+
+        componentDidMount() {
+            this.storedDocuments = []
+        }
 
         render() {
 
@@ -141,7 +148,6 @@ const labelColors = {
 
 const StatusChip = ({ status }) => {
 
-    console.log('status chip: ', status);
     const label = statusMap[status]
     const color = labelColors[status]
 

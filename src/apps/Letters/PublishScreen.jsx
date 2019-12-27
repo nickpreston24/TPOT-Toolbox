@@ -55,7 +55,7 @@ const PublishScreen = observer(({ classes, store, editorCode, container, ...rest
 //    console.log('CurrentModal', store.lettersStore.currentModal)
     return (
         <main id="PublishScreen">
-            <Dialog open={store.lettersStore.currentModal === 'PublishScreen'}
+            <Dialog open={store.lettersStore.currentModal.name === 'PublishScreen'}
             container={container}
             // disablePortal
             closeAfterTransition
