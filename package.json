@@ -88,7 +88,7 @@
     "build": "craco build",
     "inject": "npx workbox injectManifest",
     "build-serve": "yarn build && yarn serve",
-    "test": "craco test",
+    "test": "mocha --require esm",
     "serve": "serve -s build",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"

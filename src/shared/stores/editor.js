@@ -5,6 +5,7 @@ import { baseBlockStyleFn, baseStyleMap, blockRenderer, blockRenderMap, draftCon
 import { persist } from 'mobx-persist'
 import { draft } from '../../apps/Editor'
 import { convertFile } from "../utilities/converter";
+import { findBadProps } from "../utilities/debug";
 
 // : Anything that  uses @persist will be automatically subscribed to offline localforage storage
 
@@ -21,6 +22,7 @@ export default class EditorStore {
             if (msg.data.event === "draftjs-editor-reload") this.loadEditorFromDocx(msg.data.html)
         });
 
+        findBadProps(this, 'editor.js')
     }
 
     @persist @observable clean = true

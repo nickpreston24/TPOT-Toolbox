@@ -9,6 +9,7 @@ import SessionStore from './session';
 import AuthStore from './auth';
 import ScribeStore from './scribe';
 import ServicesStore from './services';
+import { findBadProps } from '../utilities/debug';
 
 // RESPONSIBILITIES:
 // Create, Update, Tweak and Destroy MobX store instances for each app
@@ -23,6 +24,8 @@ export default class MobxStore {
         this.hydrate = create({ storage: localForage, jsonify: false })
         this.routing = routingStore
         this.init()
+
+        findBadProps(this, 'stores/index.js')
     }
 
     @action init = () => {

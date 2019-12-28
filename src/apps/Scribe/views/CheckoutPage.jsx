@@ -12,10 +12,10 @@ import { CloudFiles } from '../../../contexts/CloudFiles'
 
 const CheckoutView = props => {
 
-    const documents = useContext(CloudFiles);
-    console.log(documents);
+    const download = useContext(CloudFiles);
+    console.log(download);
 
-    // let file = await documents.download('MasterSample.docx')
+    // let file = await download('MasterSample.docx')
 
     const { store } = props
     const { scribeStore } = store

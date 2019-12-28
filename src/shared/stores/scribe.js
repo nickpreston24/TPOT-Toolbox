@@ -3,6 +3,7 @@ import { createEditorStateWithText } from "draft-js-plugins-editor";
 import EditorStore from './editor'
 import { draftContentToHtml } from "../../apps/Editor/utils/transforms";
 import { Collection } from 'firestorter';
+import { findBadProps } from '../utilities/debug'
 
 export default class ScribeStore {
 
@@ -17,6 +18,8 @@ export default class ScribeStore {
         this.root = root
         this.notify = this.root.lettersStore.notify
         this.session = new Session(this)
+
+        findBadProps(this, true)
     }
 
     @action createSession = async (file) => {

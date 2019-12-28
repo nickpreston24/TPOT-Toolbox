@@ -1,11 +1,14 @@
-import { createMuiTheme} from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { observable, action, computed } from 'mobx'
 import { persist } from 'mobx-persist';
+import { findBadProps } from '../utilities/debug'
 
 export default class SettingsStore {
 
     constructor(rootStore) {
         this.rootStore = rootStore
+        findBadProps(this, 'settings.js')
+        findBadProps(rootStore, 'settings.js ')
     }
 
     @persist @observable clean = true

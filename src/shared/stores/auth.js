@@ -1,6 +1,7 @@
-import { observable, computed, action} from "mobx"
+import { observable, computed, action } from "mobx"
 import { firebase } from '../firebase';
 import { persist } from "mobx-persist";
+import { findBadProps } from "../utilities/debug";
 
 export default class AuthStore {
 
@@ -8,9 +9,11 @@ export default class AuthStore {
         this.rootStore = rootStore
         this.notify = this.rootStore.lettersStore.notify
 
-        firebase.app.auth().onAuthStateChanged((authUser) => {
-//            console.log('authStateChanged', authUser)
+        firebase.app.auth().onAuthStateChanged(() => {
+            //console.log('authStateChanged', authUser)
         })
+        
+        findBadProps(this, 'auth.js')
     }
 
     @persist @observable clean = true

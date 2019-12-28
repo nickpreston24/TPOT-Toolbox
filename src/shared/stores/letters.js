@@ -4,7 +4,7 @@ import { convertToRaw } from 'draft-js';
 import { persist } from 'mobx-persist'
 import { db } from '../firebase';
 import { wp } from '../wordpress';
-
+import { findBadProps } from '../utilities/debug'
 // : Anything that  uses @persist will be automatically subscribed to offline localforage storage
 
 // Text input cannot be null or be whitespace but **can contain whitespace**.
@@ -31,6 +31,8 @@ export default class LettersStore {
         this.rootStore = rootStore
         // this.notify = () => {}
         // this.notify = rootStore ? rootStore.servicesStore.notify : () => { }
+
+        findBadProps(this, 'letters.js')
     }
 
     @persist @observable clean = true
@@ -46,7 +48,7 @@ export default class LettersStore {
     }
     @persist @observable codeState = ''
     @persist @observable originalState = ''
-    @observable currentModal = ''    
+    @observable currentModal = ''
     @persist @observable editorContent = '<p>Why hello there!</p>'
     @observable editedState = EditorState.createEmpty() // TODO : Persist
     @observable publishData = new PublishData({ title: '', slug: '' })
