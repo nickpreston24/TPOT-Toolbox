@@ -102,7 +102,10 @@ class SignIn extends Component {
                                         size="large"
                                         type="submit"
                                         className={classes.confirm}
-                                        onClick={() => signIn(notify, setCurrentModal)}
+                                        onClick={() => {
+                                            signIn(notify, setCurrentModal)
+                                                .then(() => setCurrentModal(null))
+                                        }}
                                     >
                                         Login
                                         </Button>
