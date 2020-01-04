@@ -15,11 +15,11 @@ initFirestorter({ firebase: firebase });
 // firebase.firestore().settings({ timestampsInSnapshots: true })
 
 const app = firebase
-const db = firebase.firestore();
+const firestore = firebase.firestore();
 const auth = firebase.auth();
 
 export {
     app,
     auth,
-    db,
+    firestore,
 };

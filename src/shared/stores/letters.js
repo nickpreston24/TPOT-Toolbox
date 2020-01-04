@@ -2,7 +2,7 @@ import { EditorState } from "draft-js";
 import { action, observable, toJS } from 'mobx';
 import { convertToRaw } from 'draft-js';
 import { persist } from 'mobx-persist'
-import { db } from '../firebase';
+import { profiles } from '../firebase';
 import { wp } from '../wordpress';
 import { findBadProps } from '../utilities/debug'
 // : Anything that  uses @persist will be automatically subscribed to offline localforage storage
@@ -120,8 +120,8 @@ export default class LettersStore {
 
     @action.bound async publishToWordpress(html) {
         //        console.log('submit')
-        // const wpCreds = await db.wordpressCredentials
-        db.getWordpressCredentials
+        // const wpCreds = await profiles.wordpressCredentials
+        profiles.getWordpressCredentials
             .then((wpCreds) => {
                 // console.log('firstcreds', wpCreds)
                 try {

@@ -1,5 +1,4 @@
 import './App.css';
-import { hot } from 'react-hot-loader'
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { compose } from 'recompose'
@@ -109,8 +108,6 @@ Toolbox.propTypes = {
     enqueueSnackbar: PropTypes.func.isRequired,
     store: PropTypes.object.isRequired
 }
-
-// const ToolboxWrapper = hot(module)(Toolbox);
 
 export default () =>
     <Provider store={store} >

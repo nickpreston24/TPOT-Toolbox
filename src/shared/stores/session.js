@@ -1,5 +1,5 @@
 import { observable, action, runInAction } from 'mobx'
-import { db, auth, firebase } from '../firebase'
+import { profiles, auth, firebase } from '../firebase'
 import { persist } from 'mobx-persist';
 import { findBadProps } from '../utilities/debug.js';
 
@@ -92,7 +92,7 @@ export default class SessionStore {
             }
             if (firstName && lastName) {
                 const userCredential = await auth.createUser(email, password)
-                const docRef = db.createProfile(firstName, lastName, userCredential)
+                const docRef = profiles.createProfile(firstName, lastName, userCredential)
                 if (docRef) {
                     this.notify('Account Created! Try to Sign In now...', { variant: 'success', autoHideDuration: 5000 })
                 }

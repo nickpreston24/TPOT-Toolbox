@@ -1,4 +1,4 @@
-import { db } from './firebase';
+import { firestore } from './firebase';
 
 // Create Profile
 export const createProfile = (firstName, lastName, userCredential) => {
@@ -6,7 +6,7 @@ export const createProfile = (firstName, lastName, userCredential) => {
         const email = userCredential.user.email
         const userID = userCredential.user.uid
         const { creationTime, lastSignInTime } = userCredential.user.metadata
-        db.collection('users').doc(`${userID}`).set({
+        firestore.collection('users').doc(`${userID}`).set({
             firstName,
             lastName,
             email,
@@ -21,16 +21,9 @@ export const createProfile = (firstName, lastName, userCredential) => {
     })
 }
 
-export const getUser = (id) => {
-    db.collection('users').doc(id).get()
-        .then((documentSnapshot) => {
-//            console.log(documentSnapshot.data())
-        })
-}
-
 // Wordpress
 export const getWordpressCredentials = new Promise((resolve, reject) => {
-    db.collection('public').doc('wp-credentials').get()
+    firestore.collection('public').doc('wp-credentials').get()
         .then((documentSnapshot) => {
             if (!!documentSnapshot) {
                 resolve(documentSnapshot.data())

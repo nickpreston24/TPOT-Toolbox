@@ -4,9 +4,9 @@
  * with Firebase Storage
  */
 
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import firebase from 'firebase';
-// import { observable, action, computed } from 'mobx'
+let firestore = firebase.firestore()
 
 export const CloudFiles = React.createContext()
 const firebaseApiKey = process.env.REACT_APP_FIREBASE_STORAGE_API_KEY || null
@@ -22,7 +22,7 @@ const folderName = 'originals'
  * Cloud File Provider
  * Allows any subscribers to interact with Cloud Storage files
  */
-const CloudFilesProvider = (props) => {   
+const CloudFilesProvider = (props) => {
 
     const upload = (file) => {
         let fileRef = storageRef.child(`${folderName}/${file.name}`);
@@ -35,20 +35,19 @@ const CloudFilesProvider = (props) => {
             })
     }
 
-    /** Download a file for checkout */
+    /** Download a file locally */
     const download = (fileName) => {
         // console.log('fileRef', fileRef);
         // fileRef.child('').getDownloadURL()
     }
 
-
-    // TODO: pick a method by key: 'Upload/Download', 'Convert', 'Checkout', etc.
-    useEffect(() => {
-        console.info('Yay, effects!')
-    }, [])
+    /** Mark a file for checkout */
+    const checkout = (fileName) => {
+        console.log(`Checking out ${fileName}`);
+    }
 
     return (
-        <CloudFiles.Provider value={{ upload, download }}>
+        <CloudFiles.Provider value={{ upload, download, checkout }}>
             {props.children}
         </CloudFiles.Provider>
     )

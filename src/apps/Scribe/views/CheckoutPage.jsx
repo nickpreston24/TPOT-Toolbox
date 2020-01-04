@@ -7,13 +7,12 @@ import { observable } from 'mobx';
 import DescriptionIcon from '@material-ui/icons/Description';
 import { Paper } from '../models/Paper';
 import { useContext } from 'react'
-
 import { CloudFiles } from '../../../contexts/CloudFiles'
 
 const CheckoutView = props => {
 
-    const download = useContext(CloudFiles);
-    console.log(download);
+    const checkout = useContext(CloudFiles).checkout;
+    console.log(checkout);
 
     // let file = await download('MasterSample.docx')
 
@@ -23,7 +22,7 @@ const CheckoutView = props => {
 
     return (
         <Box width="80%">
-            <CheckoutTable {...{ sessions }} />
+            <CheckoutTable {...{ sessions, checkout }} />
         </Box>
     )
 }
@@ -52,22 +51,22 @@ export const CheckoutTable = compose(
     observer
 )(
     class CheckoutTable extends Component {
-        @observable search = true
 
-        componentDidMount() {
-            this.storedDocuments = []
-        }
+        @observable search = true
+        @observable currentDocument = null       
 
         render() {
 
-            const { sessions } = this.props
+            const { sessions, checkout } = this.props
+            console.log(this.props);
+            console.log('checkout, ', checkout);
             const papers = sessions.docs.map(document => ({ ...new Paper(document.data) }))
 
             return (
                 <MaterialTable
                     title="Checkout"
                     columns={[
-                        { field: 'Icon', searchable: false, export: false, render: () => <DocxIcon /> },
+                        { field: 'Icon', searchable: false, export: false, render: () => <DocxIcon onClick={() => checkout(this.currentDocument)} /> },
                         { title: 'Document', field: 'title', type: 'string', searchable: true },
                         { title: 'Status', field: 'status', type: 'string', searchable: false, render: paper => <StatusChip status={paper.status} /> },
                         { title: 'Last Edited', field: 'date_modified', type: 'string', searchable: false },
@@ -93,22 +92,28 @@ export const CheckoutTable = compose(
                         showSelectAllCheckbox: false,
                         showTextRowsSelected: false,
                     }}
-                    // onSelectionChange={(rows) => {
-                    //     console.log('onSelectionChange() ', rows)
-                    //     this.search = rows ? !this.search : this.search;
-                    //     return rows
-                    // }}
-                    localization={{
-                        header: {
-                            actions: 'imaaction'
-                        },
-                        toolbar: {
-                            exportTitle: 'Export Table',
-                            exportName: 'Save as CSV',
-                            searchTooltip: 'Search by Document Name',
-                            searchPlaceholder: 'Search'
-                        }
+                    onRowSelected={(rowData) => {
+                        console.log('row details;', rowData)
                     }}
+                    onRowClick={(row) => {
+                        // console.log('row details;', row) //I don't see a way here.
+                    }}
+                    onSelectionChange={(rows) => {
+                        console.log('onSelectionChange() ', rows)
+                        this.search = rows ? !this.search : this.search;
+                        return rows
+                    }}
+                    // localization={{
+                    // header: {
+                    // actions: 'imaaction'
+                    // },
+                    // toolbar: {
+                    //     exportTitle: 'Export Table',
+                    //     exportName: 'Save as CSV',
+                    //     searchTooltip: 'Search by Document Name',
+                    //     searchPlaceholder: 'Search'
+                    // }
+                    // }}                    
                     actions={[
                         {
                             icon: 'refresh',
@@ -116,11 +121,12 @@ export const CheckoutTable = compose(
                             isFreeAction: true,
                             onClick: () => this.tableRef.current && this.tableRef.current.onQueryChange(),
                         },
+                        // FIXME: Fix the way Uploader is rendered and closed, first.
                         {
                             tooltip: 'Upload .docx from your computer',
                             icon: 'backupOutlinedIcon',
                             isFreeAction: true,
-                            onClick: (evt, data) => alert('You want to delete ' + data.length + ' rows')
+                            onClick: () => { }
                         }
                     ]}
                 />
@@ -129,8 +135,10 @@ export const CheckoutTable = compose(
     }
 )
 
-const DocxIcon = () =>
-    <DescriptionIcon style={{ color: '#00008a' }} />
+const DocxIcon = ({ onClick }) =>
+    <DescriptionIcon onClick={onClick}
+        style={{ color: '#00008a' }} />
+
 
 const statusMap = {
     'in-progress': 'In Progress',
