@@ -6,9 +6,9 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-import Uploader from '../../Letters/Uploader';
+import Uploader from '../../Scribe/modals/Uploader';
 import AuthButton from './AuthButton';
-import ModalFirebase from './ModalFirebase';
+import ModalFirebase from './SignIn';
 
 const styles = theme => ({
     // Dashboard is topmost component, so it should also handle global css for now

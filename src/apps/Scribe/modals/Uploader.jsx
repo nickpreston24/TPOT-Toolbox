@@ -1,15 +1,15 @@
-import InputButton from './InputButton';
+import InputButton from '../buttons/InputButton';
 import Dialog from "@material-ui/core/Dialog";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import React, { useState, useContext } from "react";
-import GoogleDrive from "../../shared/media/drive.png";
-import HardDrive from "../../shared/media/hdd.png";
+import GoogleDrive from "../../../shared/media/drive.png";
+import HardDrive from "../../../shared/media/hdd.png";
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
-import { CloudFiles } from '../../contexts/CloudFiles'
+import { CloudFiles } from '../../../contexts/CloudFiles'
 
 const styles = theme => ({
     root: {

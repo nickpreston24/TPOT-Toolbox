@@ -21,7 +21,6 @@ export const Scribe = compose(
             return (
                 <Switch location={location}>
                     <Route exact path={`${match.path}`} render={() => <h2>Welcome to Scribe!</h2>} />
-                    <Route path={`${match.path}/overview`} render={() => <h2>Overview</h2>} />
                     <Route path={`${match.path}/checkout`} component={CheckoutPage} />
                     <Route path={`${match.path}/edit`} render={() => <Editor editorStore={editorStore} />} />
                     <Route path={`${match.path}/preview`} render={() => <h2>Preview</h2>} />

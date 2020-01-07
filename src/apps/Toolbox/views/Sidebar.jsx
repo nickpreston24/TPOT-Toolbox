@@ -30,11 +30,6 @@ export const Sidebar = compose(
             const { store, classes, history } = this.props
             const navMenu = [
                 {
-                    name: 'Overview',
-                    icon: faGripHorizontal,
-                    action: () => history.push('/scribe/overview'),
-                },
-                {
                     name: 'Checkout',
                     icon: faCartArrowDown,
                     action: () => history.push('/scribe/checkout'),
