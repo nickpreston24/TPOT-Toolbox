@@ -8,6 +8,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import { Paper } from '../models/Paper';
 import { useContext } from 'react'
 import { CloudFiles } from '../../../contexts/CloudFiles'
+import moment from 'moment';
 
 const CheckoutView = props => {
 
@@ -28,11 +29,16 @@ const CheckoutView = props => {
 }
 
 export const CheckoutPage = compose(inject('store'), observer)(CheckoutView)
+const humanize = (dateTime) => moment.duration(moment(dateTime.toDate()).diff(moment())).humanize(true);
 
 /* Renders a single Paper */
 const PaperDetails = observer(({ paper }) => {
 
     const { slug, excerpt, docx, date_modified, date_uploaded } = paper
+
+    console.log('paper:,', paper)
+    date_modified = humanize(date_modified)
+    date_uploaded = humanize(date_uploaded)
 
     return (
         <>
@@ -53,14 +59,15 @@ export const CheckoutTable = compose(
     class CheckoutTable extends Component {
 
         @observable search = true
-        @observable currentDocument = null       
+        @observable currentDocument = null
 
         render() {
 
             const { sessions, checkout } = this.props
             console.log(this.props);
-            console.log('checkout, ', checkout);
-            const papers = sessions.docs.map(document => ({ ...new Paper(document.data) }))
+            // console.log('checkout, ', checkout);
+            const papers = [] // sessions.docs.map(document => ({ ...new Paper(document.data) }))
+            console.log(papers.length);
 
             return (
                 <MaterialTable

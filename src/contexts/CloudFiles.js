@@ -6,7 +6,8 @@
 
 import React from 'react'
 import firebase from 'firebase';
-let firestore = firebase.firestore()
+import { Paper } from '../apps/Scribe/models/Paper'
+let db = firebase.firestore()
 
 export const CloudFiles = React.createContext()
 const firebaseApiKey = process.env.REACT_APP_FIREBASE_STORAGE_API_KEY || null
@@ -16,7 +17,8 @@ if (!firebaseApiKey) {
 }
 
 const storageRef = firebase.storage().ref();
-const folderName = 'originals'
+const uploadsFolder = 'originals'
+const htmlFolder = 'tmp'
 
 /**
  * Cloud File Provider
@@ -25,13 +27,41 @@ const folderName = 'originals'
 const CloudFilesProvider = (props) => {
 
     const upload = (file) => {
-        let fileRef = storageRef.child(`${folderName}/${file.name}`);
+        let fileRef = storageRef.child(`${uploadsFolder}/${file.name}`);
         fileRef.put(file)
-            .then(snapshot => alert(!!snapshot
-                ? `Yay! File ${file.name} uploaded successfully!`
-                : `Fail! ${file.name} could not be uploaded!`))
+            .then(snapshot => {
+
+                // NOTE: This is the Representation of state for a new Uploaded paper.  CheckoutPage will scan for new .html file matching this one's name.
+                // ALSO NOTE: I'm using a hack to get this to work by removing functions from Paper.  FB hates classes as classes and their functions :'{.
+                var { humanize, toString, ...emptyPaper } = new Paper({
+                    docx: `${file.name}`,
+                    title: file.name,
+                    status: "not-started",
+                    date_modified: Date.now(),
+                    date_uploaded: Date.now(),
+                    author: null,
+                    draft_state: {
+                        original: null,
+                        editor: null,
+                        code: null,
+                    },
+                    excerpt: null
+                })
+
+                console.log(emptyPaper);
+
+                db.collection('session')
+                    .doc(emptyPaper.slug)
+                    .set(emptyPaper)
+                    .catch(console.error)
+
+                alert(!!snapshot
+                    ? `Yay! File ${file.name} uploaded successfully!`
+                    : `Fail! ${file.name} could not be uploaded!`)
+            })
             .catch((error) => {
-                alert(error.message)
+                console.log(error.message);
+                alert('There was a problem uploading this file.')
             })
     }
 
