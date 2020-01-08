@@ -1,4 +1,4 @@
-import InputButton from '../buttons/InputButton';
+import InputButton from './InputButton';
 import Dialog from "@material-ui/core/Dialog";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import Grid from "@material-ui/core/Grid";
@@ -9,7 +9,7 @@ import GoogleDrive from "../../../shared/media/drive.png";
 import HardDrive from "../../../shared/media/hdd.png";
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
-import { CloudFiles } from '../../../contexts/CloudFiles'
+import { CloudStorage } from '../../../shared/contexts/CloudStorage'
 
 const styles = theme => ({
     root: {
@@ -60,7 +60,7 @@ class UploaderStore {
 
     constructor({ lettersStore }) {
 
-        this.cloud = useContext(CloudFiles);
+        this.cloud = useContext(CloudStorage);
         this.lettersStore = lettersStore
         this.currentModal = lettersStore.currentModal
         this.upload = this.cloud.upload

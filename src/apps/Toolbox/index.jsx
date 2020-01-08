@@ -11,11 +11,11 @@ import MobxStore from '../../shared/stores'
 import { Dashboard } from './views/Dashboard';
 import { Box } from '@material-ui/core';
 import { Shelf } from './views/Shelf'
-import { ShelfButton } from './views/ShelfButton';
+import { ShelfButton } from './components/ShelfButton';
 import { Sidebar } from './views/Sidebar';
 import { Scribe } from '../Scribe'
 import { BrowserRouter, Link, Route, Redirect, Switch } from 'react-router-dom'
-import CloudFilesProvider from '../../contexts/CloudFiles'
+import CloudStorageProvider from '../../shared/contexts/CloudStorage'
 
 // Initilize Root Store
 const store = new MobxStore()
@@ -114,9 +114,9 @@ export default () =>
         <ThemeProvider theme={theme}>
             <SnackbarProvider {...snackbarOptions}>
                 <BrowserRouter>
-                    <CloudFilesProvider>
+                    <CloudStorageProvider>
                         <Toolbox store={store} />
-                    </CloudFilesProvider>
+                    </CloudStorageProvider>
                 </BrowserRouter>
             </SnackbarProvider>
         </ThemeProvider>

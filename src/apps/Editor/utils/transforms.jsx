@@ -940,17 +940,7 @@ export const saveSession = (original, edited, code, baseStyleMap, notify) => {
         baseStyleMap: !!baseStyleMap ? baseStyleMap : {}
     }
     let fileContents = JSON.stringify(contents)
-    notify('Letter Saved to Disk', { variant: 'success', })
-    // : TODO
-    // const fileName = path.join(app.getPath('userData'),'Local Storage', 'session.json')
-    // console.log(fileName)
-    // fs.writeFile(fileName, fileContents, (error) => {
-    //     if (error) {
-    //         notify('Could not Save Draft', { variant: 'error'})
-    //     } else {
-    //         notify('Document Saved to Disk Successfully', { variant: 'success', })
-    //     }
-    // })
+    notify('Letter Saved to Disk', { variant: 'success', })    
 }
 
 //  end of EXPORT FUNCTION

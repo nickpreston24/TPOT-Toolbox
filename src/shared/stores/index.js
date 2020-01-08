@@ -1,5 +1,5 @@
 import localForage from 'localforage';
-import { RouterStore} from 'mobx-react-router';
+import { RouterStore } from 'mobx-react-router';
 import { create } from 'mobx-persist'
 import { action } from 'mobx';
 import SettingsStore from './settings';
@@ -36,20 +36,5 @@ export default class MobxStore {
         this.sessionStore = new SessionStore(this)
         this.authStore = new AuthStore(this)
         this.scribeStore = new ScribeStore(this)
-        // this.reloadStore(this.appNames)
-//        console.log('MobX: ', this)
     }
-
-    // @action reloadStore = (string) => {
-    //     const loadConstructor = (storeName) => {
-    //         if (!this.appNames.includes(storeName)) return
-    //         const resolvedStore = require(`./${storeName}`)
-    //         const storeConstructor = resolvedStore.default
-    //         this[`${storeName}Store`] = new storeConstructor(this) // Create an Instance of the Store to be used in the App
-    //         this.hydrate(`${storeName}Store`, this[`${storeName}Store`], { clean: false }) // Have the Store Instance suscribe to persistant localforage
-    //         console.log(`Refreshed: ${storeName}Store`)
-    //     }
-    //     Array.isArray(string) ? string.forEach(string => loadConstructor(string)) : loadConstructor(string)
-    // }
-
 }

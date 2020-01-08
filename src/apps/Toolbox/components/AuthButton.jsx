@@ -25,7 +25,7 @@ const styles = theme => ({
     margin: {}
 })
 
-class Auth extends Component {
+class AuthButton extends Component {
 
     componentDidMount() {
         this.props.editorStore.focus()
@@ -114,7 +114,7 @@ class Auth extends Component {
     }
 }
 
-Auth.propTypes = {
+AuthButton.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
@@ -122,4 +122,4 @@ export default compose(
     inject("lettersStore", "sessionStore", "editorStore"),
     withStyles(styles),
     observer
-)(Auth);
+)(AuthButton);

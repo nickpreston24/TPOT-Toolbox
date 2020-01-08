@@ -7,8 +7,8 @@ export default class SettingsStore {
 
     constructor(rootStore) {
         this.rootStore = rootStore
-        findBadProps(this, 'settings.js')
-        findBadProps(rootStore, 'settings.js ')
+        findBadProps(this, 'settingsStore')
+        findBadProps(rootStore, 'settingsStore.js ')
     }
 
     @persist @observable clean = true

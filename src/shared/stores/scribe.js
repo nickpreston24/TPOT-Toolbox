@@ -19,7 +19,7 @@ export default class ScribeStore {
         this.notify = this.root.lettersStore.notify
         this.session = new Session(this)
 
-        findBadProps(this, true)
+        findBadProps(this, 'scribeStore', true)
     }
 
     @action createSession = async (file) => {

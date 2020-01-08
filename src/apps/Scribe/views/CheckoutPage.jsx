@@ -7,12 +7,12 @@ import { observable } from 'mobx';
 import DescriptionIcon from '@material-ui/icons/Description';
 import { Paper } from '../models/Paper';
 import { useContext } from 'react'
-import { CloudFiles } from '../../../contexts/CloudFiles'
+import { CloudStorage } from '../../../shared/contexts/CloudStorage'
 import moment from 'moment';
 
 const CheckoutView = props => {
 
-    const checkout = useContext(CloudFiles).checkout;
+    const checkout = useContext(CloudStorage).checkout;
     console.log(checkout);
 
     // let file = await download('MasterSample.docx')

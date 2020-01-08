@@ -43,7 +43,7 @@ const styles = theme => ({
         maxWidth: 30,
         minHeight: 30,
         maxHeight: 30,
-        
+
         boxShadow: "0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)",
         background: 'dodgerblue',
         borderRadius: 20,
@@ -106,25 +106,11 @@ class MuiToolbar extends Component {
 
     expanded = false
 
-    handleMouseClick = () => {
+    handleMouseClick = () =>
         this.expanded = !this.expanded
-    }
 
-    // handleMouseHover = () => {
-    //     if(this.expanded) {
-    //         let collapse = setTimeout(action(() => { 
-    //             if(this.expanded) {
-    //                 this.expanded = false
-    //             }
-    //         }), 1500);
-    //     } else {
-    //         this.expanded = true
-    //     }
-    // }
-
-    handleCollapseRef = (element) => {
+    handleCollapseRef = (element) =>
         this.menu = element
-    }
 
     render() {
         let { classes, store, childProps } = this.props;
@@ -180,17 +166,17 @@ export default compose(
     observer
 )(decorate(
     MuiToolbar, {
-        expanded: observable,
-        handleMouseClick: action,
-        handleMouseHover: action,
-    }))
+    expanded: observable,
+    handleMouseClick: action,
+    handleMouseHover: action,
+}))
 
 class CollapseSide extends Component {
 
     hover = false
 
     handleMouseHover = () => {
-        if(this.hover) {
+        if (this.hover) {
             // let collapse = setTimeout(action(() => { 
             //     if(this.hover) {
             //         this.hover = false
@@ -226,6 +212,6 @@ compose(
     observer
 )(decorate(
     CollapseSide, {
-        hover: observable,
-        handleMouseHover: action
-    }))
+    hover: observable,
+    handleMouseHover: action
+}))

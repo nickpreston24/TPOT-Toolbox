@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-import { ShelfButton } from './ShelfButton';
+import { ShelfButton } from '../components/ShelfButton';
 
 
 const styles = theme => ({

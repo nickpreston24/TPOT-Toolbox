@@ -11,26 +11,12 @@ export default class SessionStore {
     constructor(rootStore) {
         this.rootStore = rootStore
         this.notify = rootStore.servicesStore.notify
-        // this.auth = auth;
-
-        //        console.log('SessionStore() => auth loaded? ', !!auth && auth);
-        //        console.log('SessionStore() => auth user loaded? ', !!auth.authUser && auth.authUser);
 
         // : Set Listeners
-        firebase.auth.onAuthStateChanged((authUser) => {
-            //            console.log('onAuthStateChanged() => authUser:', authUser)
-        })
+        // firebase.auth.onAuthStateChanged((authUser) => { })
 
-        // : Load Initial Configuration from File
-        // : TODO
-        // fs.readFile(path.join(app.getPath('userData'), 'Local Storage', 'auth.json'), 'utf-8', (error, data) => {
-        //     if (!!data) {
-        //         this.setAuthUser(JSON.parse(data).authUser)
-        //         console.log(JSON.parse(data))
-        //     }
-        // });
-        console.log('session.js:');
-        findBadProps(this, true)
+        console.log('session.js cotr');
+        findBadProps(this,'sessionStore' , true)
     }
 
     @persist @observable clean = true
@@ -48,18 +34,12 @@ export default class SessionStore {
         codeSent: false,
     }
 
-    @action setKey = (key, value) => {
-        this[key] = value
-    }
-
     @action.bound async signIn() {
-        //        console.log('sign in')
         try {
             const { email, password } = this.loginData
             const authUser = await auth.signIn(email, password)
             runInAction(() => {
                 this.authUser = authUser
-                //                console.log(this.authUser)
                 // setCurrentModal(null)
             })
         } catch (error) {
@@ -115,12 +95,11 @@ export default class SessionStore {
     @action setLoginData = (key, value) =>
         this.loginData[key] = value
 
+    @action setKey = (key, value) => this[key] = value
+
     @action setNotifyFunctions = (functions) => {
         const { enqueueSnackbar, closeSnackbar } = functions
         this.enqueueSnackbar = enqueueSnackbar
         this.closeSnackbar = closeSnackbar
-        //        console.log('Notification enabled.', this.enqueueSnackbar, this.closeSnackbar)
     }
-
-
 }

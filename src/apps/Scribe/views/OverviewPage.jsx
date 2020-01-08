@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { inject, observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 import { compose } from 'recompose'
-import { RoutedModal } from '../modals/RoutedModal'
+import { RoutedModal } from '../components/RoutedModal'
 import { BrowserRouter, Link, Route, Redirect, Switch, withRouter } from 'react-router-dom'
 
 

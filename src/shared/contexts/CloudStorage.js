@@ -6,10 +6,10 @@
 
 import React from 'react'
 import firebase from 'firebase';
-import { Paper } from '../apps/Scribe/models/Paper'
+import { Paper } from '../../apps/Scribe/models/Paper'
 let db = firebase.firestore()
 
-export const CloudFiles = React.createContext()
+export const CloudStorage = React.createContext()
 const firebaseApiKey = process.env.REACT_APP_FIREBASE_STORAGE_API_KEY || null
 
 if (!firebaseApiKey) {
@@ -24,7 +24,7 @@ const htmlFolder = 'tmp'
  * Cloud File Provider
  * Allows any subscribers to interact with Cloud Storage files
  */
-const CloudFilesProvider = (props) => {
+const CloudStorageProvider = (props) => {
 
     const upload = (file) => {
         let fileRef = storageRef.child(`${uploadsFolder}/${file.name}`);
@@ -77,10 +77,10 @@ const CloudFilesProvider = (props) => {
     }
 
     return (
-        <CloudFiles.Provider value={{ upload, download, checkout }}>
+        <CloudStorage.Provider value={{ upload, download, checkout }}>
             {props.children}
-        </CloudFiles.Provider>
+        </CloudStorage.Provider>
     )
 }
 
-export default CloudFilesProvider
+export default CloudStorageProvider

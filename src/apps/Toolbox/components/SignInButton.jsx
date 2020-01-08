@@ -52,7 +52,7 @@ const styles = theme => ({
     }
 });
 
-class SignIn extends Component {
+class SignInButton extends Component {
 
     render() {
         const { classes } = this.props;
@@ -83,7 +83,7 @@ class SignIn extends Component {
                                         autoComplete="email"
                                         value={loginData.email}
                                         className={classes.textField}
-                                        onChange={e => { setLoginData('email', e.target.value) }}
+                                        onChange={e => setLoginData('email', e.target.value)}
                                     />
                                     <TextField
                                         fullWidth
@@ -150,7 +150,7 @@ class SignIn extends Component {
                                         autoComplete="email"
                                         value={loginData.email}
                                         className={classes.textField}
-                                        onChange={e => { setLoginData('email', e.target.value) }}
+                                        onChange={e => setLoginData('email', e.target.value)}
                                     />
                                     <TextField
                                         fullWidth
@@ -160,7 +160,7 @@ class SignIn extends Component {
                                         autoComplete="password"
                                         value={loginData.password}
                                         className={classes.textField}
-                                        onChange={e => { setLoginData('password', e.target.value) }}
+                                        onChange={e => setLoginData('password', e.target.value)}
                                     />
                                     <Button
                                         fullWidth
@@ -182,26 +182,24 @@ class SignIn extends Component {
                             {loginMode === 'reset' && (
                                 <Fragment>
                                     <TextField
+                                        onChange={e => setLoginData('email', e.target.value)}
+                                        value={loginData.email}
+                                        className={classes.textField}
                                         fullWidth
                                         variant="outlined"
                                         label="Email"
                                         type="email"
                                         autoComplete="email"
-                                        value={loginData.email}
-                                        className={classes.textField}
-                                        onChange={e => { setLoginData('email', e.target.value) }}
                                     />
                                     <Typography variant="body2" align="center" style={{ marginTop: 16 }} onClick={() => setKey('loginMode', 'reset')}>{`An email will be send to the email registered with your account. Clicking on the link will send you to a webpage where you can reset your password. Be sure to check your spam folder if you do not see the request!`}</Typography>
                                     <Button
+                                        className={classes.confirm}
+                                        onClick={() => requestReset(notify)}
                                         fullWidth
                                         color="primary"
                                         variant="outlined"
                                         size="large"
                                         type="submit"
-                                        className={classes.confirm}
-                                        onClick={() => {
-                                            requestReset(notify)
-                                        }}
                                     >
                                         Send Reset Code
                                             </Button>
@@ -218,7 +216,7 @@ class SignIn extends Component {
     }
 }
 
-SignIn.propTypes = {
+SignInButton.propTypes = {
     classes: PropTypes.object.isRequired,
     store: PropTypes.object.isRequired,
 };
@@ -227,4 +225,4 @@ export default compose(
     inject('store'),
     withStyles(styles),
     observer
-)(SignIn);
+)(SignInButton);
