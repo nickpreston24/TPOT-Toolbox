@@ -3,12 +3,11 @@ import { compose } from 'recompose'
 import { inject, observer } from 'mobx-react';
 import MaterialTable from 'material-table'
 import { Box, Chip } from '@material-ui/core';
-import { observable } from 'mobx';
 import DescriptionIcon from '@material-ui/icons/Description';
-import { Paper } from '../models/Paper';
+import { PaperDetails } from '../models/Paper';
 import { useContext } from 'react'
 import { CloudStorage } from '../../../shared/contexts/CloudStorage'
-import moment from 'moment';
+import { observable } from 'mobx';
 
 const CheckoutView = props => {
 
@@ -29,16 +28,12 @@ const CheckoutView = props => {
 }
 
 export const CheckoutPage = compose(inject('store'), observer)(CheckoutView)
-const humanize = (dateTime) => moment.duration(moment(dateTime.toDate()).diff(moment())).humanize(true);
 
 /* Renders a single Paper */
-const PaperDetails = observer(({ paper }) => {
+const PaperDetailsView = observer(({ paper }) => {
 
     const { slug, excerpt, docx, date_modified, date_uploaded } = paper
-
-    console.log('paper:,', paper)
-    date_modified = humanize(date_modified)
-    date_uploaded = humanize(date_uploaded)
+    console.log('paper details:,', paper)
 
     return (
         <>
@@ -64,10 +59,7 @@ export const CheckoutTable = compose(
         render() {
 
             const { sessions, checkout } = this.props
-            console.log(this.props);
-            // console.log('checkout, ', checkout);
-            const papers = [] // sessions.docs.map(document => ({ ...new Paper(document.data) }))
-            console.log(papers.length);
+            const papers = sessions.docs.map(document => ({ ...new PaperDetails(document.data) }))
 
             return (
                 <MaterialTable
@@ -84,7 +76,7 @@ export const CheckoutTable = compose(
                         { title: 'Excerpt', field: 'excerpt', searchable: false, hidden: true },
                     ]}
                     data={papers}
-                    detailPanel={paper => <PaperDetails paper={paper} />}
+                    detailPanel={paper => <PaperDetailsView paper={paper} />}
                     options={{
                         search: this.search,
                         selection: false,
