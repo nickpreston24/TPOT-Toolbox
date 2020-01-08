@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import PropTypes from "prop-types";
 import React, { Component, Fragment } from "react";
 import { compose } from "recompose";
-import { MuiToolbar, plugins } from "./plugins/plugins";
+import { MuiToolbar, plugins } from "../plugins/plugins";
 
 class Draft extends Component {
 

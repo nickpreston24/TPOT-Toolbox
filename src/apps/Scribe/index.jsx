@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { compose } from 'recompose'
 import { inject, observer } from 'mobx-react';
-import Editor from '../Editor/Editor';
+import Editor from '../Editor/views/Editor';
 import { PublishPage } from './views/PublishPage';
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { Collection } from 'firestorter';
