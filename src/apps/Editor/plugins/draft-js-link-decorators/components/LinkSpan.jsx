@@ -314,13 +314,17 @@ class LinkSpan extends Component {
         // console.group('RENDER')
         // console.warn(this.props.children[0].props.text)
 
-
-
         // : Any change here will go to next render cycle. Focus on
         // : evaluating render conditions based upon current state.
         let editing = false
         let warning = false
-        if (entitykey) {
+        if (!entitykey) {
+
+            // : Component is Rendered, but there is no Entity (ex: un-doing a decorated added entry)
+            // TODO - Prevent only initially converted decorator entities from being undone, but not later ones
+            warning = true
+            // ! this.createEntityFromDecorator()
+        } else {
 
             // console.log(entitykey)
             // console.log('Rendered Content: ', convertToRaw(geteditorstate().getCurrentContent()))
@@ -361,17 +365,9 @@ class LinkSpan extends Component {
                 editing = captureStart < focusOffset && focusOffset < captureEnd && focusKey === blockKey
 
             }
-        } else {
-
-            // : Component is Rendered, but there is no Entity (ex: un-doing a decorated added entry)
-            // TODO - Prevent only initially converted decorator entities from being undone, but not later ones
-            warning = true
-            // ! this.createEntityFromDecorator()
         }
 
-
         // : Other Rendering Prep Operations, if any
-
 
         // : Render based upon the current editorState
         // console.groupEnd()

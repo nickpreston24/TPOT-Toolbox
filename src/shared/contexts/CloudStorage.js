@@ -7,6 +7,8 @@
 import React from 'react'
 import firebase from 'firebase';
 import { Paper } from '../../apps/Scribe/models/Paper'
+import { convertFile } from '../utilities/converter';
+
 let db = firebase.firestore()
 
 export const CloudStorage = React.createContext()
@@ -26,14 +28,22 @@ const htmlFolder = 'tmp'
  */
 const CloudStorageProvider = (props) => {
 
-    const upload = (file) => {
+    const upload = async (file) => {
+
+        // Run conversion:        
+        let html = await convertFile(file);
+        console.log(!!html && html);
+
+        if (!html)
+            return;
+
+        // Upload to Cloud Storage:
         let fileRef = storageRef.child(`${uploadsFolder}/${file.name}`);
         fileRef.put(file)
             .then(snapshot => {
 
-                // NOTE: This is the Representation of state for a new Uploaded paper.  CheckoutPage will scan for new .html file matching this one's name.
-                // ALSO NOTE: I'm using a hack to get this to work by removing functions from Paper.  FB hates classes as classes and their functions :'{.
-                var { humanize, toString, ...emptyPaper } = new Paper({
+                var fileName = file.name;
+                var { ...emptyPaper } = new Paper({
                     docx: `${file.name}`,
                     title: file.name,
                     status: "not-started",
@@ -41,7 +51,7 @@ const CloudStorageProvider = (props) => {
                     date_uploaded: Date.now(),
                     author: null,
                     draft_state: {
-                        original: null,
+                        original: html,
                         editor: null,
                         code: null,
                     },
@@ -50,14 +60,17 @@ const CloudStorageProvider = (props) => {
 
                 console.log(emptyPaper);
 
-                db.collection('session')
+                db.collection('sessions')
                     .doc(emptyPaper.slug)
                     .set(emptyPaper)
                     .catch(console.error)
 
                 alert(!!snapshot
-                    ? `Yay! File ${file.name} uploaded successfully!`
-                    : `Fail! ${file.name} could not be uploaded!`)
+                    ? `Yay! File ${fileName} uploaded successfully!`
+                    : `Fail! ${fileName} could not be uploaded!`)
+
+                console.log(`Downloading ${fileName}`);
+                download(fileName)
             })
             .catch((error) => {
                 console.log(error.message);
@@ -67,7 +80,30 @@ const CloudStorageProvider = (props) => {
 
     /** Download a file locally */
     const download = (fileName) => {
-        // console.log('fileRef', fileRef);
+        console.log('In download()');
+        // Create a reference under which you want to list
+        var fileRef = storageRef
+            .child('tmp')
+            .child('html')
+            .child(fileName)
+
+        console.log('ref: ', fileRef);
+
+        // // Find all the prefixes and items.
+        // listRef.listAll().then(function (res) {
+        //     res.prefixes.forEach(function (folderRef) {
+        //         // All the prefixes under listRef.
+        //         // You may call listAll() recursively on them.
+        //         console.log('folder ref: ', folderRef);
+        //     });
+        //     res.items.forEach(function (itemRef) {
+        //         // All the items under listRef.
+        //         console.log(itemRef);
+        //     });
+        // }).catch(function (error) {
+        //     // Uh-oh, an error occurred!
+        // });
+
         // fileRef.child('').getDownloadURL()
     }
 

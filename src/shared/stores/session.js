@@ -19,10 +19,11 @@ export default class SessionStore {
         findBadProps(this,'sessionStore' , true)
     }
 
-    @persist @observable clean = true
+    // @persist @observable clean = true
     @persist @observable authUser = null
     @observable sessionName = "Welcome. Start typing a letter or load one from file."
     @observable loginMode = 'login'
+
     @observable loginData = {
         firstName: '',
         lastName: '',
@@ -34,66 +35,66 @@ export default class SessionStore {
         codeSent: false,
     }
 
-    // @action.bound async signIn() {
-    //     try {
-    //         const { email, password } = this.loginData
-    //         const authUser = await auth.signIn(email, password)
-    //         runInAction(() => {
-    //             this.authUser = authUser
-    //             // setCurrentModal(null)
-    //         })
-    //     } catch (error) {
-    //         console.error(error)
-    //         console.error('error', this)
-    //         this.notify(error.message, { variant: 'error', autoHideDuration: 3000 })
-    //     }
-    // }
+    @action.bound async signIn() {
+        try {
+            const { email, password } = this.loginData
+            const authUser = await auth.signIn(email, password)
+            runInAction(() => {
+                this.authUser = authUser
+                // setCurrentModal(null)
+            })
+        } catch (error) {
+            console.error(error)
+            console.error('error', this)
+            this.notify(error.message, { variant: 'error', autoHideDuration: 3000 })
+        }
+    }
 
-    // @action.bound async requestReset() {
-    //     try {
-    //         await auth.requestPasswordReset(this.loginData.email)
-    //             .then(() => {
-    //                 this.setKey('loginMode', 'login')
-    //                 this.notify(`Password Reset Request Sent to ${this.loginData.email}`, { variant: 'success', autoHideDuration: 3000 })
-    //             })
-    //     } catch (error) {
-    //         this.notify(error.message, { variant: 'error', autoHideDuration: 3000 })
-    //     }
-    // }
+    @action.bound async requestReset() {
+        try {
+            await auth.requestPasswordReset(this.loginData.email)
+                .then(() => {
+                    this.setKey('loginMode', 'login')
+                    this.notify(`Password Reset Request Sent to ${this.loginData.email}`, { variant: 'success', autoHideDuration: 3000 })
+                })
+        } catch (error) {
+            this.notify(error.message, { variant: 'error', autoHideDuration: 3000 })
+        }
+    }
 
-    // @action.bound async register() {
-    //     try {
-    //         const { firstName, lastName, email, password } = this.loginData
-    //         if (!lastName) {
-    //             this.notify('Please enter a Last Name', { variant: 'error', autoHideDuration: 3000 })
-    //         }
-    //         if (!firstName) {
-    //             this.notify('Please enter a First Name', { variant: 'error', autoHideDuration: 3000 })
-    //         }
-    //         if (firstName && lastName) {
-    //             const userCredential = await auth.createUser(email, password)
-    //             const docRef = profiles.createProfile(firstName, lastName, userCredential)
-    //             if (docRef) {
-    //                 this.notify('Account Created! Try to Sign In now...', { variant: 'success', autoHideDuration: 5000 })
-    //             }
-    //         }
-    //     } catch (error) {
-    //         this.notify(error.message, { variant: 'error', autoHideDuration: 3000 })
-    //     }
-    // }
+    @action.bound async register() {
+        try {
+            const { firstName, lastName, email, password } = this.loginData
+            if (!lastName) {
+                this.notify('Please enter a Last Name', { variant: 'error', autoHideDuration: 3000 })
+            }
+            if (!firstName) {
+                this.notify('Please enter a First Name', { variant: 'error', autoHideDuration: 3000 })
+            }
+            if (firstName && lastName) {
+                const userCredential = await auth.createUser(email, password)
+                const docRef = profiles.createProfile(firstName, lastName, userCredential)
+                if (docRef) {
+                    this.notify('Account Created! Try to Sign In now...', { variant: 'success', autoHideDuration: 5000 })
+                }
+            }
+        } catch (error) {
+            this.notify(error.message, { variant: 'error', autoHideDuration: 3000 })
+        }
+    }
 
-    // @action signOut = (setCurrentModal) => {
-    //     auth.signOut()
-    //     this.authUser = null
-    //     setCurrentModal(null)
-    // }
+    @action signOut = (setCurrentModal) => {
+        auth.signOut()
+        this.authUser = null
+        setCurrentModal(null)
+    }
 
-    // @action setAuthUser = authUser => {
-    //     this.authUser = authUser
-    // }
+    @action setAuthUser = authUser => {
+        this.authUser = authUser
+    }
 
-    // @action setLoginData = (key, value) =>
-    //     this.loginData[key] = value
+    @action setLoginData = (key, value) =>
+        this.loginData[key] = value
 
     @action setKey = (key, value) => this[key] = value
 

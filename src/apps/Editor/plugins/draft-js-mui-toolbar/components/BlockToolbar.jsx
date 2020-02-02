@@ -158,10 +158,7 @@ MuiToolbar.propTypes = {
     store: PropTypes.object.isRequired,
 };
 
-
-
 export default compose(
-    // inject('store'),
     withStyles(styles),
     observer
 )(decorate(
@@ -176,29 +173,29 @@ class CollapseSide extends Component {
     hover = false
 
     handleMouseHover = () => {
-        if (this.hover) {
-            // let collapse = setTimeout(action(() => { 
-            //     if(this.hover) {
-            //         this.hover = false
-            //     }
-            // }), 0);
-        } else {
-            this.hover = true
-        }
+        // if (this.hover) {
+        // let collapse = setTimeout(action(() => { 
+        //     if(this.hover) {
+        //         this.hover = false
+        //     }
+        // }), 0);
+        // } else {
+        //     this.hover = true
+        // }
     }
 
     render() {
         const { children, classes } = this.props
-
+        const { container, entered, wrapper, wrapperInner } = classes;
         return (
-            <div onMouseEnter={this.handleMouseHover} onMouseLeave={this.handleMouseHover} >
-                <Collapse in={this.hover} collapsedHeight="40px"
-                    classes={{
-                        container: classes.container,
-                        entered: classes.entered,
-                        wrapper: classes.wrapper,
-                        wrapperInner: classes.wrapperInner
-                    }}
+            <div
+                onMouseEnter={this.handleMouseHover}
+                //TODO: Make different func for this and setState({...})
+                onMouseLeave={this.handleMouseHover}
+            >
+                <Collapse
+                    classes={container, entered, wrapper, wrapperInner}
+                    in={this.hover} collapsedHeight="40px"
                 >
                     {children}
                 </Collapse>

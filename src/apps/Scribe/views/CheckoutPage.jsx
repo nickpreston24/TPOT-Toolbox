@@ -7,7 +7,8 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import { PaperDetails } from '../models/Paper';
 import { useContext } from 'react'
 import { CloudStorage } from '../../../shared/contexts/CloudStorage'
-import { observable } from 'mobx';
+import { observable, toJS } from 'mobx';
+import moment from 'moment';
 
 const CheckoutView = props => {
 
@@ -59,7 +60,16 @@ export const CheckoutTable = compose(
         render() {
 
             const { sessions, checkout } = this.props
-            const papers = sessions.docs.map(document => ({ ...new PaperDetails(document.data) }))
+            const papers = sessions.docs.map(document => {
+
+                let entry = toJS(document.data)
+                let id = document.id
+                let { status, date_modified, date_uploaded } = entry
+                status = status || 'in-progress';
+                date_modified = moment.duration(moment(date_modified.toDate()).diff(moment())).humanize(true)
+                date_uploaded = moment.duration(moment(date_uploaded.toDate()).diff(moment())).humanize(true)
+                // ...new PaperDetails(document.data)
+            })
 
             return (
                 <MaterialTable
@@ -137,7 +147,6 @@ export const CheckoutTable = compose(
 const DocxIcon = ({ onClick }) =>
     <DescriptionIcon onClick={onClick}
         style={{ color: '#00008a' }} />
-
 
 const statusMap = {
     'in-progress': 'In Progress',
